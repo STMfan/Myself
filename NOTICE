@@ -1,0 +1,14 @@
+STMfan personal website
+
+The original website source code and documentation are licensed under MIT.
+Copyright (c) 2026 STMfan. See LICENSE.
+
+Third-party packages retain their original licenses. Exact license evidence
+is recorded in docs/dependency-licenses.json and docs/licenses/. The deployed
+website includes THIRD_PARTY_NOTICES.txt and PROJECT_LICENSE.txt.
+
+Game icons, game character artwork, game names, and third-party trademarks
+remain the property of their respective rights holders and are excluded from
+this project's MIT grant. The GitHub avatar is not a grant to impersonate the
+site owner. Fonts remain under SIL Open Font License 1.1. See docs/ASSETS.md
+for provenance and the scope of third-party assets.

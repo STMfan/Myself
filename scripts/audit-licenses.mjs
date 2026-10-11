@@ -94,5 +94,6 @@ for (const filename of await readdir(evidenceRoot)) {
 const counts = {};
 for (const dep of inventory) counts[dep.license] = (counts[dep.license] || 0) + 1;
 await writeFile('docs/dependency-licenses.json', JSON.stringify({ generatedAt: new Date().toISOString(), platform: process.platform, scope: 'Installed reachable dependency graph including peers and current-platform optional packages; excludes stale/extraneous directories.', packageCount: inventory.length, counts, packages: inventory }, null, 2) + '\n');
-await writeFile('public/THIRD_PARTY_NOTICES.txt', 'STMfan website dependency notices\nProject license is pending owner selection. These notices do not license game artwork or trademarks.\n' + notices.join('\n'));
+await writeFile('public/THIRD_PARTY_NOTICES.txt', `STMfan website dependency notices\nOriginal website source license: ${pkg.license}. Third-party packages retain their own terms. These notices do not license game artwork or trademarks.\n` + notices.join('\n'));
+try { await writeFile('public/PROJECT_LICENSE.txt', await readFile('LICENSE')); } catch (error) { if (pkg.license !== 'UNLICENSED') throw error; }
 console.log(JSON.stringify({ packageCount: inventory.length, counts, missingFiles: inventory.filter(x => x.missingLicenseFile).map(x => x.name), report: 'docs/dependency-licenses.json' }, null, 2));

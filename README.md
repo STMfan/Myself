@@ -33,4 +33,4 @@ Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用
 
 Cloudflare Pages 构建说明见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)。已准备 GitHub 构建流水线，未公开部署。
 
-项目源码协议由仓库所有者选择，当前 `package.json` 以 `UNLICENSED` 表示尚未授权，未擅自添加 LICENSE。候选与已安装依赖核查见 [LICENSE-REVIEW.md](docs/LICENSE-REVIEW.md)。逐包证据见 `docs/dependency-licenses.json` 与 `docs/licenses/`，发布产物包含 `THIRD_PARTY_NOTICES.txt`。游戏商标、头像、第三方素材不自动适用未来源码协议。
+原始网站源码与文档采用 **[MIT](LICENSE)**，由 STMfan 于 2026-10-11 确认。游戏商标、头像、游戏图标和其它第三方素材不被重新授权；字体继续遵守 OFL，范围见 [NOTICE](NOTICE) 与 [ASSETS.md](docs/ASSETS.md)。候选分析与已安装依赖核查见 [LICENSE-REVIEW.md](docs/LICENSE-REVIEW.md)。逐包证据见 `docs/dependency-licenses.json` 与 `docs/licenses/`，发布产物包含 `THIRD_PARTY_NOTICES.txt` 和 `PROJECT_LICENSE.txt`。
