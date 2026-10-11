@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STMfan · 配色提案</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#e9e8e1;color:#22251f;font-family:Arial,"Microsoft YaHei",sans-serif}main{max-width:1360px;margin:auto;padding:48px 28px}header{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:44px}h1{font-size:clamp(26px,4vw,48px);letter-spacing:-.06em;margin:8px 0}p{line-height:1.6}a,button{color:inherit;font:inherit}a{font-size:14px;text-underline-offset:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}.proposal{border:1px solid #cccec3;border-radius:24px;overflow:hidden}.name{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}.name h2{font-size:20px;margin:0}.name span{font-size:12px;color:#616658}.sample{background:var(--bg);color:var(--text);padding:28px 30px;min-height:270px;position:relative;overflow:hidden}.sample.light{min-height:238px}.row{display:flex;align-items:center;gap:10px;font-size:12px}.dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}.sample h3{font-size:clamp(30px,4vw,48px);letter-spacing:-.06em;margin:30px 0 15px;line-height:1.15;position:relative;z-index:1}.sample p{color:var(--muted);font-size:14px;margin:0 0 20px}.cta{background:var(--accent);color:var(--on);border:0;padding:12px 20px;border-radius:30px;font-weight:700}.outline{display:inline-block;border:1px solid var(--muted);padding:10px 18px;margin-left:8px;border-radius:30px;font-size:13px}.orb{position:absolute;right:-35px;top:35px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle at 30% 20%,var(--accent),var(--surface) 55%,var(--bg) 78%);opacity:.35}.swatches{display:flex;gap:8px;margin-top:22px;font-family:monospace;font-size:11px}.swatches span{padding:6px 9px;border-radius:6px;background:var(--surface);color:var(--text)}.choose{width:100%;border:0;background:#dfe1d5;padding:16px;cursor:pointer;text-align:center;font-weight:700}.choose:hover{background:#d0d4c4}.choose:focus-visible{outline:3px solid #273922;outline-offset:-4px}.status{min-height:28px;font-size:14px;margin-top:25px}.recommend{color:#56743c!important}footer{margin-top:30px;color:#62685b;font-size:13px}@media(max-width:720px){main{padding:28px 16px}.grid{grid-template-columns:1fr;gap:22px}header{align-items:flex-start}.sample{padding:24px}.sample h3{font-size:38px}.name{padding:18px}.name span{max-width:130px;text-align:right}.orb{width:150px;height:150px}}
+</style>
+</head>
+<body><main>
+<header><div><div style="font-size:13px;letter-spacing:.15em">STMfan / COLOR STUDIES</div><h1>月下，有四种颜色。</h1><p style="font-size:14px;color:#616658;margin-bottom:0">每套包含亮暗两种模式。相同内容，四种气质。</p></div><a href="/">查看主页 ↗</a></header>
+<div class="grid" id="proposals"></div>
+<p class="status" id="status" role="status"></p><footer>选择仅应用于此浏览器的预览。最终主题以你在对话中的确认为准。</footer>
+</main>
+<script>
+const proposals=[
+{id:'lunar',name:'月下青柠',en:'LUNAR / 推荐',note:'石墨灰 × 青柠，理性又有生命力',dark:['#111411','#1c211b','#eff2e8','#a5ae9f','#d4ef87','#18200e'],light:['#f1f2e9','#e4e7da','#242c1b','#58614c','#4e661c','#f6f9ed']},
+{id:'arctic',name:'极地信号',en:'ARCTIC',note:'蓝黑 × 冰蓝，清冷的探索感',dark:['#10171c','#1b2831','#eaf3f7','#a1b0ba','#9bd7ef','#152832'],light:['#edf3f6','#dce7ed','#1a2c37','#4d6372','#22647e','#f1f8fb']},
+{id:'ember',name:'余烬轨道',en:'EMBER',note:'暖黑 × 陶橙，更温暖的个人表达',dark:['#191311','#2b211b','#f7ede5','#baa79d','#f2b190','#301c11'],light:['#f7efe5','#eadfce','#38281e','#755b49','#924d2e','#fff4e8']},
+{id:'iris',name:'鸢尾频率',en:'IRIS',note:'墨紫 × 雾紫，柔和的音乐感',dark:['#17141d','#262131','#f0ecf8','#afa5bc','#c9b7ef','#271d3b'],light:['#f1eef7','#e4deee','#30263e','#6b5b7d','#71549c','#fcf5ff']}
+];
+function sample(p,mode){const c=p[mode];return `<div class="sample ${mode}" style="--bg:${c[0]};--surface:${c[1]};--text:${c[2]};--muted:${c[3]};--accent:${c[4]};--on:${c[5]}"><div class="orb"></div><div class="row"><span class="dot"></span>STMfan <span style="margin-left:auto">${mode==='dark'?'DARK / 暗色':'LIGHT / 亮色'}</span></div><h3>探月下，<br>尘世万象。</h3><p>个人开发者 / 在校学生</p><button class="cta" type="button" onclick="selectPalette('${p.id}','${mode}')">开始对话 ↗</button><span class="outline">FastAPI</span><div class="swatches"><span>${c[0]}</span><span>${c[4]}</span><span>${c[2]}</span></div></div>`}
+document.querySelector('#proposals').innerHTML=proposals.map(p=>`<article class="proposal"><div class="name"><h2>${p.name}</h2><span class="${p.id==='lunar'?'recommend':''}">${p.en}</span></div>${sample(p,'dark')}${sample(p,'light')}<button class="choose" onclick="selectPalette('${p.id}','dark')">以「${p.name}」预览主页 ↗</button></article>`).join('');
+function selectPalette(palette,theme){try{const old=JSON.parse(localStorage.getItem('stmfan-preferences')||'{}');localStorage.setItem('stmfan-preferences',JSON.stringify({...old,palette,theme}));location.href='/?palette='+palette+'&theme='+theme}catch{document.querySelector('#status').textContent='请在本地开发服务器中打开该页面，即可切换主页预览。'}}
+</script></body></html>

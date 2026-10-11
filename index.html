@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-palette="arctic">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#10171c" />
+    <meta name="description" content="STMfan，个人开发者与在校学生。Python / FastAPI 后端、Debian 服务器运维与全栈 Vibe Coding。探月下，尘世万象。" />
+    <meta property="og:title" content="STMfan | To Decipher the Sublunary Sphere." />
+    <meta property="og:description" content="个人开发者 / 在校学生。后端开发、服务器运维、全栈 Vibe Coding。" />
+    <meta property="og:type" content="website" />
+    <link rel="icon" href="/assets/avatar.png" type="image/png" />
+    <title>STMfan | 探月下，尘世万象。</title>
+    <script>
+      try {
+        const s = JSON.parse(localStorage.getItem('stmfan-preferences') || '{}');
+        if (['dark', 'light'].includes(s.theme)) document.documentElement.dataset.theme = s.theme;
+        if (['lunar', 'arctic', 'ember', 'iris'].includes(s.palette)) document.documentElement.dataset.palette = s.palette;
+        if (['zh', 'en'].includes(s.language)) document.documentElement.lang = s.language === 'en' ? 'en' : 'zh-CN';
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

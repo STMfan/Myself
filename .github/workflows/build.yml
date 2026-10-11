@@ -1,0 +1,28 @@
+name: Build website
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      BUN_INSTALL_CACHE_DIR: ${{ github.workspace }}/.cache/bun
+      npm_config_cache: ${{ github.workspace }}/.cache/npm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.4.0
+      - run: bun install --frozen-lockfile
+      - run: bun run licenses
+      - run: bun run build:pages
+      - run: bun run check:site
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare-pages-dist
+          path: dist
+          retention-days: 7

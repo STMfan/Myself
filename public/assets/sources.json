@@ -1,0 +1,35 @@
+{
+  "fetchedAt": "2026-10-11T10:25:33.255Z",
+  "assets": [
+    {
+      "id": "phigros",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/bf/12/eebf123e-f676-da25-6800-44c6f2d74629/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "source": "https://apps.apple.com/us/app/phigros/id1454809109?uo=4",
+      "owner": "Xiamen Pigeon Games Network Co., Ltd."
+    },
+    {
+      "id": "genshin",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5c/e2/13/5ce21317-a08a-24ac-cc5f-2b25a4d71fa6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "source": "https://apps.apple.com/us/app/genshin-impact-6th-anniversary/id1517783697?uo=4",
+      "owner": "COGNOSPHERE PTE. LTD."
+    },
+    {
+      "id": "zzz",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/4a/fb/2d4afb82-bdb9-cc80-b5b7-d1d7f515b2ae/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+      "source": "https://apps.apple.com/us/app/zenless-zone-zero/id1606356401?uo=4",
+      "owner": "COGNOSPHERE PTE. LTD."
+    },
+    {
+      "id": "delta",
+      "url": "https://game.gtimg.cn/images/dfm/cp/a20240906main/logo.png",
+      "source": "https://df.qq.com/cp/a20240906main/index.html",
+      "owner": "Tencent / Team Jade"
+    },
+    {
+      "id": "minecraft",
+      "url": "https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/android-icon-192x192.png",
+      "source": "https://www.minecraft.net/",
+      "owner": "Mojang / Microsoft"
+    }
+  ]
+}
