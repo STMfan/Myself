@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark" data-palette="arctic">
+<html lang="zh-CN" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,7 +14,6 @@
       try {
         const s = JSON.parse(localStorage.getItem('stmfan-preferences') || '{}');
         if (['dark', 'light'].includes(s.theme)) document.documentElement.dataset.theme = s.theme;
-        if (['lunar', 'arctic', 'ember', 'iris'].includes(s.palette)) document.documentElement.dataset.palette = s.palette;
         if (['zh', 'en'].includes(s.language)) document.documentElement.lang = s.language === 'en' ? 'en' : 'zh-CN';
       } catch {}
     </script>

@@ -6,12 +6,13 @@
       "sourceFile": "Wriothesley.jpg",
       "sourceSha256": "2fc7dc3d8b9881be7ea8e903e3e7ddb4d40cb2fb189f913c0bc58d910e234232",
       "owner": "HoYoverse",
-      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
-      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep the raised glove and both arms, hair and coat. Crop at the belt / waist. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "preparedWith": "Codex built-in ImageGen background-extraction and user-authorized coat edge completion; Sharp WebP resize/compression",
+      "intermediate": "exec-13f242c7-9151-4cae-986c-c06e04c8be83.png",
+      "prompt": "Use case: background-extraction and edge completion. Edit Image 1 into a HALF-BODY transparent sticker of Wriothesley for a personal website; Image 2 is the original identity reference. Change only framing, background removal and reconstruction of cut-off outer coat edges. Keep his original face, hair, raised-fist pose, hands, costume and illustration style. Reframe from the top of hair to just below the belt/hips, NOT thighs or knees. Use a SQUARE wide canvas and zoom out enough to fit BOTH entire flowing black/red coat edges within the frame, naturally completing the fabric that is currently cut off. Show complete hair, gloves, elbows and shoulder silhouette. Leave at least 8% completely transparent margin on every side. Remove the blurry black and gray background COMPLETELY, and remove all background haze and shadows; only character pixels should remain. Genuinely transparent alpha surrounding him, including gaps between arms/coat. NO gradient backdrop, circular crop, vignette, checkerboard pixels, border, text or logo. Flat clean waist crop at bottom. This is a large isolated character sticker, with complete side silhouette and clean transparency.",
       "output": "/assets/characters/wriothesley.webp",
-      "outputSha256": "72c62c920d3173354ef58576725215edde592bb1a0656dff504a2a9aff61774e",
-      "width": 1000,
-      "height": 849,
+      "outputSha256": "8251d8d31485c4d661b99b05bd4336a7bd94e5c940755bf25bf51f722e4439d0",
+      "width": 900,
+      "height": 900,
       "hasAlpha": true
     },
     {

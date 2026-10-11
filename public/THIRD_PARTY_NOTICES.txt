@@ -1,6 +1,7 @@
 STMfan website dependency notices
 Original website source license: MIT. Third-party packages retain their own terms. These notices do not license game artwork or trademarks.
 Bilibili glyph: Simple Icons, CC0 1.0 (https://github.com/simple-icons/simple-icons). Trademark rights remain with Bilibili.
+QQ glyph: Font Awesome Free 7.3.1, Copyright 2026 Fonticons, Inc., CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/). Original SVG attribution retained. License: https://fontawesome.com/license/free. Trademark rights remain with the respective owner.
 User-selected game character artwork, MaiBot image, and playlist cover retain the rights of their original owners; ImageGen extraction does not relicense them. Sources: assets/sources.json and assets/characters/sources.json.
 
 ========================================================================

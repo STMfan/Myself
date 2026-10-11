@@ -33,3 +33,20 @@
 - 新图片生产完整性检查覆盖 App、内容、CSS 和 HTML 的素材引用，共 15 个；五张角色 WebP 均有真实透明 alpha（最小值 0，最大值 255）。
 - 减少动态效果测试：月球、轨道、唱片与信号路径的计算样式均为 `animation-name: none`；测试后恢复浏览器媒体设置。月球和技术示意场景离开视口时暂停循环动画。
 - 未进行安卓/iOS 真机触控、Lighthouse 自动评分或 Cloudflare 部署；这些不在已验证结论中。
+
+## 第二轮修订验证
+
+- `bun run build:pages`、`bun run check:site` 与 `git diff --check` 通过。新增 QQ SVG 后生产完整性检查覆盖 16 个本地图片；已删除配色页，构建断言不再交付该 HTML。
+- 英文亮色 320×740、390×844、798×719、844×390、1440×900：根节点 scrollWidth 等于 clientWidth。身份、设置按钮和联系胶囊两两无重叠，胶囊在视口内；每次将设置按钮聚焦并返回首屏后测量。证据保存在本地 `artifacts/screenshots/revision-2-responsive-qa.json`。
+- 英文竖屏 390×844 的角色 / 唱片与首屏视觉复核：角色卡约 351px 高、音乐卡约 225px 高；桌面中文两张生活卡片均约 326px 高。唱片及角色在桌面越过边框，竖屏优先框内布局。
+- 角色自动切换在无焦点/悬停时运行，观察到从莱欧斯利切换到威龙；选择后暂停。英文手选 Von Lycann、右方向键切 Wang、Home 回 Wriothesley，Escape 关闭胶囊。胶囊关闭后的计算 opacity 为 0，淡入淡出时长为 0.23s，关闭时 inert。
+- 桌面中文展开选择后，名字区域底边约 408px，选择胶囊上边约 440px，二者无重叠。名称与图像分别淡入，图像只沿纵向移动。
+- 减少动态效果模拟下角色自动播放为 false，月球浮游、轨道、唱片与信号动画计算 animation-name 均为 none；已恢复默认媒体设置。
+- 页脚无顶部边线，名称 72px、slogan 20px，flex-start 左对齐；无配色页链接。完成加载的图片未发现损坏。
+- 未新增项目依赖；MIT 与第三方素材的权利边界保持原记录。真机触控、Lighthouse 与远程 Cloudflare 构建未执行。
+- 鼠标点选 Varka 后，只移动鼠标到卡片外：角色保持 varka，data-chooser=false、选择栏 opacity=0、data-playing=true；原按钮仍是 document.activeElement，不会再被鼠标残留焦点锁住。随后通过键盘 Tab 进入选项，选择栏展开且轮播暂停。
+- 中文暗色、英文亮色名称背景视觉复核；统一底部渐隐层同时覆盖中文和英文姓名，竖屏名字与选择栏保持约 32px 以上间距。截图存于本地 revision-2-characters-dark.png 与 revision-2-mobile-light.png。
+- 付费委托入口点击后 URL 为 #commissions，付费卡片顶部约 105px，未跳到联系章节。技术锚点处月球 caption 底部约 138px，技术容器顶部约 280px，二者不重叠；首屏纵向 overflow=visible。
+- QQ 蒙版来源为 /assets/qq.svg；点击后网页显示「已复制」。原 SVG 的 Font Awesome 注释保留，署名与 CC BY 4.0 声明随构建产物发布。依赖协议核查仍为 54 个包，无缺失协议文件。
+- 所有者确认文案编辑完成后再次通过生产构建；文案编辑过程中的临时 HMR 错误不作为稳定版本结论，最终浏览器复核从重新加载后开始。
+- 最终重新加载后的浏览器错误日志为空；英文亮色 390×844 再检查，scrollWidth=clientWidth=375px。中文暗色桌面再保存角色与联系区域截图。

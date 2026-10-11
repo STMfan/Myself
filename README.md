@@ -11,7 +11,7 @@ Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用
 ./scripts/local.ps1 dev
 ```
 
-访问 http://127.0.0.1:5173/ ，配色提案位于 http://127.0.0.1:5173/themes.html 。`public/themes.html` 也可直接作为静态文件查看。依赖在 `node_modules`，Bun 缓存与安装临时文件在工作区 `.cache`，不会安装项目全局依赖。已安装的 Bun、Node 等系统工具直接复用。
+访问 http://127.0.0.1:5173/ 。主题已固定为「极地信号」，保留亮暗切换。依赖在 `node_modules`，Bun 缓存与安装临时文件在工作区 `.cache`，不会安装项目全局依赖。已安装的 Bun、Node 等系统工具直接复用。
 
 ```powershell
 ./scripts/local.ps1 licenses
@@ -27,7 +27,7 @@ Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用
 
 ## 交互
 
-连续页面与章节悬浮导航，邮件 / GitHub / Bilibili 联系胶囊始终可见。月球浮游、旋转、缩放与滚动视差；四种技术示意场景带动态信号、服务器扫描、构建与屏幕动画。技术与角色标签支持方向键、Home / End；游戏 UID / ID 与 QQ 支持复制反馈。五张用户提供的角色素材已处理为透明半身立绘。触控操作不依赖 hover，窄屏游戏架横向滑动；支持 `prefers-reduced-motion`、键盘焦点、跳到正文及安全区域。批注处理记录见 [REVISION-2026-10-11.md](docs/REVISION-2026-10-11.md)。
+连续页面与章节悬浮导航，「联系我 ↗」及邮件 / GitHub / Bilibili 胶囊始终可见。月球浮游、旋转、缩放与滚动视差；四种技术示意场景带动态信号、服务器扫描、构建与屏幕动画。角色约每 2.8 秒纵向切换，悬停、聚焦或触屏展开选择胶囊时暂停，也可手动暂停；离开视口、后台标签页或减少动态效果设置下停止自动切换。技术与角色选择支持方向键、Home / End；游戏 UID / ID 与 QQ 支持复制反馈。五张用户提供的角色素材已处理为透明半身立绘，莱欧斯利按用户要求重新提取并补齐衣装边缘。触控操作不依赖 hover，窄屏游戏架横向滑动；支持 `prefers-reduced-motion`、键盘焦点、跳到正文及安全区域。批注处理记录见 [REVISION-2026-10-11.md](docs/REVISION-2026-10-11.md)。
 
 ## 发布与协议
 
