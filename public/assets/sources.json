@@ -20,16 +20,42 @@
       "owner": "COGNOSPHERE PTE. LTD."
     },
     {
-      "id": "delta",
-      "url": "https://game.gtimg.cn/images/dfm/cp/a20240906main/logo.png",
-      "source": "https://df.qq.com/cp/a20240906main/index.html",
-      "owner": "Tencent / Team Jade"
-    },
-    {
       "id": "minecraft",
       "url": "https://www.minecraft.net/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/android-icon-192x192.png",
       "source": "https://www.minecraft.net/",
       "owner": "Mojang / Microsoft"
+    },
+    {
+      "id": "maibot",
+      "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",
+      "source": "https://github.com/Mai-with-u/.github",
+      "owner": "Mai-with-u / MaiBot",
+      "fetchedAt": "2026-10-11T12:22:14.605Z",
+      "selectedBy": "STMfan browser comments, 2026-10-11"
+    },
+    {
+      "id": "delta",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Delta_Force_Logo_CN.png",
+      "source": "https://commons.wikimedia.org/wiki/File:Delta_Force_Logo_CN.png",
+      "owner": "Tencent / Team Jade",
+      "fetchedAt": "2026-10-11T12:22:15.313Z",
+      "selectedBy": "STMfan browser comments, 2026-10-11"
+    },
+    {
+      "id": "playlist-cover",
+      "url": "https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp",
+      "source": "User-selected Bilibili artwork URL",
+      "owner": "Original Bilibili artwork rights holder",
+      "fetchedAt": "2026-10-11T12:22:15.605Z",
+      "selectedBy": "STMfan browser comments, 2026-10-11"
+    },
+    {
+      "id": "bilibili-logo",
+      "url": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/bilibili.svg",
+      "source": "https://github.com/simple-icons/simple-icons",
+      "owner": "Simple Icons (CC0); Bilibili trademark",
+      "fetchedAt": "2026-10-11T12:22:16.032Z",
+      "selectedBy": "STMfan browser comments, 2026-10-11"
     }
   ]
 }

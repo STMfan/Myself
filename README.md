@@ -27,7 +27,7 @@ Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用
 
 ## 交互
 
-连续页面与章节悬浮导航；滚动月球视差；技术与角色标签支持方向键、Home / End；QQ 与 Minecraft ID 支持复制反馈。触控操作不依赖 hover，窄屏游戏架横向滑动；支持 `prefers-reduced-motion`、键盘焦点、跳到正文及安全区域。
+连续页面与章节悬浮导航，邮件 / GitHub / Bilibili 联系胶囊始终可见。月球浮游、旋转、缩放与滚动视差；四种技术示意场景带动态信号、服务器扫描、构建与屏幕动画。技术与角色标签支持方向键、Home / End；游戏 UID / ID 与 QQ 支持复制反馈。五张用户提供的角色素材已处理为透明半身立绘。触控操作不依赖 hover，窄屏游戏架横向滑动；支持 `prefers-reduced-motion`、键盘焦点、跳到正文及安全区域。批注处理记录见 [REVISION-2026-10-11.md](docs/REVISION-2026-10-11.md)。
 
 ## 发布与协议
 

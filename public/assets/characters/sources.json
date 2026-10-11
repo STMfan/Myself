@@ -1,0 +1,70 @@
+{
+  "suppliedBy": "STMfan, 2026-10-11",
+  "assets": [
+    {
+      "id": "wriothesley",
+      "sourceFile": "Wriothesley.jpg",
+      "sourceSha256": "2fc7dc3d8b9881be7ea8e903e3e7ddb4d40cb2fb189f913c0bc58d910e234232",
+      "owner": "HoYoverse",
+      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
+      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep the raised glove and both arms, hair and coat. Crop at the belt / waist. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "output": "/assets/characters/wriothesley.webp",
+      "outputSha256": "72c62c920d3173354ef58576725215edde592bb1a0656dff504a2a9aff61774e",
+      "width": 1000,
+      "height": 849,
+      "hasAlpha": true
+    },
+    {
+      "id": "varka",
+      "sourceFile": "Varka.png",
+      "sourceSha256": "6968d53a330c2bde5c1a40bb37f6d96c6d4de5e44a24ddc9013ac09247cfe725",
+      "owner": "HoYoverse",
+      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
+      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep the blond man, both arms and sword crossing his torso, cape and shoulder fur. Crop below the belt. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "output": "/assets/characters/varka.webp",
+      "outputSha256": "3a1348e974451d82dcfb7daa425eefb079c200e8ea3aa79d80f195cdf197b138",
+      "width": 1000,
+      "height": 782,
+      "hasAlpha": true
+    },
+    {
+      "id": "lycaon",
+      "sourceFile": "Von Lycann.png",
+      "sourceSha256": "606dd20d7c02ff6b9fccaae3d6db700a66917af0ea9f105d67142a86090a37c6",
+      "owner": "HoYoverse",
+      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
+      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep the white wolf man including ears, head, neck scarf, both arms and upper torso. Crop at waist and omit the enormous leg in the lower left. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "output": "/assets/characters/lycaon.webp",
+      "outputSha256": "62b06e972bf194731f82f40721abd9bca2deaee4c7f1ecf4b3784296ba731602",
+      "width": 900,
+      "height": 900,
+      "hasAlpha": true
+    },
+    {
+      "id": "vyron",
+      "sourceFile": "威龙4096_2160.png",
+      "sourceSha256": "3e72dd3df706841c0950133375cd05b2a8f8a6837cee29ed511e33432115e433",
+      "owner": "Tencent / Team Jade",
+      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
+      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep the helmeted masked soldier on the left, helmet fully within frame, both shoulders, arms, chest tactical equipment and his held weapon. Crop at his waist. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "output": "/assets/characters/vyron.webp",
+      "outputSha256": "c41a7921099e55ce990f09ebaddd1b91864e6499ab8524cc16e83ca7b4ee6ac8",
+      "width": 1000,
+      "height": 864,
+      "hasAlpha": true
+    },
+    {
+      "id": "bit",
+      "sourceFile": "比特侧身3840_2160.jpg",
+      "sourceSha256": "16654494bf918996cbec428db5e6999d2c95a39985ef940c0f568ddb2680427a",
+      "owner": "Tencent / Team Jade",
+      "preparedWith": "Codex built-in ImageGen background-extraction; Sharp WebP resize/compression",
+      "prompt": "Use case: background-extraction. Edit target: the supplied game character artwork. Create a clean transparent PNG cutout for a personal website. This is an extraction, not a redesign. Preserve the exact character identity, face, hairstyle, original pose, costume, equipment, drawing/rendering style and source colors. Keep ONLY the glasses-wearing man in the center, the same side-facing pose, both arms, tablet and attached tactical equipment. Crop at his waist. Remove all monitors and other foreground people. Center the isolated waist-up character with modest transparent breathing space around the hair and shoulders. Remove all background scenery, ornamental graphics, logos and source typography. Do not add anything, do not repaint facial features, do not change lighting or pose, do not invent limbs. Clean accurate alpha edges; background must be genuinely transparent, no checkerboard pixels, no colored halo, no ground shadow. Retain source detail.",
+      "output": "/assets/characters/bit.webp",
+      "outputSha256": "3dad596eb113598c2c8ed41d2657c0483c1a4d9e0bfa84c8fc91b059ca108a38",
+      "width": 1000,
+      "height": 709,
+      "hasAlpha": true
+    }
+  ]
+}

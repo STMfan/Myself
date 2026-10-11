@@ -1,0 +1,207 @@
+.header-identity { letter-spacing:0; gap:13px }
+.header-identity>div { min-width:0 }
+.header-identity strong { white-space:nowrap }
+.header-identity strong { font-size:17px; font-weight:600; font-family:var(--font-display) }
+.header-identity p { font-size:11px; color:var(--muted); margin-top:6px; font-family:var(--font-sans); font-weight:400; letter-spacing:0 }
+.brand-avatar { width:48px; height:48px; border-radius:50%; border:1px solid var(--border); object-fit:cover }
+.social-capsule { position:fixed; z-index:60; top:22px; right:max(48px,calc((100vw - 1224px)/2)); display:flex; align-items:center; gap:2px; padding:5px; border-radius:100px; background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(24px); -webkit-backdrop-filter:blur(24px); box-shadow:0 6px 24px rgba(0,0,0,.12) }
+.social-capsule>a { position:relative; display:grid; place-items:center; width:44px; height:44px; border-radius:50%; color:var(--accent); transition:background .25s,transform .25s }
+.social-capsule>a:hover { background:var(--surface-2); transform:translateY(-2px) }
+.social-capsule>a:active { transform:scale(.9) }
+.bilibili-mark { display:inline-block; width:24px; height:24px; background:currentColor; mask:url('/assets/bilibili.svg') center/contain no-repeat; -webkit-mask:url('/assets/bilibili.svg') center/contain no-repeat; flex-shrink:0 }
+.journey-guide { position:fixed; z-index:4; right:17px; top:132px; bottom:116px; width:1px; background:var(--border); opacity:.7; pointer-events:none }
+.journey-fill { display:block; position:absolute; inset:0; background:var(--accent); transform-origin:top }
+.journey-cursor { position:absolute; inset:0 }
+.journey-cursor>i { position:absolute; width:5px; height:5px; left:-2px; margin-top:-3px; background:var(--accent); border-radius:50%; box-shadow:0 0 0 5px rgba(var(--accent-rgb),.07) }
+.journey-tick { position:absolute; height:1px; width:7px; left:-3px; background:var(--muted) }
+.hero-copy { padding-top:7px }
+.lunar-orbits,.lunar-drift { position:absolute; inset:0; transform-origin:center }
+.lunar-orbits { z-index:2 }
+.orbit-point.point-two { top:75%; right:85%; width:7px; height:7px; background:var(--accent) }
+.moon-vector { position:absolute; inset:0; width:100%; height:100%; overflow:visible; z-index:3 }
+.moon-caption { z-index:4; bottom:3% }
+.wire-base { stroke:var(--accent); stroke-width:1; opacity:.17 }
+.wire-signal { stroke:var(--accent); stroke-width:2; stroke-linecap:round; stroke-dasharray:10 90; stroke-dashoffset:110 }
+.collaboration-pair { display:grid; grid-template-columns:1fr 1fr; margin-top:26px; border-top:1px solid var(--border) }
+.collaboration-item { padding:28px 30px 14px 0; min-width:0 }
+.collaboration-item+* { border-left:1px solid var(--border); padding-left:35px }
+.collaboration-label { display:flex; align-items:center; gap:10px; color:var(--accent); font-size:11px; letter-spacing:.06em }
+.collaboration-item h3 { font-size:24px; margin-top:17px; letter-spacing:-.04em }
+.collaboration-item p { font-size:12px; line-height:1.9; color:var(--muted); margin-top:12px; min-height:46px; max-width:420px }
+.collaboration-item .inline-link { margin-top:11px; font-size:12px }
+.collaboration-item:hover .inline-link>svg { transform:translate(4px,-4px) }
+.game-account { display:flex; align-items:center; justify-content:space-between; width:100%; gap:5px; min-height:44px; margin-top:7px; padding:2px 0; border-top:1px solid var(--border); color:var(--muted); font-family:var(--font-display); font-size:11px; text-align:left }
+.game-account strong { font-weight:500; color:var(--text) }
+.game-account:hover { color:var(--accent) }
+
+/* Four bespoke moving diagrams share the same visual coordinate system. */
+.skill-visual { position:relative; height:360px; min-width:0; color:var(--accent); overflow:hidden; transform-style:preserve-3d; background:linear-gradient(110deg,transparent,rgba(var(--accent-rgb),.045)) }
+.visual-grid { position:absolute; inset:0; background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px); background-size:30px 30px; opacity:.2; mask-image:radial-gradient(ellipse,black,transparent 73%) }
+.visual-coordinate { position:absolute; top:20px; right:22px; color:var(--muted); font-family:var(--font-display); font-size:9px; letter-spacing:.14em }
+.visual-wires { position:absolute; top:15px; left:0; width:100%; height:calc(100% - 30px) }
+.signal-return { stroke-dasharray:5 95; opacity:.55 }
+.visual-label { color:var(--muted); font-size:10px; letter-spacing:.03em; text-align:center; position:absolute; left:10px; right:10px; bottom:26px; font-family:var(--font-display) }
+.api-core { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); height:145px; width:145px; background:var(--bg); border:1px solid var(--accent); border-radius:34px; display:flex; flex-direction:column; justify-content:center; align-items:center; box-shadow:0 20px 45px rgba(0,0,0,.15); z-index:2 }
+.api-core strong { font-family:var(--font-display); font-size:21px; margin-top:5px; color:var(--text); letter-spacing:-.03em }
+.api-core>span { font-size:10px; color:var(--muted); margin-top:5px }
+.core-orbit { position:absolute; inset:-17px; border:1px solid rgba(var(--accent-rgb),.22); border-radius:50%; border-right-color:var(--accent); transform:rotate(30deg) }
+.api-node { position:absolute; z-index:3; display:flex; align-items:center; gap:9px; background:var(--surface); border:1px solid var(--border); border-radius:9px; padding:10px 12px; color:var(--muted); font-size:10px; font-family:var(--font-display); box-shadow:0 8px 15px rgba(0,0,0,.1) }
+.api-node>span { color:var(--accent) }
+.node-request { top:79px; left:7% }
+.node-response { bottom:79px; right:6% }
+.api-node i,.server-unit i { height:6px; width:6px; background:var(--accent); border-radius:50% }
+.server-rack { position:absolute; top:50%; left:50%; width:230px; transform:translate(-50%,-50%) rotate(-7deg); perspective:700px; z-index:2 }
+.server-unit { position:relative; display:flex; align-items:center; gap:18px; height:58px; border:1px solid var(--border); border-bottom:3px solid rgba(var(--accent-rgb),.2); background:var(--bg); padding:13px 18px; border-radius:11px; margin-top:10px; box-shadow:8px 12px 20px rgba(0,0,0,.12) }
+.server-slots { display:flex; gap:5px; flex:1 }
+.server-slots span { width:4px; height:22px; border-radius:2px; background:var(--surface-2) }
+.server-unit i { box-shadow:0 0 7px rgba(var(--accent-rgb),.3) }
+.server-scan { position:absolute; height:1px; width:calc(100% + 12px); top:15px; left:-6px; background:var(--accent); box-shadow:0 0 8px rgba(var(--accent-rgb),.4) }
+.server-orbit { position:absolute; top:50%; left:50%; width:300px; height:250px; transform:translate(-50%,-50%) rotate(-20deg); border:1px dashed rgba(var(--accent-rgb),.3); border-radius:50% }
+.server-label { position:absolute; font-family:var(--font-display); font-size:11px; z-index:3 }
+.server-label-top { top:45px; left:18%; transform:rotate(-7deg) }
+.server-label-bottom { bottom:35px; right:15%; color:var(--muted); font-size:10px }
+.build-window { position:absolute; left:50%; top:46%; width:290px; height:195px; transform:translate(-50%,-50%) rotate(-5deg); border:1px solid var(--border); border-radius:13px; background:var(--bg); overflow:hidden; box-shadow:0 20px 40px rgba(0,0,0,.17) }
+.window-chrome { height:28px; display:flex; align-items:center; gap:4px; padding:0 12px; border-bottom:1px solid var(--border) }
+.window-chrome>span { width:4px; height:4px; border-radius:50%; background:var(--muted) }
+.window-chrome>svg { margin-left:auto; opacity:.6 }
+.build-canvas { display:flex; height:calc(100% - 28px); padding:17px; gap:17px }
+.canvas-sidebar { width:26px; display:flex; flex-direction:column; gap:11px }
+.canvas-sidebar>i { height:5px; background:var(--surface-2); border-radius:5px }
+.canvas-main { flex:1 }
+.canvas-title { display:block; height:10px; width:65%; background:var(--accent); border-radius:4px }
+.canvas-content { display:flex; gap:7px; margin-top:19px }
+.canvas-content>i { height:48px; flex:1; border:1px solid var(--border); border-radius:5px; background:var(--surface); transform-origin:bottom }
+.canvas-line { display:block; height:4px; width:80%; border-radius:4px; margin-top:13px; background:var(--surface-2) }
+.canvas-line.short { width:55%; margin-top:6px }
+.prompt-chip { position:absolute; left:50%; top:68%; transform:translateX(-50%) rotate(3deg); display:flex; align-items:center; gap:12px; padding:13px 16px; background:var(--surface-2); border:1px solid var(--accent); border-radius:40px; box-shadow:0 8px 20px rgba(0,0,0,.12); font-size:11px; font-family:var(--font-display); white-space:nowrap }
+.prompt-chip>i { width:1px; height:13px; background:var(--accent) }
+.app-phone { width:116px; height:228px; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) rotate(13deg); background:var(--bg); border:2px solid var(--border); border-radius:21px; padding:11px; box-shadow:15px 20px 30px rgba(0,0,0,.17) }
+.phone-camera { width:25px; height:4px; position:absolute; top:9px; left:50%; transform:translateX(-50%); border-radius:5px; background:var(--border) }
+.phone-screen { position:relative; height:100%; padding:25px 2px 0 }
+.phone-title { display:block; width:60%; height:7px; border-radius:4px; background:var(--accent) }
+.phone-tile { height:70px; display:grid; place-items:center; background:var(--surface-2); border-radius:8px; margin-top:16px }
+.phone-cells { display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:9px }
+.phone-cells>i { height:20px; border-radius:4px; background:var(--surface) }
+.phone-home { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:28px; height:3px; background:var(--border); border-radius:4px }
+.phone-orbit { width:275px; height:160px; border:1px solid rgba(var(--accent-rgb),.25); position:absolute; left:50%; top:48%; transform:translate(-50%,-50%) rotate(-35deg); border-radius:50% }
+.flutter-label { position:absolute; left:12%; top:31%; line-height:1.5; font-size:17px; font-family:var(--font-display); letter-spacing:-.03em; color:var(--muted) }
+
+@media(prefers-reduced-motion:no-preference) {
+  .lunar-drift { animation:lunar-drift 13s ease-in-out infinite }
+  .lunar-orbits { animation:orbit-sweep 24s linear infinite }
+  .wire-signal { animation:signal-travel 4s linear infinite }
+  .moon-vector .wire-signal { animation-duration:5s; stroke-dasharray:16 84; stroke-width:1.6 }
+  .signal-return { animation-delay:-2s; animation-duration:5s }
+  .hero[data-active="false"] * { animation-play-state:paused }
+  .skill-visual[data-active="false"] * { animation-play-state:paused }
+  .core-orbit { animation:orbit-sweep 12s linear infinite }
+  .api-node { animation:node-drift 5s ease-in-out infinite }
+  .node-response { animation-delay:-2.5s }
+  .server-scan { animation:rack-scan 4s ease-in-out infinite }
+  .server-unit i { animation:led-pulse 2.4s ease-in-out infinite }
+  .canvas-content>i { animation:build-materialize 5s ease-in-out infinite }
+  .canvas-content>i:nth-child(2) { animation-delay:.3s }
+  .canvas-content>i:nth-child(3) { animation-delay:.6s }
+  .prompt-chip>i { animation:cursor-blink 1s steps(2,end) infinite }
+  .prompt-chip { animation:prompt-float 5s ease-in-out infinite }
+  .app-phone { animation:phone-drift 7s ease-in-out infinite }
+  @keyframes lunar-drift { 0%,100% { transform:translate(-14px,14px) rotate(-14deg) scale(.95) } 50% { transform:translate(18px,-20px) rotate(17deg) scale(1.09) } }
+  @keyframes orbit-sweep { to { transform:rotate(360deg) } }
+  @keyframes signal-travel { to { stroke-dashoffset:-90 } }
+  @keyframes node-drift { 0%,100% { transform:translateY(5px) } 50% { transform:translateY(-7px) } }
+  @keyframes rack-scan { 0%,100% { transform:translateY(0); opacity:.2 } 50% { transform:translateY(176px); opacity:.9 } }
+  @keyframes led-pulse { 0%,100% { opacity:.3 } 50% { opacity:1 } }
+  @keyframes build-materialize { 0%,100% { transform:scaleY(.3); opacity:.25 } 30%,80% { transform:scaleY(1); opacity:1 } }
+  @keyframes cursor-blink { to { opacity:0 } }
+  @keyframes prompt-float { 0%,100% { transform:translate(-50%,8px) rotate(3deg) } 50% { transform:translate(-50%,-5px) rotate(-2deg) } }
+  @keyframes phone-drift { 0%,100% { transform:translate(-50%,-50%) rotate(13deg) } 50% { transform:translate(-50%,-56%) rotate(-8deg) } }
+}
+@media(max-width:1100px) {
+  .social-capsule { right:32px }
+  .skill-tabs>button { padding:15px 11px; column-gap:8px }
+  .skill-tab-name { font-size:12px }
+  .skill-visual { height:335px }
+  .visual-coordinate { right:15px; font-size:8px }
+  .api-node { gap:5px; padding:8px; font-size:9px }
+  .node-request { left:3%; top:65px }
+  .node-response { right:3%; bottom:66px }
+  .api-core { width:128px; height:128px; border-radius:28px }
+  .build-window { width:250px }
+  .header-identity p { font-size:10px }
+  .collaboration-item h3 { font-size:21px }
+}
+@media(min-width:768px) and (max-width:900px) {
+  .skill-panel>div { grid-template-columns:1fr 1fr }
+  .skill-story { padding:30px 23px }
+  .skill-panel h3 { font-size:26px; line-height:1.5 }
+  .skill-panel p { font-size:12px }
+  .build-window { width:230px; height:180px }
+  .server-rack { width:210px }
+  .phone-orbit { width:250px }
+  .flutter-label { left:8%; font-size:14px }
+}
+@media(max-width:767px) {
+  .header-identity { gap:10px; max-width:calc(100% - 140px) }
+  .brand-avatar { width:36px; height:36px; align-self:flex-start; margin-top:2px }
+  .header-identity strong { font-size:16px }
+  .identity-gender { font-size:9px; margin-left:4px }
+  .header-identity p { font-size:9px; line-height:1.7; margin-top:4px; width:auto; max-width:none }
+  .social-capsule { top:15px; right:20px; padding:3px; gap:0 }
+  .social-capsule>a { width:40px; height:40px }
+  .social-capsule svg,.social-capsule .bilibili-mark { width:21px; height:21px }
+  .journey-guide { right:8px; top:130px; bottom:103px; opacity:.5 }
+  .hero-copy { padding-top:0 }
+  .hero-actions { gap:12px }
+  .contact-button { padding:14px 19px; gap:12px }
+  .button { white-space:nowrap }
+  .english-headline { font-size:clamp(34px,10vw,60px) }
+  .skill-tab-name { font-size:12px }
+  .skill-tabs>button { padding:12px; min-height:67px; grid-template-columns:23px 1fr }
+  .skill-visual { height:290px; background:radial-gradient(ellipse at 50% 50%,rgba(var(--accent-rgb),.04),transparent 70%) }
+  .visual-coordinate { top:13px; right:21px }
+  .visual-label { bottom:19px; font-size:9px }
+  .node-request { top:62px; left:5% }
+  .node-response { bottom:59px; right:5% }
+  .api-core { height:125px; width:125px }
+  .api-core>svg { width:40px }
+  .api-core strong { font-size:19px }
+  .server-rack { width:205px }
+  .server-unit { height:49px; padding:10px 14px; margin-top:8px }
+  .server-slots span { height:19px }
+  .server-label-top { top:32px }
+  .server-label-bottom { bottom:24px }
+  .app-phone { height:205px; width:108px }
+  .phone-tile { height:61px }
+  .phone-cells>i { height:16px }
+  .phone-orbit { width:240px; height:150px }
+  .flutter-label { font-size:15px; left:12% }
+  .collaboration-pair { margin-top:19px }
+  .collaboration-item { padding:22px 15px 10px 0 }
+  .collaboration-item+* { padding-left:18px }
+  .collaboration-label { gap:6px; font-size:10px; letter-spacing:0 }
+  .collaboration-label svg { width:18px }
+  .collaboration-item h3 { font-size:18px; line-height:1.6; margin-top:12px }
+  .collaboration-item p { font-size:10px; min-height:75px; margin-top:9px }
+  .collaboration-item .inline-link { font-size:11px; gap:7px; margin-top:4px }
+  .game-shelf { grid-auto-columns:143px }
+  .game-account { font-size:10px; margin-top:5px }
+  .life-grid { margin-top:24px }
+  .character-portrait>img { padding:0; object-fit:cover; object-position:center top }
+  .character-name h3 { font-size:27px }
+  .character-name>span { font-size:9px }
+  .copy-feedback { bottom:96px }
+}
+@media(max-width:360px) {
+  .social-capsule { right:16px }
+  .social-capsule>a { width:36px; height:40px }
+  .header-identity { max-width:calc(100% - 119px) }
+  .brand-avatar { width:32px; height:32px }
+  .header-identity strong { font-size:15px }
+  .identity-gender { font-size:8px; margin-left:2px }
+  .button { padding:13px 16px; gap:12px; font-size:12px }
+  .english-headline { font-size:34px }
+  .collaboration-item h3 { font-size:16px }
+  .collaboration-item p { min-height:88px }
+}
+@media(prefers-reduced-transparency:reduce) { .social-capsule { background:var(--surface); backdrop-filter:none } }
+@media(forced-colors:active) { .wire-base,.wire-signal { stroke:CanvasText } .bilibili-mark { background:LinkText } }
