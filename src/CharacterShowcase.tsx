@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { AnimatePresence, motion, useInView, useReducedMotion } from 'framer-motion';
+import { AnimatePresence, motion, useInView } from 'framer-motion';
+import { useAppReducedMotion } from './MotionPreferences';
 import { Pause, Play, Planet } from '@phosphor-icons/react';
 import { characters, type Language } from './content';
 
@@ -14,7 +15,7 @@ export default function CharacterShowcase({ lang }: { lang: Language }) {
   const root = useRef<HTMLDivElement>(null);
   const inputType = useRef('keyboard');
   const visible = useInView(root, { amount: 0.25 });
-  const reduced = useReducedMotion();
+  const reduced = useAppReducedMotion();
   const open = !dismissed && (hovered || focused || pinned);
   const playing = visible && pageActive && !reduced && !hovered && !focused && !pinned && !paused;
   const character = characters[index];
@@ -53,7 +54,7 @@ export default function CharacterShowcase({ lang }: { lang: Language }) {
   }
 
   return <motion.div id="characters" ref={root} className="character-section" data-character={character.id} data-playing={playing} data-chooser={open}
-    initial={reduced ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.7 }}
+    initial={false} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.7 }}
     onPointerEnter={e => { if (e.pointerType === 'mouse') { setHovered(true); setDismissed(false); } }}
     onPointerDownCapture={e => { inputType.current = e.pointerType; setFocused(false); }}
     onPointerLeave={e => { if (e.pointerType === 'mouse') { setHovered(false); setPinned(false); if (inputType.current === 'mouse') setFocused(false); } }}

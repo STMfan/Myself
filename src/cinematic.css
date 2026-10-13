@@ -1,0 +1,78 @@
+/* Arctic signal, expanded: flowing meridians, kinetic type and tactile specimens. */
+#root { isolation:isolate }
+.page-width { position:relative; z-index:2 }
+.atmosphere { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; contain:strict }
+.flow-canvas { position:absolute; inset:0; width:100%; height:100%; opacity:.9 }
+.atmosphere-haze { position:absolute; inset:-25%; background:radial-gradient(ellipse at 78% 24%,rgba(var(--accent-rgb),.075),transparent 42%),radial-gradient(ellipse at 10% 76%,rgba(var(--accent-rgb),.035),transparent 40%) }
+.kinetic-line { display:block; perspective:900px; transform-style:preserve-3d }
+.kinetic-glyph { display:inline-block; white-space:pre; transform-origin:50% 90%; backface-visibility:hidden }
+.english-headline .kinetic-line { margin-top:0 }
+.english-headline .kinetic-glyph { margin-top:0 }
+.motion-switch { color:var(--muted) }
+.motion-switch[aria-pressed="true"] { color:var(--accent); background:var(--surface) }
+.motion-switch:disabled { opacity:.55; cursor:default }
+.orbital-artifact { position:absolute; width:230px; pointer-events:none; z-index:0 }
+.artifact-armillary { right:-66px; top:0 }
+.artifact-lunar-shard { right:10px; top:45px; width:230px; opacity:.78 }
+.artifact-drift>img { width:100%; height:auto; filter:drop-shadow(0 24px 38px rgba(0,0,0,.12)) }
+.work>.section-heading,.contact>.reveal { position:relative; z-index:1 }
+.work-grid,.article-grid,.contribution { position:relative; z-index:2 }
+.hero-scene:after { content:''; position:absolute; inset:12%; border-radius:50%; background:radial-gradient(circle,rgba(var(--accent-rgb),.16),transparent 72%); filter:blur(30px); z-index:-1 }
+.hero .hero-intro { max-width:430px }
+.commission-brief { display:flex; gap:9px; align-items:center; font-size:11px; color:var(--muted); line-height:1.7; margin-top:12px; max-width:650px }
+.commission-brief svg { color:var(--accent) }
+.work-card { transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .4s,box-shadow .5s }
+.work-card:hover { transform:translateY(-7px); border-color:var(--accent); box-shadow:0 22px 44px rgba(0,0,0,.09) }
+.work-card:after { transition:transform .9s cubic-bezier(.16,1,.3,1),border-color .4s }
+.work-card:hover:after { transform:scale(1.25) rotate(20deg); border-color:var(--accent) }
+.no-script-skills { padding:28px; display:none; grid-template-columns:repeat(2,minmax(0,1fr)); gap:25px; border:1px solid var(--border); border-radius:20px; margin:35px auto }
+.no-script-skills p { line-height:1.9; color:var(--muted); margin-top:10px; font-size:14px }
+@media(prefers-reduced-motion:no-preference) {
+  [data-motion="full"] .atmosphere-haze { animation:sky-breathe 18s ease-in-out infinite alternate }
+  [data-motion="full"] .artifact-drift { animation:specimen-drift 12s ease-in-out infinite alternate }
+  [data-motion="full"] .artifact-lunar-shard .artifact-drift { animation-duration:15s; animation-direction:alternate-reverse }
+  [data-motion="full"] .orbital-artifact[data-active="false"] .artifact-drift { animation-play-state:paused }
+  [data-motion="full"] .hero-scene:after { animation:lunar-corona 7s ease-in-out infinite alternate }
+  [data-motion="full"] .hero[data-active="false"] .hero-scene:after { animation-play-state:paused }
+  @keyframes sky-breathe { from { transform:rotate(-6deg) scale(.95) } to { transform:rotate(8deg) scale(1.12) } }
+  @keyframes specimen-drift { from { transform:translateY(16px) rotate(-15deg) } to { transform:translateY(-20px) rotate(20deg) } }
+  @keyframes lunar-corona { from { opacity:.3; transform:scale(.8) } to { opacity:1; transform:scale(1.35) } }
+}
+@media(hover:hover) and (pointer:fine) {
+  [data-motion="full"] .game:hover .game-cover { transform:perspective(800px) rotateY(-10deg) rotateX(6deg) translateY(-8px) scale(1.025); box-shadow:12px 18px 35px rgba(0,0,0,.18) }
+}
+@media(max-width:1100px) { .artifact-armillary { right:-22px; width:180px } .artifact-lunar-shard { width:160px; top:40px; right:0; opacity:.5 } }
+@media(max-width:900px) { .artifact-lunar-shard { display:none } }
+@media(max-width:767px) {
+  .orbital-artifact { display:none }
+  .flow-canvas { opacity:.65 }
+  .header-controls .icon-button { width:36px; height:40px }
+  .header-controls .language-switch { gap:5px; padding-inline:2px }
+  .header-identity p { font-size:10px }
+  .commission-brief { font-size:11px; margin-top:15px; align-items:flex-start }
+  .no-script-skills { grid-template-columns:1fr; padding:20px; margin-top:20px }
+}
+@media(max-height:440px) and (min-width:768px) {
+  .site-header { height:64px }
+  .social-capsule { top:8px; padding:3px }
+  .hero { padding-block:10px 18px }
+  .hero-copy { padding-top:0 }
+  .availability { min-height:32px; padding:6px 10px }
+  .hero h1 { font-size:40px; line-height:1.2; margin-top:14px }
+  .hero h1.english-headline { font-size:42px; line-height:1.07 }
+  .hero .hero-intro { display:none }
+  .hero .slogan-secondary { margin-top:10px; font-size:12px }
+  .hero-actions { margin-top:13px }
+  .hero-actions .button { min-height:44px; padding:11px 19px; font-size:13px }
+  .hero-scene { max-width:276px }
+  .brand-avatar { width:36px; height:36px }
+}
+[data-motion="calm"] *,[data-motion="calm"] *:before,[data-motion="calm"] *:after { animation:none!important; scroll-behavior:auto!important }
+[data-motion="calm"] { scroll-behavior:auto }
+.no-js .reveal,.no-js .kinetic-glyph { opacity:1!important; transform:none!important; filter:none!important }
+.no-js .header-controls,.no-js .skill-tabs,.no-js .character-controls,.no-js .character-choices,.no-js .character-sequence,.no-js .craft-console { display:none }
+.no-js .game-account,.no-js .social-links>button { cursor:text; user-select:text }
+.no-js .game-account>svg,.no-js .social-links>button>svg { display:none }
+.no-js .atmosphere,.no-js .journey-guide,.no-js .reading-progress { display:none }
+.no-js .no-script-skills { display:grid }
+.no-js *,.no-js *:after,.no-js *:before { animation:none!important }

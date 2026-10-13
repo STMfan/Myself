@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="zh-CN" data-theme="dark">
+<html lang="zh-CN" data-theme="dark" class="no-js">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,13 +8,24 @@
     <meta property="og:title" content="STMfan | To Decipher the Sublunary Sphere." />
     <meta property="og:description" content="个人开发者 / 在校学生。后端开发、服务器运维、全栈 Vibe Coding。" />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://stmfan.tech/" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:image" content="https://stmfan.tech/assets/share/stmfan.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="STMfan · To Decipher the Sublunary Sphere." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://stmfan.tech/" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"STMfan","url":"https://stmfan.tech/","image":"https://stmfan.tech/assets/avatar.png","description":"在校学生与个人开发者。Python / FastAPI 后端、Debian 运维与全栈 Vibe Coding。","sameAs":["https://github.com/STMfan","https://space.bilibili.com/625979245"],"knowsAbout":["Python","FastAPI","Debian","Prompt Engineering"]}</script>
     <link rel="icon" href="/assets/avatar.png" type="image/png" />
     <title>STMfan | 探月下，尘世万象。</title>
     <script>
+      document.documentElement.classList.replace('no-js', 'js');
       try {
         const s = JSON.parse(localStorage.getItem('stmfan-preferences') || '{}');
         if (['dark', 'light'].includes(s.theme)) document.documentElement.dataset.theme = s.theme;
         if (['zh', 'en'].includes(s.language)) document.documentElement.lang = s.language === 'en' ? 'en' : 'zh-CN';
+        if (s.motion === 'calm') document.documentElement.dataset.motion = 'calm';
       } catch {}
     </script>
   </head>

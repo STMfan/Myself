@@ -4,6 +4,8 @@
 
 Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用户确认的「极地信号」；默认暗色、中文，支持快速切换并保存偏好。
 
+生产构建会生成可直接阅读的静态 HTML，再由 React 水合。全页流动光路、文字透视转场与悬浮器物共用连续阅读路径；可随时收敛动效，并遵循系统减少动态效果。2026-10-13 的报告分析、文案核算与新增素材提示见 [CREATIVE-2026-10-13.md](docs/CREATIVE-2026-10-13.md)。
+
 ## 本地开发
 
 ```powershell
@@ -31,6 +33,6 @@ Vite + React + TypeScript + Tailwind CSS v4 + Framer Motion。最终配色为用
 
 ## 发布与协议
 
-Cloudflare Pages 构建说明见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)。已准备 GitHub 构建流水线，未公开部署。
+Cloudflare Pages 构建说明见 [DEPLOYMENT.md](docs/DEPLOYMENT.md)。GitHub 流水线输出静态 `dist`；规范地址为 `https://stmfan.tech/`，线上发布由所有者的 Pages Git 集成控制。
 
 原始网站源码与文档采用 **[MIT](LICENSE)**，由 STMfan 于 2026-10-11 确认。游戏商标、头像、游戏图标和其它第三方素材不被重新授权；字体继续遵守 OFL，范围见 [NOTICE](NOTICE) 与 [ASSETS.md](docs/ASSETS.md)。候选分析与已安装依赖核查见 [LICENSE-REVIEW.md](docs/LICENSE-REVIEW.md)。逐包证据见 `docs/dependency-licenses.json` 与 `docs/licenses/`，发布产物包含 `THIRD_PARTY_NOTICES.txt` 和 `PROJECT_LICENSE.txt`。

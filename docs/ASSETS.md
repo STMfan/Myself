@@ -18,6 +18,8 @@
 | `public/assets/qq.svg` | 用户提供 `Downloads/qq-brands-solid-full.svg`，Font Awesome Free 7.3.1 | 原样保留 SVG 与版权注释；CC BY 4.0，Copyright 2026 Fonticons, Inc.；使用 CSS 蒙版随主题显示，QQ 商标权独立 |
 | `public/assets/characters/*.webp` | 用户提供的五张角色素材 | 内置 ImageGen 透明半身抠图；源文件名、SHA256、完整提示与输出校验见 `public/assets/characters/sources.json` |
 | 英文字体 | Space Grotesk、DM Sans 的 Fontsource 包 | 未修改字体；保留 OFL 协议，构建输出到本地 assets |
+| `public/assets/decor/*.webp` | Codex 内置 ImageGen 于 2026-10-13 生成 | 768px 透明星环、月岩器物；完整提示和 SHA256 在同目录 `sources.json` |
+| `public/assets/share/stmfan.jpg` | Codex 内置 ImageGen 于 2026-10-13 生成 | 1200×630 分享卡，原文英文 slogan；完整提示在同目录 `sources.json` |
 
 游戏图标、名称与商标归各自权利人。这些公开来源不等于已获得开源再授权；项目源码协议不应覆盖它们。当前用于个人兴趣介绍，未声称合作或官方认可。未来替换素材时应保存来源与授权依据。
 

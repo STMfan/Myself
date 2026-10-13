@@ -1,9 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode, type KeyboardEvent } from 'react';
-import { AnimatePresence, MotionConfig, motion, useInView, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from 'framer-motion';
-import { ArrowDown, ArrowUpRight, BookOpen, Check, Code, Copy, DeviceMobile, EnvelopeSimple, GameController, GithubLogo, HardDrives, Headphones, Moon, Phone, Planet, Plus, Sparkle, Sun } from '@phosphor-icons/react';
+import { AnimatePresence, MotionConfig, motion, useInView, useMotionValue, useScroll, useSpring, useTransform } from 'framer-motion';
+import { ArrowDown, ArrowUpRight, BookOpen, Check, Code, Copy, DeviceMobile, EnvelopeSimple, GameController, GithubLogo, HardDrives, Headphones, Moon, Pause, Play, Phone, Planet, Plus, Sparkle, Sun } from '@phosphor-icons/react';
 import { articles, games, profile, projects, skills, type Language, type Work } from './content';
 import SkillVisual from './SkillVisual';
 import CharacterShowcase from './CharacterShowcase';
+import Atmosphere from './Atmosphere';
+import KineticHeading from './KineticHeading';
+import OrbitalArtifact from './OrbitalArtifact';
+import { CalmMotionContext, useAppReducedMotion } from './MotionPreferences';
 
 type Theme = 'dark' | 'light';
 const chapters = ['home', 'craft', 'work', 'afterhours', 'contact'];
@@ -17,16 +21,21 @@ function readPreferences() {
   return {
     theme: (theme === 'light' ? 'light' : 'dark') as Theme,
     language: (saved.language === 'en' ? 'en' : 'zh') as Language,
+    motion: (saved.motion === 'calm' ? 'calm' : 'full') as 'calm' | 'full',
   };
 }
 
 function Reveal({ children, className = '', delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const reduced = useReducedMotion();
-  return <motion.div className={className} initial={reduced ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.12 }} transition={{ duration: 0.7, delay, ease: [0.2, 0.8, 0.2, 1] }}>{children}</motion.div>;
+  const reduced = useAppReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const visible = useInView(ref, { once: true, amount: 0.12 });
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+  return <motion.div ref={ref} className={`reveal ${className}`} initial={false} animate={!ready || reduced || visible ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 44, filter: 'blur(6px)' }} transition={{ duration: reduced ? 0 : 0.85, delay, ease: [0.16, 1, 0.3, 1] }}>{children}</motion.div>;
 }
 
 function MagneticLink({ children, href, className = '', external = false }: { children: ReactNode; href: string; className?: string; external?: boolean }) {
-  const reduced = useReducedMotion();
+  const reduced = useAppReducedMotion();
   const x = useMotionValue(0); const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 250, damping: 20 });
   const sy = useSpring(y, { stiffness: 250, damping: 20 });
@@ -38,10 +47,14 @@ function MagneticLink({ children, href, className = '', external = false }: { ch
 }
 
 function App() {
-  const [preferences, setPreferences] = useState(readPreferences);
+  // A deterministic first render allows the generated HTML to hydrate cleanly.
+  const [preferences, setPreferences] = useState({ theme: 'dark' as Theme, language: 'zh' as Language, motion: 'full' as 'calm' | 'full' });
+  const [restored, setRestored] = useState(false);
+  useEffect(() => { setPreferences(readPreferences()); setRestored(true); }, []);
   const { theme, language: lang } = preferences;
   const t = (zh: string, en: string) => lang === 'zh' ? zh : en;
-  const reduced = useReducedMotion();
+  const systemReduced = useAppReducedMotion();
+  const reduced = systemReduced || preferences.motion === 'calm';
   const [chapter, setChapter] = useState('home');
   const [skillIndex, setSkillIndex] = useState(0);
   const [copied, setCopied] = useState<string | null>(null);
@@ -65,8 +78,9 @@ function App() {
     const description = t('STMfan，个人开发者与在校学生。Python / FastAPI 后端、Debian 服务器运维与全栈 Vibe Coding。探月下，尘世万象。', 'STMfan, independent developer and student. Python / FastAPI backends, Debian server operations, and full-stack Vibe Coding.');
     document.querySelector('meta[name="description"]')?.setAttribute('content', description);
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', getComputedStyle(root).getPropertyValue('--bg').trim());
-    try { localStorage.setItem('stmfan-preferences', JSON.stringify(preferences)); } catch { /* Still works without persistence. */ }
-  }, [preferences, theme, lang]);
+    root.dataset.motion = reduced ? 'calm' : 'full';
+    if (restored) try { localStorage.setItem('stmfan-preferences', JSON.stringify(preferences)); } catch { /* Still works without persistence. */ }
+  }, [preferences, theme, lang, reduced, restored]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
@@ -98,21 +112,24 @@ function App() {
   const labels = [t('起点', 'Hello'), t('技艺', 'Craft'), t('作品', 'Work'), t('生活', 'Life'), t('联系', 'Contact')];
   const navIcons = [Planet, Code, BookOpen, GameController, EnvelopeSimple];
   const skillIcons = [Code, HardDrives, Sparkle, DeviceMobile];
+  const motionLabel = systemReduced ? t('系统已减少动效', 'Motion reduced by system') : preferences.motion === 'full' ? t('收敛动效', 'Reduce motion') : t('展开动效', 'Enable full motion');
 
   function workCard(item: Work, kind: 'project' | 'article', index: number) {
-    const content = <><div className="work-card-top">{kind === 'project' ? <Code size={25} weight="light" /> : <BookOpen size={25} weight="light" />}{item.url ? <ArrowUpRight size={22} /> : <Plus size={20} />}</div><div className="work-card-content"><span className="eyebrow">{kind === 'project' ? t('开源项目', 'OPEN SOURCE') : t('文章', 'WRITING')}</span><h3>{item.title?.[lang] || t('留给下一个想法。', 'Room for the next idea.')}</h3><p>{item.description?.[lang] || t('待补充', 'Coming later')}</p>{item.tags && <div className="tech-tags">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div>}</div></>;
+    const content = <><div className="work-card-top">{kind === 'project' ? <Code size={25} weight="light" /> : <BookOpen size={25} weight="light" />}{item.url ? <ArrowUpRight size={22} /> : <Plus size={20} />}</div><div className="work-card-content"><span className="eyebrow">{kind === 'project' ? t('开源项目', 'OPEN SOURCE') : t('文章', 'WRITING')}</span><h3>{item.title?.[lang] || t('下一笔，尚待落下。', 'The next stroke awaits.')}</h3><p>{item.description?.[lang] || t('待补充', 'Coming later')}</p>{item.tags && <div className="tech-tags">{item.tags.map(tag => <span key={tag}>{tag}</span>)}</div>}</div></>;
     return <Reveal key={item.id} delay={index * 0.08}>{item.url ? <a href={item.url} target="_blank" rel="noopener noreferrer" className="work-card">{content}</a> : <article className={`work-card placeholder ${kind}`}>{content}</article>}</Reveal>;
   }
 
-  return <MotionConfig reducedMotion="user">
+  return <CalmMotionContext.Provider value={preferences.motion === 'calm'}><MotionConfig reducedMotion={preferences.motion === 'calm' ? 'always' : 'user'}>
+    <Atmosphere theme={theme} />
     <a href="#main" className="skip-link">{t('跳到正文', 'Skip to content')}</a>
     <motion.div className="reading-progress" style={{ scaleX: scrollYProgress }} aria-hidden="true" />
     <div className="journey-guide" aria-hidden="true"><motion.span className="journey-fill" style={{ scaleY: scrollYProgress }} /><motion.div className="journey-cursor" style={{ y: guideY }}><i /></motion.div>{chapters.map((id, i) => <span className="journey-tick" key={id} style={{ top: `${i * 25}%` }} />)}</div>
     <header id="top" className="site-header page-width">
-      <a className="brand header-identity" href="#top" aria-label="STMfan"><img className="brand-avatar" src="/assets/avatar.png" alt={t('STMfan 的 GitHub 头像', 'STMfan’s GitHub avatar')} width="48" height="48" /><div><strong>STMfan <span className="identity-gender">Male</span></strong><p>{t('个人开发者 / 在校学生 / 暂无职业', 'Indie developer / Student / No occupation')}</p></div></a>
+      <a className="brand header-identity" href="#top" aria-label="STMfan"><img className="brand-avatar" src="/assets/avatar.png" alt={t('STMfan 的 GitHub 头像', 'STMfan’s GitHub avatar')} width="48" height="48" /><div><strong>STMfan <span className="identity-gender">Male</span></strong><p>{t('在校学生 / 个人开发者', 'Student / Independent developer')}</p></div></a>
       <div className="header-controls">
         <button className="language-switch" aria-label={t('Switch to English', '切换为中文')} onClick={() => setPreferences(s => ({ ...s, language: lang === 'zh' ? 'en' : 'zh' }))}><span className={lang === 'zh' ? 'chosen' : ''}>中</span><span className="slash">/</span><span className={lang === 'en' ? 'chosen' : ''}>EN</span></button>
         <button className="icon-button theme-switch" aria-label={theme === 'dark' ? t('切换亮色', 'Switch to light mode') : t('切换暗色', 'Switch to dark mode')} onClick={() => setPreferences(s => ({ ...s, theme: theme === 'dark' ? 'light' : 'dark' }))}>{theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}</button>
+        <button className="icon-button motion-switch" title={motionLabel} aria-label={motionLabel} aria-pressed={Boolean(reduced)} disabled={systemReduced} onClick={() => setPreferences(s => ({ ...s, motion: s.motion === 'full' ? 'calm' : 'full' }))}>{reduced ? <Play size={20} /> : <Pause size={20} />}</button>
       </div>
     </header>
     <nav className="social-capsule" aria-label={t('随时联系', 'Stay connected')}><a className="capsule-label" href="#contact">{t('联系我', 'Contact me')}<ArrowUpRight size={13} /></a><a href={`mailto:${profile.email}`} aria-label={t('邮件联系 STMfan', 'Email STMfan')}><EnvelopeSimple size={23} /></a><a href={profile.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><GithubLogo size={23} /></a><a href={profile.bilibili} target="_blank" rel="noopener noreferrer" aria-label="Bilibili"><span className="bilibili-mark" aria-hidden="true" /></a></nav>
@@ -121,7 +138,7 @@ function App() {
       <section id="home" className="hero page-width" ref={heroRef} data-active={heroVisible}>
         <div className="hero-copy">
           <Reveal><a className="availability" href="#commissions"><span />{t('正在接取小型委托', 'Open for small commissions')}<ArrowUpRight size={15} /></a></Reveal>
-          <Reveal delay={0.1}><h1 className={lang === 'en' ? 'english-headline' : ''}>{lang === 'zh' ? <><span>探月下，</span><span className="accent-text">尘世万象。</span></> : <>To Decipher the <span className="accent-text">Sublunary Sphere.</span></>}</h1></Reveal>
+          <KineticHeading as="h1" className={lang === 'en' ? 'english-headline' : ''} lines={lang === 'zh' ? [{text:'探月下，'},{text:'尘世万象。',accent:true}] : [{text:'To Decipher the'},{text:'Sublunary Sphere.',accent:true}]} />
           <Reveal delay={0.2}><p className="slogan-secondary">{t('To Decipher the Sublunary Sphere.', '探月下，尘世万象。')}</p><p className="hero-intro">{t('我是 STMfan。', 'I’m STMfan.')}<br />{t('在校学生，个人开发者。以好奇心为坐标。', 'Student. Independent developer. Guided by curiosity.')}</p></Reveal>
           <Reveal className="hero-actions" delay={0.3}><MagneticLink href="#work" className="button primary">{t('我的作品', 'My work')}<ArrowDown size={18} /></MagneticLink><MagneticLink href="#contact" className="button contact-button">{t('联系我', 'Contact me')}<Phone size={20} /></MagneticLink></Reveal>
         </div>
@@ -129,23 +146,26 @@ function App() {
       </section>
 
       <section id="craft" className="craft section page-width">
-        <Reveal className="section-heading"><span className="eyebrow">{t('技艺', 'CRAFT')}</span><h2>{t('构建，且让它长明。', 'Build it. Keep it alive.')}</h2><p>{t('从后端的秩序，到服务器的日常。', 'From the order of a backend to the everyday life of a server.')}</p></Reveal>
+        <Reveal className="section-heading"><span className="eyebrow">{t('技艺', 'CRAFT')}</span><KineticHeading lines={[{text:t('立其骨，续其光。', 'Give it form. Keep it alight.')}]} /><p>{t('从接口的秩序，到长明的灯火。', 'From ordered interfaces to lights that stay on.')}</p></Reveal>
+        <div className="no-script-skills">{skills.map(skill => <article key={skill.id}><h3>{skill.name} · {skill.title.zh}</h3><p>{skill.description.zh}</p></article>)}</div>
         <Reveal className="craft-console">
           <div className="skill-tabs" role="tablist" aria-label={t('技术领域', 'Technical fields')}>
             {skills.map((skill, i) => { const Icon = skillIcons[i]; return <button id={`skill-${i}`} key={skill.id} role="tab" aria-selected={skillIndex === i} aria-controls="skill-panel" tabIndex={skillIndex === i ? 0 : -1} onClick={() => setSkillIndex(i)} onKeyDown={e => tabKeys(e, i, skills.length, setSkillIndex, 'skill')}><Icon className="skill-tab-icon" size={24} weight="light" /><span className="skill-tab-name">{skill.name}</span><span className="skill-tab-tag">{skill.tag[lang]}</span>{skillIndex === i && <motion.span layoutId="active-skill" className="active-skill" transition={spring} />}</button>; })}
           </div>
           <div id="skill-panel" role="tabpanel" aria-labelledby={`skill-${skillIndex}`} tabIndex={0} className="skill-panel">
-            <AnimatePresence mode="wait" initial={false}><motion.div key={activeSkill.id} initial={reduced ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.18 }}>
+            <AnimatePresence mode="wait" initial={false}><motion.div key={activeSkill.id} initial={reduced ? false : { opacity: 0, x: 35, rotateY: 7 }} animate={{ opacity: 1, x: 0, rotateY: 0 }} exit={{ opacity: 0, x: -35, rotateY: -7 }} transition={{ duration: reduced ? 0 : 0.32, ease: [0.16, 1, 0.3, 1] }}>
               <div className="skill-story"><span className="eyebrow">{activeSkill.tag[lang]}</span><h3>{activeSkill.title[lang]}</h3><p>{activeSkill.description[lang]}</p><div className="tech-tags">{activeSkill.tools.map(tool => <span key={tool}>{tool}</span>)}</div></div>
               <SkillVisual field={activeSkill.id} lang={lang} />
             </motion.div></AnimatePresence>
           </div>
         </Reveal>
-        <Reveal className="collaboration-pair"><a id="commissions" href="#contact" className="collaboration-item"><span className="collaboration-label"><Phone size={21} />{t('付费委托', 'PAID COMMISSIONS')}</span><h3>{t('让你的想法，落地。', 'Bring your idea to life.')}</h3><p>{t('小型后端开发 / 长期服务器运维 / 全栈 Vibe Coding', 'Small backends / Ongoing server operations / Full-stack Vibe Coding')}</p><span className="inline-link">{t('联系我', 'Contact me')}<ArrowUpRight size={18} /></span></a><a href={profile.github} target="_blank" rel="noopener noreferrer" className="collaboration-item"><span className="collaboration-label"><Code size={22} />{t('开源协作', 'OPEN-SOURCE COLLABORATION')}</span><h3>{t('为兴趣，添一束光。', 'A little light for curiosity.')}</h3><p>{t('为感兴趣的开源项目，无偿提供帮助。', 'Free help for open-source projects that spark my interest.')}</p><span className="inline-link">{t('在 GitHub 相遇', 'Meet on GitHub')}<ArrowUpRight size={18} /></span></a></Reveal>
+        <Reveal className="collaboration-pair"><a id="commissions" href="#contact" className="collaboration-item"><span className="collaboration-label"><Phone size={21} />{t('付费委托', 'PAID COMMISSIONS')}</span><h3>{t('让所想，得以成形。', 'Let your idea take shape.')}</h3><p>{t('小型后端开发 / 长期服务器运维 / 全栈 Vibe Coding', 'Small backends / Ongoing server operations / Full-stack Vibe Coding')}</p><span className="inline-link">{t('联系我', 'Contact me')}<ArrowUpRight size={18} /></span></a><a href={profile.github} target="_blank" rel="noopener noreferrer" className="collaboration-item"><span className="collaboration-label"><Code size={22} />{t('开源协作', 'OPEN-SOURCE COLLABORATION')}</span><h3>{t('为所爱，添一束光。', 'Lend a light to what I love.')}</h3><p>{t('为感兴趣的开源项目，无偿提供帮助。', 'Free help for open-source projects that spark my interest.')}</p><span className="inline-link">{t('在 GitHub 相遇', 'Meet on GitHub')}<ArrowUpRight size={18} /></span></a></Reveal>
+        <Reveal><p className="commission-brief"><EnvelopeSimple size={16} />{t('委托起笔，请附目标、现有材料、时间与预算。', 'For a commission: your goal, existing materials, preferred timeline, and budget.')}</p></Reveal>
       </section>
 
       <section id="work" className="work section page-width">
-        <Reveal className="section-heading"><span className="eyebrow">{t('留痕', 'WORK & WORDS')}</span><h2>{t('把好奇，留在世界。', 'Leave curiosity in the world.')}</h2></Reveal>
+        <OrbitalArtifact kind="armillary" />
+        <Reveal className="section-heading"><span className="eyebrow">{t('留痕', 'WORK & WORDS')}</span><KineticHeading lines={[{text:t('把所思，写入尘世。', 'Give thought a place in the world.')}]} /></Reveal>
         <div className="work-grid">{projects.map((p, i) => workCard(p, 'project', i))}</div>
         <Reveal><a className="contribution" href="https://docs.mai-mai.org/" target="_blank" rel="noopener noreferrer"><div className="contribution-mark"><img src="/assets/maibot.webp" alt="MaiBot" width="100" height="100" loading="lazy" /></div><div><span className="eyebrow">{t('开源贡献', 'OPEN-SOURCE CONTRIBUTION')}</span><h3>{t('MaiBot 文档与社区', 'MaiBot documentation & community')}</h3><p>{t('曾为文档及社区做出贡献。', 'Contributed to its documentation and community.')}</p></div><ArrowUpRight size={28} /></a></Reveal>
         <div className="article-heading"><h3>{t('写下的片段', 'Fragments in writing')}</h3><BookOpen size={20} /></div>
@@ -153,23 +173,24 @@ function App() {
       </section>
 
       <section id="afterhours" className="afterhours section page-width">
-        <Reveal className="section-heading"><span className="eyebrow">{t('屏幕之外', 'AFTER HOURS')}</span><h2>{t('也栖居于，别的世界。', 'At home in other worlds, too.')}</h2><p>{t('在节奏、旷野与方块之间。', 'Between rhythms, open worlds, and blocks.')}</p></Reveal>
+        <Reveal className="section-heading"><span className="eyebrow">{t('闲暇时分', 'AFTER HOURS')}</span><KineticHeading lines={[{text:t('于别处，暂栖此心。', 'Find a home in other worlds.')}]} /><p>{t('在节奏、星辰与方块之间。', 'Among rhythms, stars, and blocks.')}</p></Reveal>
         <Reveal><div className="game-shelf">{games.map(game => <article className={`game game-${game.id}`} key={game.id}><a href={game.url} target="_blank" rel="noopener noreferrer"><div className="game-cover"><img src={game.image} alt={game.name[lang]} width="240" height="240" loading="lazy" /></div><div className="game-label"><h3>{game.name[lang]}</h3><ArrowUpRight size={17} /></div><p>{game.genre[lang]}</p></a>{game.account && <button className="game-account" onClick={() => void copy(game.account!.value)} aria-label={t('复制', 'Copy') + ` ${game.name[lang]} ${game.account.label} ${game.account.value}`}><span>{game.account.label}: <strong>{game.account.value}</strong></span>{copied === game.account.value ? <Check size={14} /> : <Copy size={14} />}</button>}</article>)}</div></Reveal>
         <div className="life-grid">
           <CharacterShowcase lang={lang} />
-          <Reveal className="music-section" delay={0.1}><div className="music-top"><span className="eyebrow">{t('耳边的世界', 'ON REPEAT')}</span></div><div className="record" aria-hidden="true"><div className="record-grooves" /><img src="/assets/playlist-cover.webp" alt="" width="160" height="160" loading="lazy" /><span className="record-hole" /></div><div className="music-copy"><h3>{t('给万象，一段配乐。', 'A soundtrack for the sphere.')}</h3><p className="music-playlist"><Headphones size={16} weight="light" />{t('我的 Bilibili 歌单', 'My Bilibili playlist')}</p><a className="inline-link" href={profile.playlist} target="_blank" rel="noopener noreferrer">{t('打开歌单', 'Open playlist')}<ArrowUpRight size={19} /></a></div></Reveal>
+          <Reveal className="music-section" delay={0.1}><div className="music-top"><span className="eyebrow">{t('耳边的世界', 'ON REPEAT')}</span></div><div className="record" aria-hidden="true"><div className="record-grooves" /><img src="/assets/playlist-cover.webp" alt="" width="160" height="160" loading="lazy" /><span className="record-hole" /></div><div className="music-copy"><h3>{t('让万象，入耳成章。', 'A score for all that stirs.')}</h3><p className="music-playlist"><Headphones size={16} weight="light" />{t('我的 Bilibili 歌单', 'My Bilibili playlist')}</p><a className="inline-link" href={profile.playlist} target="_blank" rel="noopener noreferrer">{t('打开歌单', 'Open playlist')}<ArrowUpRight size={19} /></a></div></Reveal>
         </div>
       </section>
 
       <section id="contact" className="contact section page-width">
-        <Reveal><span className="eyebrow">{t('相遇', 'GET IN TOUCH')}</span><h2>{t('下一次探索，', 'The next discovery,')}<br /><span className="accent-text">{t('从一句你好开始。', 'starts with hello.')}</span></h2><p className="contact-intro">{t('一个等待落地的想法，或是开源同路人。', 'An idea waiting to take shape, or a fellow open-source explorer.')}</p></Reveal>
+        <OrbitalArtifact kind="lunar-shard" />
+        <Reveal><span className="eyebrow">{t('相遇', 'GET IN TOUCH')}</span><KineticHeading lines={[{text:t('愿下一程，', 'The next chapter')},{text:t('始于一声你好。', 'begins with hello.'),accent:true}]} /><p className="contact-intro">{t('有待成形的想法，或恰好同路的你。', 'An idea taking shape, or a fellow traveller.')}</p></Reveal>
         <Reveal className="contact-links"><MagneticLink href={`mailto:${profile.email}`} className="email-link"><span>{profile.email}</span><ArrowUpRight size={38} weight="light" /></MagneticLink><div className="social-links"><a href={profile.github} target="_blank" rel="noopener noreferrer"><GithubLogo size={21} />GitHub<ArrowUpRight size={15} /></a><a href={profile.bilibili} target="_blank" rel="noopener noreferrer"><span className="bilibili-mark" aria-hidden="true" />Bilibili<ArrowUpRight size={15} /></a><button onClick={() => void copy(profile.qq)} aria-label={t('复制 QQ 3626599388', 'Copy QQ 3626599388')}><span className="qq-mark" aria-hidden="true" /><span className="qq-number">{profile.qq}</span>{copied === profile.qq ? <Check size={17} /> : <Copy size={17} />}</button></div></Reveal>
       </section>
     </main>
     <footer className="site-footer page-width"><a className="brand" href="#top">STMfan<ArrowUpRight size={28} /></a><p>To Decipher the Sublunary Sphere.</p></footer>
     <div className={`copy-feedback ${copied || copyError ? 'visible' : ''}`} role="status" aria-live="polite">{copied ? t('已复制', 'Copied') : copyError ? t('复制不可用，请选取号码。', 'Copy unavailable. Select the number.') : ''}</div>
     <nav className="navigation-island" aria-label={t('章节导航', 'Chapter navigation')}>{chapters.map((id, i) => { const Icon = navIcons[i]; return <a key={id} href={id === 'home' ? '#top' : `#${id}`} aria-label={labels[i]} aria-current={chapter === id ? 'location' : undefined} onClick={() => setChapter(id)}>{chapter === id && <motion.span className="nav-active" layoutId="nav-active" transition={spring} />}<Icon size={20} weight={chapter === id ? 'fill' : 'regular'} /><span>{labels[i]}</span></a>; })}</nav>
-  </MotionConfig>;
+  </MotionConfig></CalmMotionContext.Provider>;
 }
 
 export default App;

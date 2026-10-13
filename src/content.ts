@@ -15,26 +15,26 @@ export const profile = {
 export const skills = [
   {
     id: 'backend', name: 'Python / FastAPI', tag: text('后端开发', 'BACKEND'),
-    title: text('予以筋骨。', 'Bestow sinew and bone.'),
-    description: text('丰富的 Python 与 FastAPI 后端搭建经验，把想法接入真实的服务。', 'Extensive experience building Python and FastAPI backends, bringing ideas into working services.'),
+    title: text('予以筋骨。', 'Give it sinew and bone.'),
+    description: text('以丰富的 Python / FastAPI 后端经验，予想法以可运行的筋骨。', 'Python / FastAPI backend experience, giving ideas a structure that runs.'),
     tools: ['Python', 'FastAPI', 'API'],
   },
   {
     id: 'ops', name: 'Debian / Operations', tag: text('服务器运维', 'OPERATIONS'),
-    title: text('赋其流明', 'Imbue with effulgence.'),
-    description: text('熟悉 Debian，拥有多个私人服务器。在部署与长期维护中积累运维实操经验。', 'Familiar with Debian, with multiple private servers and hands-on experience in deployment and ongoing maintenance.'),
+    title: text('赋其流明', 'Lend it lasting light.'),
+    description: text('熟悉 Debian，照看多台私有服务器；从部署到维护，让灯火长明。', 'Debian and my private servers; deployment, upkeep, and keeping the lights alive.'),
     tools: ['Debian', 'Linux', 'Servers'],
   },
   {
     id: 'vibe', name: 'Vibe Coding', tag: text('全栈构建', 'FULL STACK'),
-    title: text('下笔如有神助。', 'A Singularity birthed the cosmos.'),
-    description: text('擅长全栈 Vibe Coding，熟悉 Prompt Engineering。让意图、实现与验证连成一线。', 'Full-stack Vibe Coding and Prompt Engineering. Connecting intention, implementation, and verification.'),
+    title: text('下笔如有神助。', 'As if guided by a muse.'),
+    description: text('擅长全栈 Vibe Coding，熟悉 Prompt Engineering；一念，经实现与验证成形。', 'Skilled in full-stack Vibe Coding, familiar with Prompt Engineering. Intent, implementation, verification.'),
     tools: ['Prompt Engineering', 'Full Stack', 'AI'],
   },
   {
-    id: 'flutter', name: 'Dart / Flutter', tag: text('原生移动端', 'APPLICATION'),
-    title: text('画龙将要点睛', 'Chaos unbound onto a foreign realm.'),
-    description: text('短暂学习过 Dart 与 Flutter，探索跨平台应用的另一种表达。', 'Briefly studied Dart and Flutter, exploring another way to build cross-platform applications.'),
+    id: 'flutter', name: 'Dart / Flutter', tag: text('跨平台探索', 'EXPLORING'),
+    title: text('画龙将要点睛', 'The dragon awaits its eyes.'),
+    description: text('浅尝 Dart 与 Flutter；跨屏的画龙，尚待点睛。', 'Briefly explored Dart and Flutter; the final brushstroke awaits.'),
     tools: ['Dart', 'Flutter'],
   },
 ];

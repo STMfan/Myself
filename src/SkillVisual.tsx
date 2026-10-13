@@ -1,11 +1,12 @@
 import { useRef } from 'react';
-import { motion, useInView, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
+import { useAppReducedMotion } from './MotionPreferences';
 import { Code, HardDrives, Lightning, Sparkle } from '@phosphor-icons/react';
 import type { Language } from './content';
 
 // These are explanatory illustrations, not a live server dashboard or claimed metrics.
 export default function SkillVisual({ field, lang }: { field: string; lang: Language }) {
-  const reduced = useReducedMotion();
+  const reduced = useAppReducedMotion();
   const visualRef = useRef<HTMLDivElement>(null);
   const visible = useInView(visualRef);
   const x = useMotionValue(0); const y = useMotionValue(0);

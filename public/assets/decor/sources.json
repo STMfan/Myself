@@ -1,0 +1,24 @@
+[
+  {
+    "kind": "armillary",
+    "file": "/assets/decor/armillary.webp",
+    "prompt": "Use case: stylized-concept. Asset type: transparent decorative 3D object for STMfan's moon-themed personal website. A single exquisitely crafted silver-chrome and frosted optical-glass armillary sphere, three intersecting slender orbital rings surrounding an empty central space, with one small pale icy-cyan glass bead on an orbit. A modern celestial instrument, poised and slightly tilted, physically plausible studio 3D render, subtle machining, reflective cool white highlights, convincing depth. Floating isolated object occupying 75% of a square canvas, generous empty margins for rotation in the website. Arctic signal palette: silver, smoky transparent glass, a trace of cyan. The sphere should remain readable on both dark charcoal and pale blue-gray backgrounds. Crisp clean cutout, actual alpha transparency, no ground, no floor, no cast background shadow, no halo or colored background. No text, numbers, logos, starfield, UI, frame, or watermark.",
+    "generatedWith": "Codex built-in ImageGen",
+    "generatedAt": "2026-10-13",
+    "width": 768,
+    "height": 768,
+    "hasAlpha": true,
+    "sha256": "a699c108a285050719c71779775a79eb2d84e978b7f10b3b5ea210e9978040a9"
+  },
+  {
+    "kind": "lunar-shard",
+    "file": "/assets/decor/lunar-shard.webp",
+    "prompt": "Use case: stylized-concept. Asset type: transparent decorative lunar fragment for a cinematic moon-themed personal website. A solitary floating sculptural crescent fragment of real-looking lunar basalt, shaped like a curved section of moon crust with rugged cratered stone on one face and a finely polished silver edge catching icy white light. The fragment has an elegant diagonal silhouette, organic yet precise, highly detailed tactile charcoal rock and small cool silver facets. Slightly three-quarter view, studio lighting from upper left, poised in the void. One object, no debris cloud. Isolated square composition with spacious margins, occupying 70% of frame, suitable for a slow rotating cutout. Sophisticated photorealistic 3D still, restrained icy cyan reflection, designed to accompany an existing moon image and thin white flowing curves on a developer portfolio. Actual transparent background; no ground, background, glow halo, typography, letters, marks, logos or watermarks.",
+    "generatedWith": "Codex built-in ImageGen",
+    "generatedAt": "2026-10-13",
+    "width": 768,
+    "height": 768,
+    "hasAlpha": true,
+    "sha256": "003df9e4140b1be131fade8ac80d25d9d2c1381d03a44b56a477213abacf6d14"
+  }
+]
