@@ -97,7 +97,7 @@ export function Stage() {
     let frame = 0;
     let raf = 0;
     let lastPaint = 0;
-    const minFrame = compact ? 1000 / 30 : 0;
+    const minFrame = 1000 / 30;
 
     const readPalette = () => {
       const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
@@ -105,7 +105,7 @@ export function Stage() {
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, compact ? 1.25 : 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * dpr);

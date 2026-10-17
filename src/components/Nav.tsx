@@ -5,7 +5,7 @@ import { usePreferences } from '../lib/preferences';
 import { ScrollTrigger, scrollToId, scrollToTop } from '../lib/scroll';
 import { Logo } from './Type';
 
-export function Nav({ booted }: { booted: boolean }) {
+export function Nav() {
   const { copy, locale, theme, toggleLocale, toggleTheme } = usePreferences();
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState('workshop');
@@ -85,7 +85,7 @@ export function Nav({ booted }: { booted: boolean }) {
         {copy.ui.skip}
       </a>
 
-      <header className="nav" data-scrolled={scrolled} data-booted={booted}>
+      <header className="nav" data-scrolled={scrolled}>
         <div className="nav__inner">
           <button className="nav__brand" onClick={scrollToTop} aria-label="STMfan">
             <Logo className="nav__logo" />

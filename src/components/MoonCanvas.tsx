@@ -50,7 +50,7 @@ export function MoonCanvas({
       return;
     }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.4 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
     renderer.outputColorSpace = SRGBColorSpace;
     renderer.setClearColor(0x000000, 0);
     host.appendChild(renderer.domElement);
@@ -63,7 +63,7 @@ export function MoonCanvas({
     group.rotation.z = 0.12;
     scene.add(group);
 
-    const geometry = new SphereGeometry(1, compact ? 96 : 144, compact ? 72 : 108);
+    const geometry = new SphereGeometry(1, compact ? 96 : 128, compact ? 72 : 96);
     const loader = new TextureLoader();
     const mapUrl = window.innerWidth < 820 ? MAP_SMALL : MAP_WIDE;
     const map = loader.load(
@@ -77,7 +77,7 @@ export function MoonCanvas({
 
     const material = new MeshStandardMaterial({
       map,
-      bumpMap: compact ? null : map,
+      bumpMap: null,
       bumpScale: 0.12,
       roughness: 0.98,
       metalness: 0,
@@ -165,7 +165,7 @@ export function MoonCanvas({
     let raf = 0;
     let previous = performance.now();
     let lastRender = 0;
-    const minFrame = compact ? 1000 / 30 : 1000 / 60;
+    const minFrame = 1000 / 30;
 
     const clamp = (value: number, min: number, max: number) =>
       Math.min(max, Math.max(min, value));

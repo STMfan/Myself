@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { PreferencesProvider } from './lib/preferences';
 import { gsap, ScrollTrigger, startScrollTracking, stopScrollTracking } from './lib/scroll';
 import { Stage } from './components/Stage';
-import { Preloader } from './components/Preloader';
 import { Nav } from './components/Nav';
 import { Cursor } from './components/Cursor';
 import { Toast } from './components/Toast';
@@ -17,9 +16,6 @@ import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
 
 export function App() {
-  const [booted, setBooted] = useState(false);
-  const [showPreloader, setShowPreloader] = useState(true);
-
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -29,11 +25,11 @@ export function App() {
     const context = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
         gsap.from(element, {
-          y: 34,
+          y: 30,
           opacity: 0,
-          duration: 1.05,
+          duration: 0.95,
           ease: 'expo.out',
-          scrollTrigger: { trigger: element, start: 'top 90%' },
+          scrollTrigger: { trigger: element, start: 'top 92%' },
         });
       });
     });
@@ -58,19 +54,11 @@ export function App() {
       <Stage />
       <div className="grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
-      {showPreloader && (
-        <Preloader
-          onDone={() => {
-            setBooted(true);
-            window.setTimeout(() => setShowPreloader(false), 320);
-          }}
-        />
-      )}
       <Cursor />
-      <Nav booted={booted} />
+      <Nav />
       <ScrollRefresh />
       <main id="main">
-        <Hero booted={booted} />
+        <Hero />
         <Workshop />
         <OpenSource />
         <Commission />

@@ -35,8 +35,6 @@ export interface Copy {
     menuOpen: string;
     menuClose: string;
     skip: string;
-    preloaderLine: string;
-    preloaderNote: string;
     copy: string;
     copied: string;
     backTop: string;
@@ -91,7 +89,8 @@ export interface Copy {
   extras: {
     title: string;
     lede: string;
-    tabs: { games: string; characters: string; playlist: string };
+    gamesLabel: string;
+    castLabel: string;
     playlistLabel: string;
     playlistTitle: string;
     playlistNote: string;
@@ -127,7 +126,7 @@ export const site: Record<Locale, Copy> = {
     meta: {
       title: 'STMfan | 探月下，尘世万象',
       description:
-        'STMfan，在校学生与独立开发者。后端、服务器运维、全栈交付，接小型付费委托，也帮开源项目。探月下，尘世万象。',
+        'STMfan，在校学生与独立开发者。后端、服务器运维、全栈交付，接小型付费委托；开源项目看兴趣，有时免费。探月下，尘世万象。',
     },
     ui: {
       langLabel: '切换语言',
@@ -137,8 +136,6 @@ export const site: Record<Locale, Copy> = {
       menuOpen: '打开菜单',
       menuClose: '关闭菜单',
       skip: '跳到正文',
-      preloaderLine: '正在对准月下',
-      preloaderNote: 'STMfan',
       copy: '复制',
       copied: '已复制',
       backTop: '回到顶部',
@@ -207,7 +204,7 @@ export const site: Record<Locale, Copy> = {
     },
     commission: {
       title: '可以这样合作',
-      lede: '小型委托优先。范围清楚、周期短的活，我接得比较快。',
+      lede: '小型委托优先。开源项目看兴趣，有时可以免费。',
       availability: '现在可以接',
       paidTitle: '付费委托',
       paidNote: '先谈清范围和报价，再开工。',
@@ -231,8 +228,8 @@ export const site: Record<Locale, Copy> = {
           pricing: '按项目',
         },
       ],
-      freeTitle: '开源项目不收费',
-      freeBody: '文档、部署、后端问题，能帮就帮。',
+      freeTitle: '看兴趣，也许免费',
+      freeBody: '付费委托是默认。开源项目如果正好是我感兴趣的，可以考虑免费参与。',
       freeItems: ['文档整理', '部署与迁移', '后端排查'],
       freeLink: '在 GitHub 找我',
       cta: '发起咨询',
@@ -240,7 +237,8 @@ export const site: Record<Locale, Copy> = {
     extras: {
       title: '工作之外',
       lede: '常玩的几款游戏，几个偏爱的角色，还有写代码时循环的歌单。',
-      tabs: { games: '游戏', characters: '角色', playlist: '歌单' },
+      gamesLabel: '游戏',
+      castLabel: '角色',
       playlistLabel: '歌单',
       playlistTitle: '写代码时的背景音',
       playlistNote: '循环很久也不腻的几首。',
@@ -278,7 +276,7 @@ export const site: Record<Locale, Copy> = {
     meta: {
       title: 'STMfan | To Decipher the Sublunary Sphere.',
       description:
-        'STMfan, student and independent developer. Backends, server operations and full stack delivery. Small paid commissions, free help for open source. To decipher the sublunary sphere.',
+        'STMfan, student and independent developer. Backends, server operations and full stack delivery. Small paid commissions, plus selective free help for open source projects that interest me. To decipher the sublunary sphere.',
     },
     ui: {
       langLabel: 'Switch language',
@@ -288,8 +286,6 @@ export const site: Record<Locale, Copy> = {
       menuOpen: 'Open menu',
       menuClose: 'Close menu',
       skip: 'Skip to content',
-      preloaderLine: 'Aligning to the sublunary',
-      preloaderNote: 'STMfan',
       copy: 'Copy',
       copied: 'Copied',
       backTop: 'Back to top',
@@ -358,7 +354,7 @@ export const site: Record<Locale, Copy> = {
     },
     commission: {
       title: 'Ways to work together',
-      lede: 'Small jobs first. Clear scope and a short timeline get a fast yes.',
+      lede: 'Small jobs first. Open source depends on how much it interests me; sometimes I help for free.',
       availability: 'Open for work',
       paidTitle: 'Paid work',
       paidNote: 'Scope and price agreed before I start.',
@@ -382,8 +378,8 @@ export const site: Record<Locale, Copy> = {
           pricing: 'Per project',
         },
       ],
-      freeTitle: 'Free for open source',
-      freeBody: 'Docs, deployment and backend questions. If I can help, I will.',
+      freeTitle: 'Free when it interests me',
+      freeBody: 'Paid work is the default. If an open source project genuinely interests me, I may join for free.',
       freeItems: ['Docs', 'Deployment and migration', 'Backend debugging'],
       freeLink: 'Find me on GitHub',
       cta: 'Start a brief',
@@ -391,7 +387,8 @@ export const site: Record<Locale, Copy> = {
     extras: {
       title: 'Outside work',
       lede: 'A few games, a few favourite characters, and the playlist I keep on while coding.',
-      tabs: { games: 'Games', characters: 'Characters', playlist: 'Playlist' },
+      gamesLabel: 'Games',
+      castLabel: 'Characters',
       playlistLabel: 'Playlist',
       playlistTitle: 'Background loops',
       playlistNote: 'A few tracks that never get old.',
@@ -525,7 +522,6 @@ export const characters: CharacterEntry[] = [
     origin: { zh: '三角洲行动', en: 'Delta Force' },
     art: '/assets/cast/vyron.webp',
     face: '/assets/cast/vyron-face.webp',
-    framed: true,
   },
   {
     id: 'gizmo',
@@ -534,6 +530,5 @@ export const characters: CharacterEntry[] = [
     origin: { zh: '三角洲行动', en: 'Delta Force' },
     art: '/assets/cast/gizmo.webp',
     face: '/assets/cast/gizmo-face.webp',
-    framed: true,
   },
 ];

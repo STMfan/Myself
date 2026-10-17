@@ -1,136 +1,134 @@
-# Design notes: Sublunary (v2.2)
+# Design notes: Sublunary (v2.3)
 
-A one-page personal site built as a single continuous shot. The visitor meets the
-person, the skills, the proof and the paid offer before the decorative material.
-The page is conversational, not a restatement of a brief: it answers "who is this,
-can they build my thing, are they available, how do I reach them".
+A one-page personal site that reads like a single shot: a huge moon, a title that
+sits inside it, then the person, the proof, the work and the way in. The visitor
+should be able to stop on any act and see most of it without hunting.
 
-## 1. Design read and dials
+## 1. Read and dials
 
 - Read as: personal homepage and commission surface for a developer, for visitors
-  who appreciate craft, with an editorial-celestial language.
-- `DESIGN_VARIANCE: 8`, `MOTION_INTENSITY: 8`, `VISUAL_DENSITY: 4`.
-- No component framework. A token layer plus five hand-written stylesheets so the
-  text choreography and the WebGL moon share one palette.
+  who like craft, with an editorial-celestial language.
+- `DESIGN_VARIANCE: 9`, `MOTION_INTENSITY: 9`, `VISUAL_DENSITY: 4`.
+- No component framework. Hand-written CSS tokens, five stylesheets, GSAP and one
+  three.js scene.
 
 ## 2. Visual system
 
 ### Palette
 
-One accent, locked for the whole page: lunar amber (`#f2a24b` dark, `#b4550d` light).
-Neutrals are cold silver-blue. Theme switching re-themes the entire page through the
-View Transitions API, expanding a circle from the pressed control, with an instant
-swap for browsers without the API.
+Lunar amber (`#f2a24b` dark, `#b4550d` light) is the only accent. Neutrals are cold
+silver-blue. The theme toggle cross-fades the whole page with the View Transitions
+API and falls back to an instant swap.
 
 ### Type scale
 
 | Token | Range | Use |
 | --- | --- | --- |
 | `--fs-2xs` | 12px | labels, metadata, footer |
-| `--fs-xs` | 13px | links, captions, pricing |
-| `--fs-sm` | 14.4px | secondary body, item copy |
+| `--fs-xs` | 13px | captions, links, card headings |
+| `--fs-sm` | 14.4px | secondary body |
 | `--fs-base` | 16-17px | body |
 | `--fs-lg` | 17-19px | section lede |
-| `--fs-xl` | 19-23px | card titles, CTA line |
-| `--fs-2xl` | 23-30px | case titles, paid/free headings |
-| `--fs-3xl` | 30-43px | section titles, game/character names |
-| `--fs-4xl` | 35-59px | contact title |
-| `--fs-hero` | 45-109px | hero slogan (zh) |
+| `--fs-xl` | 19-23px | item titles, CTA line |
+| `--fs-2xl` | 23-30px | case, paid/free and character names |
+| `--fs-3xl` | 27-39px | section titles |
+| `--fs-4xl` | 32-51px | contact title |
+| hero | 51-125px (zh), 32-70px (en) | slogan only |
 
-Body copy never drops below 14px; labels never below 12px. Section titles are capped
-at `--fs-3xl` so the hero stays the only oversized moment, and the contact title is
-deliberately smaller than it was in v2.0. Latin display is Bricolage Grotesque, CJK
-display is Noto Serif SC, body is Instrument Sans plus Noto Sans SC, labels are
-JetBrains Mono. Latin and CJK share one family stack so mixed strings fall through
-per glyph.
+Section titles were reduced again in v2.3 so the hero is the single oversized
+moment. Labels never drop below 12px. CJK display is Noto Serif SC, Latin display
+Bricolage Grotesque, body Instrument Sans plus Noto Sans SC, labels JetBrains Mono.
 
 ### Surface
 
-Two radii: `2px` for media frames and the framed key art, full pill for controls.
-No filled panels: sections are separated by 1px hairlines and space. The commission
-columns share a top rule and a vertical divider; the gallery is tabs, stage and
-thumbnails with no enclosing card; the contact block is a channel grid between two
-rules. This removes the "giant black card" rhythm of the earlier version.
+Two radii: `2px` for frames and cards, full pill for controls. Most sections are
+hairlines and space. The gallery is the deliberate exception: three compact glass
+cards, each carrying real content, never one full-screen card with a sentence in
+the middle.
 
 ## 3. The acts
 
 | Act | What the visitor gets | Motion |
 | --- | --- | --- |
-| Hero | who STMfan is, one sentence of value, availability, giant contact CTA | letters rise from masks, CTA halo breathes, the moon can be dragged |
-| Skills | four attributes: backend, operations, full stack, mobile, each with one outcome line | sticky glyph dial, active row reveals a short line, accent rule travels |
-| Open source | MaiBot proof plus three quiet spaces for future projects | case media parallax, timeline reveal |
-| Commissions | paid services with pricing posture, free open source help beside them | accent line sweep on the paid column, CTA inside the paid side |
-| Gallery | games, official character portraits and the playlist in one tabbed stage | 6s auto-rotation with progress line, thumbs, arrows, no card |
-| Notes | the lunar/ground manifesto | horizon parallax, lines illuminate as the section passes |
-| Contact | email, QQ, GitHub, Bilibili in one grid, one CTA | channel icons lift, CTA halo, copy toast |
+| Hero | identity, the value sentence, availability, one CTA, the moon | a 68vw 3D moon behind the title, letters rise, solid and outlined lines, ghost word, two meteors, magnetic CTA |
+| Skills | four attributes with one outcome line each | sticky glyph dial, active-line reveal, travelling accent rule |
+| Open source | MaiBot proof plus three quiet future slots | case media parallax, timeline reveal |
+| Commissions | paid services, then "free when it interests me" | accent sweep, CTA in the paid column |
+| Gallery | games, five characters and the playlist as three cards | 2.5s character rotation, face rail, pointer tilt and spotlight |
+| Notes | the lunar/ground manifesto | horizon parallax, lines illuminate |
+| Contact | four channels and one CTA | icon lift, CTA halo, copy toast |
 
-The page is about 6,100px at 1440×900. Nothing hijacks the wheel: there is no Lenis
-loop and no GSAP pin.
+There is no preloader. The page renders immediately, including on mobile; the hero
+timeline starts on mount. No Lenis, no scroll pin, no wheel hijack.
 
-## 4. The 3D moon
+## 4. The hero
 
-`src/components/MoonCanvas.tsx` renders a real sphere with the Solar System Scope
-lunar albedo map (CC BY 4.0), a key light, a cool fill and a warm fresnel rim. It
-rotates slowly, can be dragged, supports arrow keys, pauses offscreen or hidden,
-and freezes auto-rotation under reduced motion. The scene is dynamically imported
-as its own chunk, so first paint never waits for three.js. A CSS disc covers the
-texture load. Credit is in the footer and in `docs/ASSETS.md`.
+The hero is one composition, not a two-column layout: a giant moon is anchored to
+the right, spills past the viewport, and the copy overlaps its dark limb. The first
+slogan line is solid, the second is an outline so the moon shows through the
+letters. A huge outlined `SUBLUNARY` sits behind the copy and parallaxes. The moon
+is draggable on desktop, decorative on touch.
 
-## 5. Character portraits
+The CTA has a magnetic pull (GSAP quickTo, desktop only). Meteors cross the backdrop
+every eleven seconds. The top-left kicker and the bottom availability line are the
+only small text in the hero.
 
-All five portraits are official artwork, sourced from official pages and wiki-hosted
-official renders. Wriothesley, Varka and Von Lycaon use transparent official
-portraits; the two Delta Force operators (Vyron, Gizmo) have no transparent official
-render, so their official key art is presented inside a 3:4 portrait frame with a
-soft bottom fade, documented in `docs/ASSETS.md`. Every portrait has a 160px face
-crop for the thumbnail rail, so heads stay readable on phones. No generated
-character art is used.
+## 5. The moon
 
-## 6. Responsive and touch
+`MoonCanvas.tsx` renders a real sphere with the Solar System Scope albedo map
+(CC BY 4.0), key/fill/rim lighting and a subtle fresnel. It is dynamically imported
+after 350ms, capped at 30fps and DPR 1.5, with no bump map. It pauses offscreen and
+when the tab is hidden; reduced motion freezes rotation but keeps dragging. The
+texture credit is in the footer and `docs/ASSETS.md`.
 
-- Sections use `min-height`, never fixed heights with hidden overflow.
-- Full-screen acts use `100svh`; the hero fits 1440×900, 1366×768, 1280×720 and
-  390×844 without clipping the CTA.
-- `scroll-padding-top` and JS navigation offset the fixed nav, so a section never
-  lands under the bar.
-- Mobile: the moon drops below the copy at 190px and the readout is hidden; the
-  gallery tab bar sticks below the nav; thumbnails are 44px targets; the contact
-  CTA and copy buttons go full width; safe-area insets are respected.
-- Touch: no custom cursor, no scroll hijack, vertical page scroll still wins over
-  dragging the moon (`touch-action: pan-y`).
+## 6. Character portraits
 
-## 7. Mobile performance mode
+All five are official art. Wriothesley, Varka and Von Lycaon are official
+transparent renders. The Delta Force operators (Vyron, Gizmo) have no transparent
+official render, so their official key art has its background removed locally with
+rembg (u2net), then is alpha-trimmed and cropped to a half-body portrait. Every
+portrait has a 160px face crop for the rail. The carousel advances every 2.5s,
+pauses on hover, focus or a manual face selection and stops under reduced motion.
 
-The reported flicker came from too many heavy layers and per-frame React updates.
-The current build removes the causes instead of masking them:
+## 7. Responsive and touch
 
-- No `backdrop-filter` on the nav or menu under `(hover: none)`.
-- The grain, atmosphere plates and guided SVG lines are hidden on touch.
-- The starfield runs at 30fps, 120 stars, DPR ≤1.25 on touch.
-- The moon runs at 30fps, DPR ≤1.4, no bump map, simpler geometry on touch.
-- The preloader writes the counter and meter directly to DOM refs; it no longer
-  re-renders React every frame.
-- The live clock is isolated in its own readout component, so it cannot re-render
-  the WebGL canvas.
-- Ambient halo, float and rotation animations are disabled on touch.
-- Headless measurements: no long tasks during a full stepped scroll, 60fps rAF
-  sample, one moon canvas, 10 DOM mutations for a whole page scroll.
+- The hero is exactly `100svh`; it fits 1440×900, 1366×768, 1280×720 and 390×844
+  without clipping the CTA.
+- On mobile the moon becomes a 142vw backdrop behind the copy, at lower opacity
+  with a vertical scrim; it no longer takes a column below the text.
+- The gallery stacks three cards; games remain a single five-row list, all five
+  visible at once. Playlist arrow and wordmark are hidden on mobile so the title
+  stays on one line.
+- Thumbnails and icon buttons are 44px; the contact CTA is full width; safe-area
+  insets are respected.
+- Native scrolling. `touch-action: pan-y` on the moon means a vertical swipe still
+  scrolls the page.
 
-## 8. Avatar
+## 8. Performance mode
 
-The visible brand mark calls `https://api.github.com/users/STMfan` on mount, uses the
-returned `avatar_url`, and caches it for 12 hours in `localStorage`. If the API is
-rate-limited or offline, it falls back to `https://github.com/STMfan.png?size=240`.
-The favicon and Apple touch icon also point at the GitHub avatar endpoint. No
-hand-cropped local avatar is rendered in the UI.
+The mobile flicker came from layered filters, a per-frame React preloader and two
+full-rate canvases. v2.3 removes the causes:
 
-## 9. Tradeoffs
+- No preloader at all; FCP measured at 900ms on a 390×844 mobile profile.
+- No `backdrop-filter` on touch; grain, atmosphere and guided lines hidden there.
+- Starfield and moon both at 30fps and DPR ≤1.5; one moon canvas.
+- The clock readout is a separate component and is not mounted in the hero.
+- Ambient halos and float animations are disabled on touch.
+- Measured: zero long tasks during a full stepped scroll, 60fps rAF sample, ten
+  DOM mutations across the page.
 
-- three.js is a 535 KB chunk (134 KB gzip), loaded after first paint.
-- The Delta Force key art is framed rather than cut out, because no official
-  transparent render exists. This is visible and documented, not hidden.
-- The gallery auto-rotates every six seconds until the visitor interacts; hover,
-  focus, offscreen and reduced motion pause it.
-- The build prerenders the Chinese page but mounts with `createRoot`, so the live
-  clock and phase never cause a hydration mismatch.
-- The moon texture is CC BY 4.0 and requires visible attribution.
+## 9. Avatar
+
+The visible brand mark fetches `api.github.com/users/STMfan` on mount, preloads the
+returned `avatar_url`, then swaps it in, with a 12 hour cache. If the API is
+rate-limited, the full local `avatar.png` is the fallback; no hand-cropped face is
+used. The favicon and Apple touch icon point at the GitHub avatar endpoint.
+
+## 10. Tradeoffs
+
+- Three.js is a 535KB lazy chunk; first paint does not wait for it.
+- The two Delta Force cutouts are precomputed with rembg; `bun run assets` would
+  need that manual step to regenerate them from key art.
+- The gallery cards are a deliberate surface change from the open sections; they
+  are compact and content-first, not decorative panels.
+- The page is about 5,200px desktop and 5,700px mobile. Desktop acts are 594-818px tall; mobile acts are 523-996px, so a stop normally holds a complete section.

@@ -53,11 +53,10 @@ official render of his own, so the manga/group-art fallback was not required.
 
 The two Delta Force operators (Vyron, Gizmo) have **no published transparent
 render**. They use the official operator key art from the official Chinese
-operator page instead, cropped to a half-body portrait. Those backgrounds are
-photographic, so they are not keyed: the plate keeps its backdrop, a radial
-alpha ramp feathers the rectangle into the page, and a dark vignette blends it
-towards the site's near-black. That is a documented compromise, not a redraw;
-the characters are untouched.
+operator page, with the photographic backdrop removed locally using rembg
+(u2net), then trimmed to the alpha bounds and cropped to a half-body portrait.
+The characters are untouched; only the background is removed. The committed
+cutouts were inspected on the dark page.
 
 Every output keeps a real alpha channel with a 0..255 range; `verify()` asserts
 `hasAlpha`, the frame height, the 300 px head scale and the 160x160 face crop
@@ -92,17 +91,17 @@ this document was written.
   - Source: https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg
   - Page: https://df.qq.com/cp/a20240906main/index.html
   - Owner: Tencent / Team Jade (Delta Force, 三角洲行动)
-  - Scope: Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:38.606Z (4096x2160 source, key art, background retained and feathered)
-  - Cut: half-body crop of the official key art; the battlefield background stays (it cannot be keyed cleanly), feathered to alpha at the edges and darkened into the site background
+  - Scope: Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron; the background was removed locally with rembg (u2net). Used nominatively; not relicensed under MIT.
+  - Fetched at: 2026-10-17T16:05:38.606Z (4096x2160 source, key art, background removed with rembg, then alpha-trimmed)
+  - Cut: half-body crop of the official key art; the background is removed with rembg and the alpha is trimmed to the subject
   - Transform: crop 1300x2000 at (2104,150), scale 0.500x to 650x1000, head 300px; webp q88 with alpha; face crop 600x600 to 160x160, webp q88.
 - **gizmo** — `public/assets/cast/gizmo.webp` (800x991, alpha) + `public/assets/cast/gizmo-face.webp` (160x160)
   - Source: https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg
   - Page: https://df.qq.com/cp/a20240906main/index.html
   - Owner: Tencent / Team Jade (Delta Force, 三角洲行动)
-  - Scope: Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:39.221Z (3840x2212 source, key art, background retained and feathered)
-  - Cut: head + torso of the official key art (glasses, raised hand, shoulder spider intact); backdrop feathered and darkened like Vyron
+  - Scope: Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published; the background was removed locally with rembg (u2net). Used nominatively; not relicensed under MIT.
+  - Fetched at: 2026-10-17T16:05:39.221Z (3840x2212 source, key art, background removed with rembg, then alpha-trimmed)
+  - Cut: head + torso of the official key art (glasses, raised hand, shoulder spider intact); background removed with rembg and alpha-trimmed
   - Transform: crop 1672x2072 at (1439,140), scale 0.478x to 800x991, head 300px; webp q88 with alpha; face crop 620x620 to 160x160, webp q88.
 
 ## 3D moon map (v2.1)
@@ -271,13 +270,13 @@ from `@fontsource-variable` packages in `src/`.
 | File | Dimensions | Size | Source |
 | --- | --- | --- | --- |
 | `public/assets/cast/gizmo-face.webp` | 160x160 | 6.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg (face crop 620x620 at 1965,330)` |
-| `public/assets/cast/gizmo.webp` | 800x991 | 171.3 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg (official key art, feathered)` |
+| `public/assets/cast/gizmo.webp` | 900x790 | 134.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg (official key art, background removed)` |
 | `public/assets/cast/lycaon-face.webp` | 160x160 | 9.8 KB | `https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420 (face crop 390x390 at 790,110)` |
 | `public/assets/cast/lycaon.webp` | 851x1000 | 108.6 KB | `https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420 (official transparent render)` |
 | `public/assets/cast/varka-face.webp` | 160x160 | 11.5 KB | `https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455 (face crop 280x280 at 620,10)` |
 | `public/assets/cast/varka.webp` | 784x1000 | 141.4 KB | `https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455 (official transparent render)` |
 | `public/assets/cast/vyron-face.webp` | 160x160 | 8.5 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg (face crop 600x600 at 2448,290)` |
-| `public/assets/cast/vyron.webp` | 650x1000 | 136.1 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg (official key art, feathered)` |
+| `public/assets/cast/vyron.webp` | 900x1031 | 162.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg (official key art, background removed)` |
 | `public/assets/cast/wriothesley-face.webp` | 160x160 | 9.9 KB | `https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933 (face crop 280x280 at 603,28)` |
 | `public/assets/cast/wriothesley.webp` | 894x999 | 121.0 KB | `https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933 (official transparent render)` |
 
@@ -329,7 +328,7 @@ from `@fontsource-variable` packages in `src/`.
   them once `src/` stops referencing them.
 - The two Delta Force portraits (Vyron, Gizmo) are **official key art**, not
   transparent renders: Delta Force publishes no standalone transparent operator
-  art. Their backgrounds are photographic, so they are kept (feathered + dark
+  art. Their photographic backgrounds are removed locally with rembg
   vignette) rather than keyed. If the publisher ever ships transparent renders,
   swap the URL/crop in `CAST` and set `transparentSource: true, mask: false`.
 - The cast sources are re-downloaded on every build. Fandom serves them through

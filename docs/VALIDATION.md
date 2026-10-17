@@ -1,8 +1,7 @@
-# Validation · STMfan / Sublunary (v2.2)
+# Validation · STMfan / Sublunary (v2.3)
 
-Real command output recorded on Windows 11 (`10.0.26200`), PowerShell 7.6.7, from
-the repository root on branch `v2`, after the v2.2 copy, typography, official-art
-and mobile-performance pass.
+Recorded on Windows 11 (`10.0.26200`), PowerShell 7.6.7, from the repository root
+on branch `v2`, after the v2.3 hero, gallery, copy and mobile-performance pass.
 
 | Fact | Value |
 | --- | --- |
@@ -12,13 +11,15 @@ and mobile-performance pass.
 | React / React DOM | `19.3.0` |
 | TypeScript | `7.0.2` |
 | three.js | `0.186.1` |
-| `dist` | 251 files, 14.19 MB (ceiling 24.00 MB) |
-| Client bundle | `index-*.js` 437,064 B |
-| Moon chunk | `MoonCanvas-*.js` 535,614 B (lazy) |
-| CSS | `style-*.css` 248,446 B (font faces dominate) |
-| Prerendered markup | 32,367 characters injected into `#root` |
+| `dist` | 250 files, 14.16 MB (ceiling 24.00 MB) |
+| Client bundle | `index-*.js` 432,111 B |
+| Moon chunk | `MoonCanvas-*.js` 535,602 B (lazy) |
+| CSS | `style-*.css` 249,093 B (font faces dominate) |
+| Prerendered markup | 35,925 characters injected into `#root` |
 | Dependency audit | 45 packages (11 production, 34 build) |
-| Site checks | 283 passed |
+| Site checks | 290 passed |
+| First contentful paint | 888 ms on a 390×844 mobile profile |
+| Page height | 5,173 px desktop, 5,698 px mobile |
 
 ## 1. Commands, CI order
 
@@ -26,105 +27,118 @@ and mobile-performance pass.
 $ bun run typecheck          # tsc --noEmit, exit 0
 $ bun run licenses           # 45 packages, exit 0
 $ bun run build              # typecheck + vite build + prerender, exit 0
-$ bun run check:site         # 283 checks, exit 0
+$ bun run check:site         # 290 checks, exit 0
 ```
 
-The last build reported `injected 32,367 bytes of markup (36,790 bytes total)`.
-Three.js remains a separate lazy chunk, so first paint does not wait for it.
+Last build: `injected 35,925 bytes of markup (40,378 bytes total)`. Three.js is
+still a separate lazy chunk, and it is imported 350 ms after mount so the first
+paint does not wait for WebGL.
 
 ## 2. What `check:site` verifies
 
-- Metadata: title, description, canonical `https://stmfan.tech/`, `og:image`
-  pointing at an existing `/assets/share/og.png`.
-- Prerender: more than 2 KB of markup in `#root`, hashed module script and CSS
-  link intact, no `/src/main.tsx` leftovers, and all section markers:
-  `hero`, `workshop`, `opensource`, `commission`, `extras`, `notes`, `contact`,
-  `contact-title`.
+- Metadata, canonical URL, `og:image`, favicon and the GitHub avatar preconnects.
+- Prerender: markup in `#root`, hashed module and CSS links, no `/src/main.tsx`
+  leftovers, and the eight section markers (`hero`, `workshop`, `opensource`,
+  `commission`, `extras`, `notes`, `contact`, `contact-title`).
 - Slogans `探月下，尘世万象` and `To Decipher` in `dist/index.html`.
 - Zero U+2014 em dashes in the prerendered HTML.
 - Every `/assets/...` reference in HTML and every CSS `url()` resolves.
-- 27 runtime-referenced assets the HTML crawl cannot see: moon maps, five game
-  tiles, five official portraits, five face crops, icons, the OG card, the MaiBot
-  image and the playlist cover.
-- `dist/_headers`, `robots.txt`, `sitemap.xml` copied byte-for-byte from `public/`.
-- No source maps, total `dist` size within budget.
+- 27 runtime assets the HTML crawl cannot see: moon maps, five game tiles, five
+  official portraits, five face crops, icons, OG card, MaiBot image, playlist cover.
+- `_headers`, `robots.txt`, `sitemap.xml`, no source maps, dist size budget.
 
-## 3. Copy and typography
+## 3. Preloader and mobile open
 
-- All visible copy was rewritten in both languages around what a visitor needs:
-  who, what can be built, proof, price posture, contact. Requirement language
-  ("four directions", "this is not important", "reserved", "case") was removed.
-- The slogan stays `探月下，尘世万象。` / `To Decipher the Sublunary Sphere.`
-- Minimum type sizes: 12px labels, 13px captions and links, 14.4px secondary
-  body, 16-17px body, 30-43px section titles. The contact title is capped at
-  59px and the hero remains the only oversized moment.
-- Section titles were reduced from up to 80px to 30-43px; card and item titles
-  use 19-30px. The mono labels that were under 10px were raised to 12px.
+The preloader was removed entirely. It was the only thing that could leave a
+phone on `000` when its React effect did not start; the prerendered page now paints
+directly into the hero. Measured on a mobile profile:
 
-## 4. Layout and touch
+| Metric | Result |
+| --- | --- |
+| First paint | 716 ms |
+| First contentful paint | 888 ms |
+| Preloader nodes | 0 |
+| Hero title colour | `rgb(238, 241, 247)`, visible at y=306 |
 
-- Filled panels were removed. Skills, open source, commissions, gallery and
-  contact are separated by 1px rules and spacing; only media (case image, game
-  tile, framed key art, playlist cover) keeps a 2px-radius frame.
-- Hero fits without clipping at 1440×900, 1366×768, 1280×720 and 390×844. The
-  measured hero bottom equals the viewport height at each size.
-- `document.documentElement.scrollWidth` equals the viewport width at 390 and
-  1440.
-- Nav clicks land 12px below the fixed header via `scroll-padding-top` and the
-  JS offset.
-- Mobile: 190px moon below the copy, hidden readout, sticky gallery tabs,
-  44px thumbnails and icon buttons, full-width contact CTA, safe-area bottom
-  padding.
-- Touch scrolling is native; `touch-action: pan-y` on the moon means a vertical
-  swipe still scrolls the page.
+The hero animation begins on mount instead of waiting for a boot callback.
 
-## 5. Mobile performance
+## 4. Layout
 
-Measured with a mobile-emulated Chromium (390×844, DPR 2, touch), scrolling the
-page in 70% viewport steps:
+- The hero is exactly `100svh` at 1440×900, 1366×768, 1280×720 and 390×844; no CTA
+  is clipped and the page does not overflow horizontally at 390 or 1440.
+- Desktop acts: hero 900, skills 715, open source 668, commissions 653, gallery 818,
+  notes 594, contact 589, footer 236.
+- Mobile acts: hero 844, skills 616, open source 759, commissions 974, gallery 996,
+  notes 523, contact 680, footer 306.
+- The page is roughly 950 px shorter than v2.1 on desktop. The longest mobile acts
+  are the gallery (996) and commissions (974); the rest are 523-759.
+- The hero is a single asymmetric composition: a 68vw moon sits behind the title,
+  the first line is solid, the second outlined so the moon shows through, and a
+  giant `SUBLUNARY` wordmark parallaxes behind the copy.
+- Gallery: exactly three cards. Games is a five-row list with every game visible at
+  once. Characters auto-rotate every 2.5s and pause on hover, focus or a face
+  selection. Playlist is a wide band with cover, track note and link.
+- Cards are compact glass surfaces with real content; no full-screen card with a
+  single sentence, no meaningless pills or counts.
+
+## 5. Copy
+
+- Every string was rewritten for a visitor: who, what can be built, proof, price
+  posture, contact.
+- Paid work is the default. Open source is no longer described as free everywhere:
+  `免费` is conditional on interest in both languages, and the same nuance is in
+  the meta description and the commission lede.
+- Slogan unchanged: `探月下，尘世万象。` / `To Decipher the Sublunary Sphere.`
+- Minimum label 12px, captions 13px, body 16-17px, section titles 27-39px; the hero
+  is the only oversized moment.
+
+## 6. Performance
+
+Mobile-emulated Chromium, 390×844, DPR 2, touch, scrolling in 75% viewport steps:
 
 | Metric | Result |
 | --- | --- |
 | Long tasks during the full scroll | 0 |
-| rAF sample at the hero | 60 fps |
+| rAF sample | 60 fps |
 | Canvas elements | 2 (starfield + one moon) |
-| Moon canvases created | 1 |
 | DOM mutations during the scroll | 10 |
 | Horizontal overflow | none |
 
-The fixes: no backdrop-filter on touch, grain/atmosphere/flow layers hidden on
-touch, starfield at 30fps with 120 stars and DPR ≤1.25, moon at 30fps with
-DPR ≤1.4 and no bump map, preloader counter written to refs instead of state,
-and the clock isolated in its own readout component.
+Fixes: starfield and moon both capped at 30fps and DPR 1.5; no bump map; moon
+import deferred 350ms; no `backdrop-filter` on touch; grain, atmosphere and flow
+lines hidden on touch; the clock readout is not mounted in the hero; the preloader
+is gone. The moon and stage pause offscreen or when the tab is hidden.
 
-## 6. Official character artwork
+## 7. Character art
 
-All five portraits are official art. Wriothesley, Varka and Von Lycaon use
-transparent official portraits from the official galleries; Vyron and Gizmo are
-Delta Force operators whose official key art is presented in a 3:4 frame because
-no transparent render is published. Each has a 160px face crop. Provenance and
-the compromise are recorded in `docs/ASSETS.md` and `sources.json`.
+All five are official artwork. Wriothesley, Varka and Von Lycaon are official
+transparent renders. Vyron and Gizmo use official Delta Force key art whose
+photographic background was removed locally with rembg (u2net), then alpha-trimmed
+and cropped to a half-body portrait. Face crops are 160px. The carousel pauses on
+manual selection, so the 2.5s rotation does not fight the visitor. Provenance is in
+`docs/ASSETS.md` and `sources.json`.
 
-## 7. Avatar
+## 8. Avatar
 
-The visible logo calls the GitHub API for `STMfan` on mount, preloads the returned
-`avatar_url`, then swaps it in, so there is no blank flash. It caches the URL for
-12 hours and falls back to `https://github.com/STMfan.png?size=240`. The favicon
-and Apple touch icon also point at the GitHub avatar endpoint; no hand-cropped
-local avatar is rendered. The local `avatar.png` is now only a build input for
-the icon set and the OG card; `logo.png` was removed.
+The visible logo calls `api.github.com/users/STMfan`, preloads the returned
+`avatar_url`, then swaps it in. It caches for 12 hours. If the API is rate-limited,
+the full local `avatar.png` is used; no hand-cropped face is rendered. The favicon
+and Apple touch icon point at the GitHub avatar endpoint. The API returned 403 in
+the test environment (rate limit), and the local fallback rendered correctly.
 
-## 8. Reproducibility
+## 9. Reproducibility
 
 - `docs/licenses/` and `dependency-licenses.json` are deterministic.
-- The only non-deterministic prerendered values are the current moon phase, the
-  clock and the shade opacity. The client replaces them on boot; `createRoot` is
-  used instead of hydration, so there is no mismatch.
-- `assets-src/` remains gitignored; the committed `public/assets/` derivatives
-  are what the build uses. `bun run assets` regenerates them from cached sources.
+- Moon phase, clock and shade are the only non-deterministic prerendered values;
+  the client replaces them and `createRoot` avoids hydration mismatch.
+- `assets-src/` is gitignored. `bun run assets` rebuilds the generated plates and
+  the official portraits; the two Delta cutouts were produced with the documented
+  rembg step and are committed derivatives.
+- `public/assets/avatar.png` is a build input for the icon set and OG card; the
+  page itself renders the API avatar.
 
-## 9. CI
+## 10. CI
 
-`.github/workflows/build.yml` runs on `main`, `v2`, pull requests and manual
-dispatch: frozen `bun install`, license audit, `build:pages`, `check:site`, then
-uploads `cloudflare-pages-dist`. The local run above uses the same sequence.
+`.github/workflows/build.yml` runs on `main`, `v2`, PRs and manual dispatch: frozen
+`bun install`, license audit, `build:pages`, `check:site`, upload the Pages
+artifact. The local run above follows the same order.

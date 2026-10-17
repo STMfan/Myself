@@ -7,7 +7,8 @@ type CanvasProps = {
   onReady: (ready: boolean) => void;
 };
 
-function MoonReadout({ locale }: { locale: 'zh' | 'en' }) {
+function MoonReadout() {
+  const { locale } = usePreferences();
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -37,22 +38,25 @@ function MoonReadout({ locale }: { locale: 'zh' | 'en' }) {
   );
 }
 
-export function MoonPanel() {
+export function MoonPanel({ showReadout = false }: { showReadout?: boolean }) {
   const { locale } = usePreferences();
   const [ready, setReady] = useState(false);
   const [Canvas, setCanvas] = useState<ComponentType<CanvasProps> | null>(null);
 
   useEffect(() => {
     let active = true;
-    import('./MoonCanvas')
-      .then((module) => {
-        if (active) setCanvas(() => module.MoonCanvas);
-      })
-      .catch(() => {
-        if (active) setReady(false);
-      });
+    const timer = window.setTimeout(() => {
+      import('./MoonCanvas')
+        .then((module) => {
+          if (active) setCanvas(() => module.MoonCanvas);
+        })
+        .catch(() => {
+          if (active) setReady(false);
+        });
+    }, 350);
     return () => {
       active = false;
+      window.clearTimeout(timer);
     };
   }, []);
 
@@ -77,7 +81,9 @@ export function MoonPanel() {
         </span>
       </div>
 
-      <MoonReadout locale={locale} />
+      {showReadout ? <MoonReadout /> : null}
     </div>
   );
 }
+
+export { MoonReadout };

@@ -1,5 +1,5 @@
 const API = 'https://api.github.com/users/STMfan';
-const FALLBACK = 'https://github.com/STMfan.png?size=240';
+const FALLBACK = '/assets/avatar.png';
 const STORAGE_KEY = 'stmfan.githubAvatar';
 const TTL = 12 * 60 * 60 * 1000;
 
