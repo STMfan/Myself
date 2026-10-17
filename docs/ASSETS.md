@@ -40,25 +40,23 @@ list: they are official artwork now (see below).
 ## Character portraits (official, v2.4)
 
 The gallery shows **official character artwork**, not generated fan art. Every
-plate is cut to a half-body portrait (head plus torso, cut around the waist), and
-the crop is scaled so the head measures exactly 300 px in the
-output, which gives all three the same visual weight at the gallery's fixed
-display height. The face crops are square 160 px frames of
-the same source, sized to stay readable in the 40-56 px circle of the thumbnail
-strip.
+plate is cut to a half-body portrait and presented full-bleed in the character
+card. The three HoYoverse portraits were cropped and scaled so the head measures
+300 px in the output; the two Delta Force posters keep their taller portrait
+aspect and are cropped by the card mask. Face crops are square 160 px frames of
+the same source, sized to stay readable in the thumbnail strip.
 
-All three are official **transparent character renders** (Wriothesley, Varka,
-Von Lycaon), so no keying was needed. Varka is playable and has an official render
-of his own, so the manga/group-art fallback was not required.
+All three HoYoverse portraits are official **transparent character renders**
+(Wriothesley, Varka, Von Lycaon), so no keying was needed. Varka is playable and
+has an official render of his own, so the manga/group-art fallback was not required.
 
-The two Delta Force key-art cutouts from v2.3 were removed in v2.4: the
-photo-real style did not belong beside the transparent anime portraits. There is
-no generated character art in the gallery.
+The two Delta Force operators use **official promotional posters** mirrored on
+Moegirl Commons (different images from the earlier battlefield key art). Their
+backgrounds were removed locally with rembg, then alpha-trimmed; the characters
+are untouched. The source is still official artwork, not AI-generated.
 
-Every output keeps a real alpha channel with a 0..255 range; `verify()` asserts
-`hasAlpha`, the frame height, the 300 px head scale and the 160x160 face crop
-before the pipeline exits. All six files were inspected on a dark ground while
-this document was written.
+Every output keeps a real alpha channel with a 0..255 range. All ten files were
+inspected on a dark ground while this document was written.
 
 - **wriothesley** — `public/assets/cast/wriothesley.webp` (894x999, alpha) + `public/assets/cast/wriothesley-face.webp` (160x160)
   - Source: https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933
@@ -84,6 +82,20 @@ this document was written.
   - Fetched at: 2026-10-17T18:15:56.364Z (1836x2480 source, already transparent)
   - Cut: head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact
   - Transform: crop 996x1170 at (530,14), scale 0.855x to 851x1000, head 300px; webp q88 with alpha; face crop 390x390 to 160x160, webp q88.
+- **vyron** — `public/assets/cast/vyron.webp` (636x1200, alpha) + `public/assets/cast/vyron-face.webp` (160x160)
+  - Source: https://storage.moegirl.org.cn/moegirl/commons/c/cf/%E4%B8%89%E8%A7%92%E6%B4%B2%E8%A1%8C%E5%8A%A8-%E5%A8%81%E9%BE%99.jpg
+  - Page: https://commons.moegirl.org.cn/File:三角洲行动-威龙.jpg
+  - Owner: Tencent / Team Jade (Delta Force), official promotional art mirrored by Moegirl Commons
+  - Scope: Official Delta Force operator poster, used nominatively on this personal, non-commercial page; not relicensed under MIT.
+  - Cut: rembg background removal, alpha-trimmed, transparent webp; face crop from the same 750x1500 source.
+  - Transform: 636x1200 webp q90 with alpha; face 320x320 source crop to 160x160 webp q88.
+- **gizmo** — `public/assets/cast/gizmo.webp` (638x1200, alpha) + `public/assets/cast/gizmo-face.webp` (160x160)
+  - Source: https://storage.moegirl.org.cn/moegirl/commons/1/1a/%E4%B8%89%E8%A7%92%E6%B4%B2%E8%A1%8C%E5%8A%A8-%E6%AF%94%E7%89%B92.jpg
+  - Page: https://commons.moegirl.org.cn/File:三角洲行动-比特2.jpg
+  - Owner: Tencent / Team Jade (Delta Force), official promotional art mirrored by Moegirl Commons
+  - Scope: Official Delta Force operator poster, used nominatively on this personal, non-commercial page; not relicensed under MIT.
+  - Cut: rembg background removal, alpha-trimmed, transparent webp; face crop from the same 750x1500 source.
+  - Transform: 638x1200 webp q90 with alpha; face 320x320 source crop to 160x160 webp q88.
 
 ## 3D moon map (v2.1)
 

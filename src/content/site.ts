@@ -520,4 +520,20 @@ export const characters: CharacterEntry[] = [
     art: '/assets/cast/lycaon.webp',
     face: '/assets/cast/lycaon-face.webp',
   },
+  {
+    id: 'vyron',
+    zh: '威龙',
+    en: 'Vyron',
+    origin: { zh: '三角洲行动', en: 'Delta Force' },
+    art: '/assets/cast/vyron.webp',
+    face: '/assets/cast/vyron-face.webp',
+  },
+  {
+    id: 'gizmo',
+    zh: '比特',
+    en: 'Gizmo',
+    origin: { zh: '三角洲行动', en: 'Delta Force' },
+    art: '/assets/cast/gizmo.webp',
+    face: '/assets/cast/gizmo-face.webp',
+  },
 ];

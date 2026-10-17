@@ -94,6 +94,7 @@ export function Hero({ booted }: { booted: boolean }) {
         </div>
         <span className="hero__meteor" />
         <span className="hero__meteor hero__meteor--b" />
+        <span className="hero__meteor hero__meteor--c" />
         <span className="hero__ghost display">SUBLUNARY</span>
       </div>
 

@@ -113,6 +113,48 @@
       "cut": "head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact",
       "transform": "crop 996x1170 at 530,14, scale 0.855x to 851x1000 (head 300px), webp q88 with alpha; face crop 390x390 to 160x160 webp q88",
       "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
+    },
+    {
+      "id": "cast-vyron",
+      "output": [
+        "public/assets/cast/vyron.webp",
+        "public/assets/cast/vyron-face.webp"
+      ],
+      "url": "https://storage.moegirl.org.cn/moegirl/commons/c/cf/%E4%B8%89%E8%A7%92%E6%B4%B2%E8%A1%8C%E5%8A%A8-%E5%A8%81%E9%BE%99.jpg",
+      "page": "https://commons.moegirl.org.cn/File:三角洲行动-威龙.jpg",
+      "owner": "Tencent / Team Jade (Delta Force), mirrored by Moegirl Commons",
+      "license": "Official Delta Force operator promotional art, (c) Tencent / Team Jade. Mirrored by Moegirl Commons; used nominatively on a personal, non-commercial page; not relicensed under MIT.",
+      "fetchedAt": "2026-10-18T02:20:00.000Z",
+      "cut": "rembg background removal, alpha-trimmed half-body/full poster crop",
+      "transform": "alpha-trimmed 636x1200 transparent webp q90; face 320x320 source crop to 160x160 webp q88",
+      "official": true,
+      "sourceSize": "750x1500",
+      "sourceTransparent": false,
+      "alpha": true,
+      "mask": "background removed with rembg (u2net), alpha-trimmed",
+      "headPxOut": 0,
+      "note": "Official promotional artwork, not generated; not relicensed under MIT."
+    },
+    {
+      "id": "cast-gizmo",
+      "output": [
+        "public/assets/cast/gizmo.webp",
+        "public/assets/cast/gizmo-face.webp"
+      ],
+      "url": "https://storage.moegirl.org.cn/moegirl/commons/1/1a/%E4%B8%89%E8%A7%92%E6%B4%B2%E8%A1%8C%E5%8A%A8-%E6%AF%94%E7%89%B92.jpg",
+      "page": "https://commons.moegirl.org.cn/File:三角洲行动-比特2.jpg",
+      "owner": "Tencent / Team Jade (Delta Force), mirrored by Moegirl Commons",
+      "license": "Official Delta Force operator promotional art, (c) Tencent / Team Jade. Mirrored by Moegirl Commons; used nominatively on a personal, non-commercial page; not relicensed under MIT.",
+      "fetchedAt": "2026-10-18T02:20:00.000Z",
+      "cut": "rembg background removal, alpha-trimmed seated operator crop",
+      "transform": "alpha-trimmed 638x1200 transparent webp q90; face 320x320 source crop to 160x160 webp q88",
+      "official": true,
+      "sourceSize": "750x1500",
+      "sourceTransparent": false,
+      "alpha": true,
+      "mask": "background removed with rembg (u2net), alpha-trimmed",
+      "headPxOut": 0,
+      "note": "Official promotional artwork, not generated; not relicensed under MIT."
     }
   ],
   "external": [

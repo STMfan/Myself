@@ -51,7 +51,7 @@ card is full-bleed.
 | Skills | four attributes with one outcome line each | sticky glyph dial, active-line reveal, travelling accent rule |
 | Open source | MaiBot proof plus three quiet future slots | case media parallax, timeline reveal |
 | Commissions | paid services, then "free when it interests me" | accent sweep, CTA in the paid column |
-| Gallery | games, three characters and the playlist as three cards | 2.5s character rotation, face rail, pointer tilt and spotlight |
+| Gallery | games, five characters and the playlist as three cards | 2.5s character rotation, face rail, pointer tilt and spotlight |
 | Notes | the lunar/ground manifesto | horizon parallax, lines illuminate |
 | Contact | four channels and one CTA | icon lift, CTA halo, copy toast |
 
@@ -79,9 +79,11 @@ A short reveal, not a gate:
 
 ## 6. Characters and gallery
 
-Only the three official transparent HoYoverse portraits remain: Wriothesley, Varka
-and Von Lycaon. The two Delta Force key-art cutouts were removed because the
-photo-real style did not belong in this set. There is no generated character art.
+The gallery carries five official portraits: Wriothesley, Varka and Von Lycaon as
+transparent HoYoverse renders, plus Vyron and Gizmo from two official Delta Force
+promotional posters (different images from the earlier key art). The two posters
+were background-removed locally with rembg and alpha-trimmed. There is no
+generated character art.
 
 The character card is a full-bleed 6-column portrait: the art is `object-fit:
 cover`, anchored to the top, and masked at the bottom card edge so the body fades

@@ -12,13 +12,13 @@ theme, preloader and background pass.
 | React / React DOM | `19.3.0` |
 | TypeScript | `7.0.2` |
 | three.js | `0.186.1` |
-| `dist` | 247 files, 13.88 MB (ceiling 24.00 MB) |
-| Client bundle | `index-*.js` 434,390 B |
-| Moon chunk | `MoonCanvas-*.js` 535,643 B (lazy) |
-| CSS | `style-*.css` 254,117 B (font faces dominate) |
-| Prerendered markup | 36,512 characters injected into `#root` |
+| `dist` | 250 files, 14.21 MB (ceiling 24.00 MB) |
+| Client bundle | `index-*.js` 434,898 B |
+| Moon chunk | `MoonCanvas-*.js` 535,644 B (lazy) |
+| CSS | `style-*.css` 254,222 B (font faces dominate) |
+| Prerendered markup | 36,978 characters injected into `#root` |
 | Dependency audit | 45 packages (11 production, 34 build) |
-| Site checks | 284 passed |
+| Site checks | 290 passed |
 | Page height | 5,228 px desktop, 5,791 px mobile |
 
 ## 1. Commands, CI order
@@ -27,10 +27,10 @@ theme, preloader and background pass.
 $ bun run typecheck          # tsc --noEmit, exit 0
 $ bun run licenses           # 45 packages, exit 0
 $ bun run build              # typecheck + vite build + prerender, exit 0
-$ bun run check:site         # 284 checks, exit 0
+$ bun run check:site         # 290 checks, exit 0
 ```
 
-Last build: `injected 36,512 bytes of markup (40,965 bytes total)`. The moon chunk
+Last build: `injected 36,978 bytes of markup (41,431 bytes total)`. The moon chunk
 is still deferred 350ms, so WebGL never blocks first paint.
 
 ## 2. Preloader
@@ -83,9 +83,10 @@ The preloader is back, but it is a short reveal, not a boot gate:
 
 ## 6. Character art
 
-Three official transparent HoYoverse portraits remain: Wriothesley, Varka, Von
-Lycaon. The two Delta Force key-art cutouts were removed; there is no generated
-character art anywhere in `public/assets/cast`. Face crops are 160px. The carousel
+Five official portraits are present: Wriothesley, Varka and Von Lycaon as official
+transparent renders, plus Vyron and Gizmo from two official Delta Force
+promotional posters (different from the earlier key art), background-removed
+locally with rembg. There is no generated character art. Face crops are 160px. The carousel
 advances every 2.5s and pauses on hover, focus or manual selection.
 
 ## 7. Performance
@@ -114,7 +115,7 @@ fallback rendered correctly.
 
 ## 9. Assets and reproducibility
 
-- `docs/ASSETS.md` and `sources.json` describe only the three remaining portraits.
+- `docs/ASSETS.md` and `sources.json` describe all five portraits, including the two Delta Force posters.
 - `CAST` in `scripts/build-assets.mjs` no longer contains the Delta entries; a
   regenerated asset run produces 25 outputs.
 - `docs/licenses/` and `dependency-licenses.json` are deterministic.

@@ -92,7 +92,7 @@ export function Stage() {
 
     type Meteor = { x: number; y: number; vx: number; vy: number; life: number; max: number };
     const meteors: Meteor[] = [];
-    let nextMeteor = 4200;
+    let nextMeteor = 2400;
 
     let width = 0;
     let height = 0;
@@ -149,11 +149,11 @@ export function Stage() {
       context.fillRect(0, 0, width, height);
 
       const warm = context.createRadialGradient(
-        width * 0.78,
-        height * 0.16 + height * 0.22 * progress,
+        width * 0.2,
+        height * 0.34 + height * 0.16 * progress,
         0,
-        width * 0.78,
-        height * 0.16 + height * 0.22 * progress,
+        width * 0.2,
+        height * 0.34 + height * 0.16 * progress,
         Math.max(width, height) * 0.72,
       );
       const glowAlpha = document.documentElement.dataset.theme === 'light' ? '06' : '1e';
@@ -193,7 +193,7 @@ export function Stage() {
             life: 34 + random() * 26,
             max: 34 + random() * 26,
           });
-          nextMeteor = now + 5200 + random() * 5400;
+          nextMeteor = now + 3000 + random() * 4200;
         }
         for (let i = meteors.length - 1; i >= 0; i -= 1) {
           const meteor = meteors[i];
@@ -204,14 +204,23 @@ export function Stage() {
             meteors.splice(i, 1);
             continue;
           }
-          const tailX = meteor.x - meteor.vx * 18;
-          const tailY = meteor.y - meteor.vy * 18;
+          const tailX = meteor.x - meteor.vx * 34;
+          const tailY = meteor.y - meteor.vy * 34;
           const trail = context.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
           trail.addColorStop(0, palette.star);
+          trail.addColorStop(0.55, `${palette.glow}cc`);
           trail.addColorStop(1, `${palette.glow}00`);
-          context.globalAlpha = (meteor.life / meteor.max) * 0.55;
+          const alpha = meteor.life / meteor.max;
+          context.globalAlpha = alpha * 0.22;
+          context.strokeStyle = palette.glow;
+          context.lineWidth = 5;
+          context.beginPath();
+          context.moveTo(meteor.x, meteor.y);
+          context.lineTo(tailX, tailY);
+          context.stroke();
+          context.globalAlpha = alpha * 0.9;
           context.strokeStyle = trail;
-          context.lineWidth = 1.1;
+          context.lineWidth = 1.8;
           context.beginPath();
           context.moveTo(meteor.x, meteor.y);
           context.lineTo(tailX, tailY);
