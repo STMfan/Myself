@@ -5,15 +5,6 @@
   "model": "gpt-image",
   "generated": [
     {
-      "id": "moon-macro",
-      "output": "public/assets/art/moon-macro.webp",
-      "source": "assets-src/moon-macro.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Macro of the lunar surface: cratered highlands and a large rayed impact crater on the left, smooth mare on the right, hard terminator shadow along the lower-left edge and a warm grazing rim light in the upper-right corner. Square; near-black space only at the extreme corner, no text.",
-      "transform": "extract 1000x1000 at 127,127; resize 720x720; webp q84"
-    },
-    {
       "id": "horizon",
       "output": "public/assets/art/horizon.webp",
       "source": "assets-src/horizon.png",
@@ -48,51 +39,6 @@
       "date": "2026-10-17",
       "promptSummary": "Aged dark film emulsion: near-black base, dust specks, fine scratches, faint umber edge burn. Square, no text.",
       "transform": "resize 512x512; webp q82"
-    },
-    {
-      "id": "sigil-wriothesley",
-      "output": "public/assets/art/sigil-wriothesley.webp",
-      "source": "assets-src/sigil-wriothesley.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Heraldic wolf-skull sigil: forged steel and fractured blue-white crystal, keyhole brow, brass gears and chains, a single amber eye ember, symmetrical crest on near-black. Square, no text.",
-      "transform": "resize 640x640; webp q86"
-    },
-    {
-      "id": "sigil-varka",
-      "output": "public/assets/art/sigil-varka.webp",
-      "source": "assets-src/sigil-varka.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Heraldic sigil of a pale wolf-fang spear crossing a white feather, twin engraved crescents and blue crystal filigree, a warm amber spark at the crossing, near-black background. Square, no text.",
-      "transform": "resize 640x640; webp q86"
-    },
-    {
-      "id": "sigil-lycaon",
-      "output": "public/assets/art/sigil-lycaon.webp",
-      "source": "assets-src/sigil-lycaon.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Frost-wolf head sigil in silver-blue crystal, framed by a four-point star ring, amber eye, symmetrical crest on near-black. Square, no text.",
-      "transform": "resize 640x640; webp q86"
-    },
-    {
-      "id": "sigil-vyron",
-      "output": "public/assets/art/sigil-vyron.webp",
-      "source": "assets-src/sigil-vyron.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Compass-rose sigil: eight-point steel star over concentric astrolabe rings, glowing amber core, blue rim light, near-black background. Square, no text.",
-      "transform": "resize 640x640; webp q86"
-    },
-    {
-      "id": "sigil-gizmo",
-      "output": "public/assets/art/sigil-gizmo.webp",
-      "source": "assets-src/sigil-gizmo.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Brass-and-steel spherical automaton sigil: riveted plating, side ports, glowing amber lens eye, antenna orb, blue rim light, near-black background. Square, no text.",
-      "transform": "resize 640x640; webp q86"
     },
     {
       "id": "wriothesley",
@@ -152,7 +98,7 @@
       "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",
       "owner": "Mai-with-u (MaiBot project) — mascot artwork",
       "license": "Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T15:32:10.520Z",
+      "fetchedAt": "2026-10-17T15:38:03.850Z",
       "transform": "contained on an 800x800 transparent canvas, webp q82"
     },
     {
@@ -161,7 +107,7 @@
       "url": "https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp",
       "owner": "Bilibili archive cover (Bilibili / original uploader)",
       "license": "Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T15:32:13.798Z",
+      "fetchedAt": "2026-10-17T15:38:06.944Z",
       "transform": "kept 672x378, webp q82"
     },
     {
@@ -191,7 +137,7 @@
       "appName": "Phigros",
       "owner": "Pigeon Games (Xiamen Pigeon Games Network Co., Ltd.)",
       "license": "Official App Store artwork (c) Pigeon Games. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:32:15.721Z",
+      "fetchedAt": "2026-10-17T15:38:08.881Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -202,7 +148,7 @@
       "appName": "Genshin Impact",
       "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
       "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:32:15.926Z",
+      "fetchedAt": "2026-10-17T15:38:09.344Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -213,7 +159,7 @@
       "appName": "Zenless Zone Zero",
       "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
       "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:32:16.116Z",
+      "fetchedAt": "2026-10-17T15:38:09.522Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -223,7 +169,7 @@
       "page": "https://commons.wikimedia.org/wiki/File:Minecraft_cube.svg",
       "owner": "Mojang Studios / Microsoft (game); Commons file by Albin Olsson",
       "license": "Commons file released into the public domain (simple geometric logo, PD-textlogo). “Minecraft” and the grass-block icon are trademarks of Mojang Synergies AB; used nominatively, not relicensed.",
-      "fetchedAt": "2026-10-17T15:32:16.685Z",
+      "fetchedAt": "2026-10-17T15:38:10.163Z",
       "transform": "rasterised from the Commons SVG at 1200 dpi, fitted to a transparent 256x256 canvas (contain)"
     },
     {
@@ -233,7 +179,7 @@
       "page": "https://commons.wikimedia.org/wiki/File:Delta_Force_Logo.svg",
       "owner": "Team Jade / TiMi Studio Group (Delta Force, 2024)",
       "license": "Commons file marked public domain (PD-textlogo: simple geometric wordmark). “DELTA FORCE” is a trademark of its owner; used nominatively, not relicensed.",
-      "fetchedAt": "2026-10-17T15:32:16.874Z",
+      "fetchedAt": "2026-10-17T15:38:10.362Z",
       "transform": "wordmark recoloured #000000 -> #F2F6FF (emblem kept #0FF796) so the logo reads on the dark tile; rendered at 900 dpi, centred on a 256x256 rounded dark plate (#0d131b)"
     }
   ],

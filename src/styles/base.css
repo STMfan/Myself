@@ -19,6 +19,7 @@ html {
   background: var(--bg);
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--nav-h) + 16px);
+  overflow-x: clip;
 }
 
 section[id] {

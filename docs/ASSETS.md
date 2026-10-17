@@ -22,9 +22,6 @@ derivatives below. The moon plate is cropped to a 1000x1000 square at (127,127)
 before the 720x720 resize so that the circular hero mask sees lunar surface and
 limb light instead of empty space.
 
-- `moon-macro` — Macro of the lunar surface: cratered highlands and a large rayed impact crater on the left, smooth mare on the right, hard terminator shadow along the lower-left edge and a warm grazing rim light in the upper-right corner. Square; near-black space only at the extreme corner, no text.
-  - Output: `public/assets/art/moon-macro.webp` (720x720)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
 - `horizon` — Ultrawide dusk horizon: a snow-dusted mountain ridge under a thin amber band of sunset light, layered blue haze over a dark city skyline with scattered warm windows, foreground conifers. Cinematic, no text.
   - Output: `public/assets/art/horizon.webp` (1920x823)
   - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
@@ -36,21 +33,6 @@ limb light instead of empty space.
   - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
 - `dark-emulsion` — Aged dark film emulsion: near-black base, dust specks, fine scratches, faint umber edge burn. Square, no text.
   - Output: `public/assets/art/dark-emulsion.webp` (512x512)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
-- `sigil-wriothesley` — Heraldic wolf-skull sigil: forged steel and fractured blue-white crystal, keyhole brow, brass gears and chains, a single amber eye ember, symmetrical crest on near-black. Square, no text.
-  - Output: `public/assets/art/sigil-wriothesley.webp` (640x640)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
-- `sigil-varka` — Heraldic sigil of a pale wolf-fang spear crossing a white feather, twin engraved crescents and blue crystal filigree, a warm amber spark at the crossing, near-black background. Square, no text.
-  - Output: `public/assets/art/sigil-varka.webp` (640x640)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
-- `sigil-lycaon` — Frost-wolf head sigil in silver-blue crystal, framed by a four-point star ring, amber eye, symmetrical crest on near-black. Square, no text.
-  - Output: `public/assets/art/sigil-lycaon.webp` (640x640)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
-- `sigil-vyron` — Compass-rose sigil: eight-point steel star over concentric astrolabe rings, glowing amber core, blue rim light, near-black background. Square, no text.
-  - Output: `public/assets/art/sigil-vyron.webp` (640x640)
-  - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
-- `sigil-gizmo` — Brass-and-steel spherical automaton sigil: riveted plating, side ports, glowing amber lens eye, antenna orb, blue rim light, near-black background. Square, no text.
-  - Output: `public/assets/art/sigil-gizmo.webp` (640x640)
   - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
 
 ## Character cutouts (v2.1)
@@ -105,32 +87,32 @@ encoded webp under 80 KB.
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/bf/12/eebf123e-f676-da25-6800-44c6f2d74629/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg
   - Owner: Pigeon Games (Xiamen Pigeon Games Network Co., Ltd.)
   - Scope: Official App Store artwork (c) Pigeon Games. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T15:32:15.721Z
+  - Fetched at: 2026-10-17T15:38:08.881Z
 - **genshin** — `public/assets/games/genshin.webp` (256x256)
   - App Store lookup: https://itunes.apple.com/lookup?id=1517783697&country=us (trackId 1517783697, “Genshin Impact”)
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5c/e2/13/5ce21317-a08a-24ac-cc5f-2b25a4d71fa6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg
   - Owner: COGNOSPHERE PTE. LTD. (HoYoverse)
   - Scope: Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T15:32:15.926Z
+  - Fetched at: 2026-10-17T15:38:09.344Z
 - **zzz** — `public/assets/games/zzz.webp` (256x256)
   - App Store lookup: https://itunes.apple.com/lookup?id=1606356401&country=us (trackId 1606356401, “Zenless Zone Zero”)
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/4a/fb/2d4afb82-bdb9-cc80-b5b7-d1d7f515b2ae/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg
   - Owner: COGNOSPHERE PTE. LTD. (HoYoverse)
   - Scope: Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T15:32:16.116Z
+  - Fetched at: 2026-10-17T15:38:09.522Z
 - **minecraft** — `public/assets/games/minecraft.webp` (256x256)
   - URL: https://upload.wikimedia.org/wikipedia/commons/d/d8/Minecraft_cube.svg
   - Commons page: https://commons.wikimedia.org/wiki/File:Minecraft_cube.svg
   - Owner: Mojang Studios / Microsoft (game); Commons file by Albin Olsson
   - Scope: Commons file released into the public domain (simple geometric logo, PD-textlogo). “Minecraft” and the grass-block icon are trademarks of Mojang Synergies AB; used nominatively, not relicensed.
-  - Fetched at: 2026-10-17T15:32:16.685Z
+  - Fetched at: 2026-10-17T15:38:10.163Z
   - Transform: rasterised from the Commons SVG at 1200 dpi, fitted to a transparent 256x256 canvas (contain)
 - **delta** — `public/assets/games/delta.webp` (256x256)
   - URL: https://upload.wikimedia.org/wikipedia/commons/c/c6/Delta_Force_Logo.svg
   - Commons page: https://commons.wikimedia.org/wiki/File:Delta_Force_Logo.svg
   - Owner: Team Jade / TiMi Studio Group (Delta Force, 2024)
   - Scope: Commons file marked public domain (PD-textlogo: simple geometric wordmark). “DELTA FORCE” is a trademark of its owner; used nominatively, not relicensed.
-  - Fetched at: 2026-10-17T15:32:16.874Z
+  - Fetched at: 2026-10-17T15:38:10.362Z
   - Transform: wordmark recoloured #000000 -> #F2F6FF (emblem kept #0FF796) so the logo reads on the dark tile; rendered at 900 dpi, centred on a 256x256 rounded dark plate (#0d131b)
 
 ## Icon marks (v2.1)
@@ -159,13 +141,13 @@ would silently throw away the Lead's crop. Do not add them back to `EXTERNAL`.
   - URL: https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png
   - Owner: Mai-with-u (MaiBot project) — mascot artwork
   - Scope: Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.
-  - Fetched at: 2026-10-17T15:32:10.520Z
+  - Fetched at: 2026-10-17T15:38:03.850Z
   - Transform: contained on an 800x800 transparent canvas, webp q82
 - **playlist-cover** — `playlist-cover.webp`
   - URL: https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp
   - Owner: Bilibili archive cover (Bilibili / original uploader)
   - Scope: Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.
-  - Fetched at: 2026-10-17T15:32:13.798Z
+  - Fetched at: 2026-10-17T15:38:06.944Z
   - Transform: kept 672x378, webp q82
 
 ## Fonts used for the social card
@@ -226,14 +208,8 @@ from `@fontsource-variable` packages in `src/`.
 | `public/assets/art/dark-emulsion.webp` | 512x512 | 12.7 KB | `assets-src/dark-emulsion.png` |
 | `public/assets/art/horizon.webp` | 1920x823 | 42.4 KB | `assets-src/horizon.png` |
 | `public/assets/art/light-paper.webp` | 512x512 | 47.5 KB | `assets-src/light-paper.png` |
-| `public/assets/art/moon-macro.webp` | 720x720 | 182.2 KB | `assets-src/moon-macro.png` |
 | `public/assets/art/moon-map-1k.webp` | 1024x512 | 128.8 KB | `https://upload.wikimedia.org/wikipedia/commons/d/d1/Solarsystemscope_texture_8k_moon.jpg (downscaled)` |
 | `public/assets/art/moon-map.webp` | 2048x1024 | 516.8 KB | `https://upload.wikimedia.org/wikipedia/commons/d/d1/Solarsystemscope_texture_8k_moon.jpg (8192x4096 source)` |
-| `public/assets/art/sigil-gizmo.webp` | 640x640 | 58.9 KB | `assets-src/sigil-gizmo.png` |
-| `public/assets/art/sigil-lycaon.webp` | 640x640 | 60.4 KB | `assets-src/sigil-lycaon.png` |
-| `public/assets/art/sigil-varka.webp` | 640x640 | 63.8 KB | `assets-src/sigil-varka.png` |
-| `public/assets/art/sigil-vyron.webp` | 640x640 | 56.7 KB | `assets-src/sigil-vyron.png` |
-| `public/assets/art/sigil-wriothesley.webp` | 640x640 | 50.5 KB | `assets-src/sigil-wriothesley.png` |
 
 ### Games
 

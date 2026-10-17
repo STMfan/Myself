@@ -42,19 +42,6 @@ const KB = 1024;
 
 const ART = [
   {
-    id: 'moon-macro',
-    src: 'moon-macro.png',
-    out: 'art/moon-macro.webp',
-    width: 720,
-    height: 720,
-    quality: 84,
-    // The generated square has black space in the top-right corner. Cropping
-    // 1000x1000 at (127,127) keeps the cratered terminator on the left and the
-    // warm limb light on the right, and pushes the empty corner out of the
-    // circle that the hero orrery masks it with.
-    crop: { left: 127, top: 127, width: 1000, height: 1000 },
-  },
-  {
     id: 'horizon',
     src: 'horizon.png',
     out: 'art/horizon.webp',
@@ -86,51 +73,9 @@ const ART = [
     height: 512,
     quality: 82,
   },
-  {
-    id: 'sigil-wriothesley',
-    src: 'sigil-wriothesley.png',
-    out: 'art/sigil-wriothesley.webp',
-    width: 640,
-    height: 640,
-    quality: 86,
-  },
-  {
-    id: 'sigil-varka',
-    src: 'sigil-varka.png',
-    out: 'art/sigil-varka.webp',
-    width: 640,
-    height: 640,
-    quality: 86,
-  },
-  {
-    id: 'sigil-lycaon',
-    src: 'sigil-lycaon.png',
-    out: 'art/sigil-lycaon.webp',
-    width: 640,
-    height: 640,
-    quality: 86,
-  },
-  {
-    id: 'sigil-vyron',
-    src: 'sigil-vyron.png',
-    out: 'art/sigil-vyron.webp',
-    width: 640,
-    height: 640,
-    quality: 86,
-  },
-  {
-    id: 'sigil-gizmo',
-    src: 'sigil-gizmo.png',
-    out: 'art/sigil-gizmo.webp',
-    width: 640,
-    height: 640,
-    quality: 86,
-  },
 ];
 
 const PROMPTS = {
-  'moon-macro':
-    'Macro of the lunar surface: cratered highlands and a large rayed impact crater on the left, smooth mare on the right, hard terminator shadow along the lower-left edge and a warm grazing rim light in the upper-right corner. Square; near-black space only at the extreme corner, no text.',
   horizon:
     'Ultrawide dusk horizon: a snow-dusted mountain ridge under a thin amber band of sunset light, layered blue haze over a dark city skyline with scattered warm windows, foreground conifers. Cinematic, no text.',
   'atmosphere-haze':
@@ -139,16 +84,6 @@ const PROMPTS = {
     'Cold-pressed white paper texture: fine fibres, tiny flecks, flat even light. Square, no text.',
   'dark-emulsion':
     'Aged dark film emulsion: near-black base, dust specks, fine scratches, faint umber edge burn. Square, no text.',
-  'sigil-wriothesley':
-    'Heraldic wolf-skull sigil: forged steel and fractured blue-white crystal, keyhole brow, brass gears and chains, a single amber eye ember, symmetrical crest on near-black. Square, no text.',
-  'sigil-varka':
-    'Heraldic sigil of a pale wolf-fang spear crossing a white feather, twin engraved crescents and blue crystal filigree, a warm amber spark at the crossing, near-black background. Square, no text.',
-  'sigil-lycaon':
-    'Frost-wolf head sigil in silver-blue crystal, framed by a four-point star ring, amber eye, symmetrical crest on near-black. Square, no text.',
-  'sigil-vyron':
-    'Compass-rose sigil: eight-point steel star over concentric astrolabe rings, glowing amber core, blue rim light, near-black background. Square, no text.',
-  'sigil-gizmo':
-    'Brass-and-steel spherical automaton sigil: riveted plating, side ports, glowing amber lens eye, antenna orb, blue rim light, near-black background. Square, no text.',
 };
 
 /* ------------------------------------------------------------------ *
