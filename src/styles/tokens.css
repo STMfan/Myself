@@ -14,6 +14,8 @@
   --shell: 1680px;
   --radius: 2px;
   --radius-pill: 999px;
+  --nav-h: 72px;
+  --section-pad: clamp(4.6rem, 11vh, 9rem);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
@@ -27,8 +29,6 @@
   --step-4: clamp(2.3rem, 1.5rem + 3.6vw, 4.6rem);
   --step-5: clamp(3rem, 1.5rem + 6.4vw, 7rem);
   --step-6: clamp(3.4rem, 1.2rem + 9vw, 10.5rem);
-
-  --rail: 3.25rem;
 }
 
 html[data-theme='dark'] {
@@ -51,6 +51,7 @@ html[data-theme='dark'] {
   --glass-strong: rgba(5, 8, 14, 0.86);
   --shadow: 0 40px 120px -60px rgba(0, 0, 0, 0.9);
   --scrim: linear-gradient(180deg, rgba(4, 6, 11, 0.92), rgba(4, 6, 11, 0));
+  --grain-image: url('/assets/art/dark-emulsion.webp');
 }
 
 html[data-theme='light'] {
@@ -73,6 +74,7 @@ html[data-theme='light'] {
   --glass-strong: rgba(244, 246, 249, 0.9);
   --shadow: 0 40px 120px -70px rgba(15, 22, 36, 0.45);
   --scrim: linear-gradient(180deg, rgba(237, 239, 243, 0.92), rgba(237, 239, 243, 0));
+  --grain-image: url('/assets/art/light-paper.webp');
 }
 
 html[data-lang='zh'] {

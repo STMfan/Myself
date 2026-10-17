@@ -2,39 +2,59 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { List, Moon, Sun, X } from '@phosphor-icons/react';
 import { CONTACT, NAV_ITEMS } from '../content/site';
 import { usePreferences } from '../lib/preferences';
-import { getLenis, ScrollTrigger, scrollToId, scrollToTop } from '../lib/scroll';
-import { Sigil } from './Type';
+import { ScrollTrigger, scrollToId, scrollToTop } from '../lib/scroll';
+import { Logo } from './Type';
 
 export function Nav({ booted }: { booted: boolean }) {
   const { copy, locale, theme, toggleLocale, toggleTheme } = usePreferences();
   const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('workshop');
   const [menuOpen, setMenuOpen] = useState(false);
   const themeButton = useRef<HTMLButtonElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const trigger = ScrollTrigger.create({
-      start: 80,
+      start: 0,
       end: 'max',
-      onToggle: (self) => setScrolled(self.isActive),
-      onUpdate: (self) => setScrolled(self.scroll() > 80),
+      onUpdate: (self) => {
+        if (progressRef.current) {
+          progressRef.current.style.transform = `scaleX(${self.progress})`;
+        }
+        const next = self.scroll() > 56;
+        setScrolled((current) => (current === next ? current : next));
+      },
     });
     return () => trigger.kill();
   }, []);
 
   useEffect(() => {
-    const lenis = getLenis();
+    const nodes = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
+      (node): node is HTMLElement => Boolean(node),
+    );
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible) setActive(visible.target.id);
+      },
+      { rootMargin: '-40% 0px -52% 0px', threshold: [0, 0.05] },
+    );
+    nodes.forEach((node) => observer.observe(node));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (menuOpen) {
-      lenis?.stop();
-      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
       document.documentElement.dataset.menu = 'open';
     } else {
-      lenis?.start();
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
       delete document.documentElement.dataset.menu;
     }
     return () => {
-      lenis?.start();
-      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, [menuOpen]);
 
@@ -49,15 +69,13 @@ export function Nav({ booted }: { booted: boolean }) {
 
   const go = useCallback((id: string) => {
     setMenuOpen(false);
-    window.setTimeout(() => scrollToId(id, -8), 120);
+    window.setTimeout(() => scrollToId(id), 80);
   }, []);
 
   const onTheme = () => {
     const rect = themeButton.current?.getBoundingClientRect();
     toggleTheme(
-      rect
-        ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }
-        : undefined,
+      rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : undefined,
     );
   };
 
@@ -66,23 +84,26 @@ export function Nav({ booted }: { booted: boolean }) {
       <a className="skip-link" href="#main">
         {copy.ui.skip}
       </a>
+
       <header className="nav" data-scrolled={scrolled} data-booted={booted}>
         <div className="nav__inner">
-          <button className="nav__brand" onClick={() => scrollToTop()} aria-label="STMfan">
-            <Sigil className="nav__sigil" />
+          <button className="nav__brand" onClick={scrollToTop} aria-label="STMfan">
+            <Logo className="nav__logo" />
             <span className="nav__name display">STMfan</span>
             <span className="nav__role mono">{copy.hero.status}</span>
           </button>
 
           <nav className="nav__links" aria-label={locale === 'zh' ? '主导航' : 'Primary'}>
-            {NAV_ITEMS.slice(0, 6).map((item) => (
+            {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
                 className="nav__link"
+                data-active={active === item.id}
                 onClick={() => go(item.id)}
                 data-cursor="link"
               >
                 <span>{item.label[locale]}</span>
+                <span className="nav__link-dot" aria-hidden="true" />
               </button>
             ))}
           </nav>
@@ -114,12 +135,8 @@ export function Nav({ booted }: { booted: boolean }) {
               </span>
             </button>
 
-            <a
-              className="btn btn--solid nav__cta"
-              href={`mailto:${CONTACT.email}`}
-              data-cursor="link"
-            >
-              {copy.hero.primary}
+            <a className="btn btn--solid nav__cta" href={`mailto:${CONTACT.email}`} data-cursor="link">
+              <span>{copy.hero.primary}</span>
             </a>
 
             <button
@@ -133,18 +150,24 @@ export function Nav({ booted }: { booted: boolean }) {
             </button>
           </div>
         </div>
+        <span className="nav__progress" aria-hidden="true">
+          <span className="nav__progress-fill" ref={progressRef} />
+        </span>
       </header>
 
       <div className="menu" data-open={menuOpen} aria-hidden={!menuOpen}>
         <div className="menu__inner">
-          <p className="mono menu__label">STMfan · {copy.hero.status}</p>
+          <p className="mono menu__label">
+            STMfan · {copy.hero.status}
+          </p>
           <nav className="menu__nav" aria-label={locale === 'zh' ? '移动导航' : 'Mobile'}>
-            {[...NAV_ITEMS].map((item, index) => (
+            {NAV_ITEMS.map((item, index) => (
               <button
                 key={item.id}
                 className="menu__item display"
+                data-active={active === item.id}
                 onClick={() => go(item.id)}
-                style={{ transitionDelay: menuOpen ? `${120 + index * 45}ms` : '0ms' }}
+                style={{ transitionDelay: menuOpen ? `${90 + index * 40}ms` : '0ms' }}
                 tabIndex={menuOpen ? 0 : -1}
               >
                 <span>{item.label[locale]}</span>

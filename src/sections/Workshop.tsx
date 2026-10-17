@@ -6,25 +6,27 @@ import {
   TerminalWindow,
   type Icon,
 } from '@phosphor-icons/react';
-import { useCopy } from '../lib/preferences';
+import { useCopy, usePreferences } from '../lib/preferences';
 import { gsap, isCalm } from '../lib/scroll';
 
 const ICONS: Record<string, Icon> = {
   backend: TerminalWindow,
   ops: HardDrives,
-  vibe: Sparkle,
-  dart: DeviceMobile,
+  fullstack: Sparkle,
+  mobile: DeviceMobile,
 };
 
 export function Workshop() {
   const copy = useCopy();
+  const { locale } = usePreferences();
   const [active, setActive] = useState(copy.workshop.items[0].id);
   const root = useRef<HTMLElement>(null);
   const activeIndex = Math.max(
     0,
     copy.workshop.items.findIndex((item) => item.id === active),
   );
-  const ActiveIcon = ICONS[copy.workshop.items[activeIndex].id] ?? TerminalWindow;
+  const current = copy.workshop.items[activeIndex];
+  const ActiveIcon = ICONS[current.id] ?? TerminalWindow;
 
   useLayoutEffect(() => {
     const scope = root.current;
@@ -32,27 +34,12 @@ export function Workshop() {
 
     const context = gsap.context(() => {
       gsap.from(scope.querySelectorAll('.workshop__row'), {
-        y: 40,
+        y: 32,
         opacity: 0,
-        duration: 1.1,
-        stagger: 0.12,
+        duration: 0.95,
+        stagger: 0.08,
         ease: 'expo.out',
-        scrollTrigger: {
-          trigger: scope,
-          start: 'top 68%',
-        },
-      });
-
-      gsap.from(scope.querySelector('.workshop__head > *'), {
-        y: 30,
-        opacity: 0,
-        duration: 1.2,
-        stagger: 0.1,
-        ease: 'expo.out',
-        scrollTrigger: {
-          trigger: scope,
-          start: 'top 78%',
-        },
+        scrollTrigger: { trigger: scope, start: 'top 64%' },
       });
     }, scope);
 
@@ -62,25 +49,32 @@ export function Workshop() {
   return (
     <section className="workshop act" id="workshop" ref={root} aria-labelledby="workshop-title">
       <div className="shell">
-        <header className="workshop__head">
-          <h2 className="workshop__title display" id="workshop-title">
+        <header className="workshop__head section-head">
+          <h2 className="workshop__title section-title display" id="workshop-title" data-reveal>
             {copy.workshop.title}
           </h2>
-          <p className="lede workshop__lede">{copy.workshop.lede}</p>
+          <p className="lede workshop__lede" data-reveal>
+            {copy.workshop.lede}
+          </p>
         </header>
 
         <div className="workshop__body">
           <aside className="workshop__visual" aria-hidden="true">
+            <div className="workshop__visual-glow" />
             <div className="workshop__rings">
               <span className="workshop__ring workshop__ring--a" />
               <span className="workshop__ring workshop__ring--b" />
               <span className="workshop__ring workshop__ring--c" />
             </div>
-            <div className="workshop__glyph" key={active}>
-              <ActiveIcon weight="thin" size={116} />
+            <div className="workshop__glyph" key={current.id}>
+              <ActiveIcon weight="thin" size={112} />
             </div>
+            <span className="workshop__glyph-key display" key={`${current.id}-key`}>
+              {current.key[locale]}
+            </span>
             <span className="workshop__visual-label mono">
-              {String(activeIndex + 1).padStart(2, '0')} / {String(copy.workshop.items.length).padStart(2, '0')}
+              {String(activeIndex + 1).padStart(2, '0')} /{' '}
+              {String(copy.workshop.items.length).padStart(2, '0')}
             </span>
           </aside>
 
@@ -96,20 +90,20 @@ export function Workshop() {
                     onMouseEnter={() => setActive(item.id)}
                     onFocus={() => setActive(item.id)}
                     aria-expanded={isActive}
-                    aria-controls={`workshop-panel-${item.id}`}
+                    aria-controls={`workshop-${item.id}`}
                     data-cursor="link"
                   >
                     <span className="workshop__row-glyph">
                       <Glyph weight="light" size={20} />
                     </span>
                     <span className="workshop__row-main">
-                      <span className="workshop__kicker mono">{item.kicker}</span>
-                      <span className="workshop__name display">{item.title}</span>
+                      <span className="workshop__key display">{item.key[locale]}</span>
+                      <span className="workshop__sub mono">{item.sub[locale]}</span>
                     </span>
-                    <span className="workshop__row-body" id={`workshop-panel-${item.id}`}>
+                    <span className="workshop__row-body" id={`workshop-${item.id}`}>
                       <span className="workshop__row-clip">
                         <span className="workshop__row-text">{item.body}</span>
-                        <span className="workshop__detail mono">{item.detail}</span>
+                        <span className="workshop__row-tags mono">{item.tags}</span>
                       </span>
                     </span>
                   </button>
@@ -118,8 +112,6 @@ export function Workshop() {
             })}
           </ol>
         </div>
-
-        <p className="workshop__stack mono">{copy.workshop.stack}</p>
       </div>
     </section>
   );

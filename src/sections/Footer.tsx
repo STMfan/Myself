@@ -2,7 +2,7 @@ import { ArrowUp, ArrowUpRight } from '@phosphor-icons/react';
 import { CONTACT } from '../content/site';
 import { useCopy, usePreferences } from '../lib/preferences';
 import { scrollToTop } from '../lib/scroll';
-import { Sigil } from '../components/Type';
+import { Logo } from '../components/Type';
 
 export function Footer() {
   const copy = useCopy();
@@ -12,7 +12,7 @@ export function Footer() {
     <footer className="footer act">
       <div className="shell footer__inner">
         <div className="footer__brand">
-          <Sigil className="footer__sigil" />
+          <Logo className="footer__logo" />
           <span className="footer__name display">STMfan</span>
           <span className="mono footer__line">{copy.footer.line}</span>
         </div>
@@ -42,6 +42,15 @@ export function Footer() {
             data-cursor="link"
           >
             {copy.ui.license}
+          </a>
+          <a
+            className="footer__link mono"
+            href="https://www.solarsystemscope.com/textures/"
+            target="_blank"
+            rel="noreferrer noopener"
+            data-cursor="link"
+          >
+            Moon texture · Solar System Scope · CC BY 4.0
           </a>
           <button className="footer__top mono" onClick={scrollToTop} data-cursor="link">
             {copy.ui.backTop}

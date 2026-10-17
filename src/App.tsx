@@ -1,21 +1,18 @@
 import { useEffect, useState } from 'react';
 import { PreferencesProvider } from './lib/preferences';
-import { gsap, initSmoothScroll, ScrollTrigger } from './lib/scroll';
+import { gsap, ScrollTrigger, startScrollTracking, stopScrollTracking } from './lib/scroll';
 import { Stage } from './components/Stage';
 import { Preloader } from './components/Preloader';
 import { Nav } from './components/Nav';
-import { Rail } from './components/Rail';
 import { Cursor } from './components/Cursor';
 import { Toast } from './components/Toast';
-import { Altitude } from './components/Altitude';
 import { ScrollRefresh } from './components/ScrollRefresh';
 import { Hero } from './sections/Hero';
-import { Manifesto } from './sections/Manifesto';
 import { Workshop } from './sections/Workshop';
+import { OpenSource } from './sections/OpenSource';
 import { Commission } from './sections/Commission';
-import { MaiBot } from './sections/MaiBot';
-import { Games } from './sections/Games';
-import { Characters } from './sections/Characters';
+import { Extras } from './sections/Extras';
+import { Notes } from './sections/Notes';
 import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
 
@@ -27,23 +24,23 @@ export function App() {
     if (typeof window === 'undefined') return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     window.scrollTo(0, 0);
+    startScrollTracking();
 
-    const cleanupScroll = initSmoothScroll();
     const context = gsap.context(() => {
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
         gsap.from(element, {
-          y: 46,
+          y: 34,
           opacity: 0,
-          duration: 1.2,
+          duration: 1.05,
           ease: 'expo.out',
-          scrollTrigger: { trigger: element, start: 'top 88%' },
+          scrollTrigger: { trigger: element, start: 'top 90%' },
         });
       });
     });
 
     const refresh = () => ScrollTrigger.refresh();
     document.fonts?.ready.then(refresh).catch(() => {});
-    const timer = window.setTimeout(refresh, 900);
+    const timer = window.setTimeout(refresh, 700);
 
     const onResize = () => ScrollTrigger.refresh();
     window.addEventListener('orientationchange', onResize);
@@ -52,7 +49,7 @@ export function App() {
       window.clearTimeout(timer);
       window.removeEventListener('orientationchange', onResize);
       context.revert();
-      cleanupScroll();
+      stopScrollTracking();
     };
   }, []);
 
@@ -71,17 +68,14 @@ export function App() {
       )}
       <Cursor />
       <Nav booted={booted} />
-      <Rail />
-      <Altitude />
       <ScrollRefresh />
       <main id="main">
         <Hero booted={booted} />
-        <Manifesto />
         <Workshop />
+        <OpenSource />
         <Commission />
-        <MaiBot />
-        <Games />
-        <Characters />
+        <Extras />
+        <Notes />
         <Contact />
       </main>
       <Footer />

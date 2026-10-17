@@ -17,6 +17,12 @@ html {
   -webkit-text-size-adjust: 100%;
   scrollbar-color: var(--rule-strong) transparent;
   background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+}
+
+section[id] {
+  scroll-margin-top: calc(var(--nav-h) + 12px);
 }
 
 body {
@@ -202,6 +208,61 @@ html[data-lang='zh'] .display {
 html[data-lang='zh'] .lede {
   max-width: 30ch;
   line-height: 1.8;
+}
+
+.section-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  margin-bottom: clamp(1.8rem, 4.6vh, 3.4rem);
+}
+
+.section-title {
+  font-size: clamp(2.3rem, 5.2vw, 4.9rem);
+  max-width: 20ch;
+}
+
+.section-lede {
+  margin-left: clamp(0px, 7vw, 10rem);
+  max-width: 44ch;
+}
+
+html[data-lang='zh'] .section-lede {
+  max-width: 34ch;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 1.9rem;
+  padding: 0.32rem 0.85rem;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--bg-2);
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+
+.pill--accent {
+  color: var(--accent);
+  border-color: var(--accent-line);
+  background: var(--accent-soft);
+}
+
+.btn--big {
+  min-height: 3.3rem;
+  padding: 0.95rem 1.9rem;
+  font-size: 0.84rem;
+}
+
+html[data-motion='calm'] .logo__orbit,
+html[data-motion='calm'] .nav__cta::after {
+  animation: none;
 }
 
 .rule {

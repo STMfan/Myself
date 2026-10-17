@@ -125,7 +125,7 @@ export function Stage() {
 
     const draw = () => {
       const { progress, velocity } = getScrollReading();
-      const depthShift = Math.min(1, Math.abs(velocity) / 60);
+      const depthShift = Math.min(1, Math.abs(velocity) / 180);
       pointer.x += (pointer.targetX - pointer.x) * 0.045;
       pointer.y += (pointer.targetY - pointer.y) * 0.045;
 
@@ -163,7 +163,7 @@ export function Stage() {
         context.globalAlpha = alpha;
         context.strokeStyle = palette.star;
         context.lineWidth = Math.max(0.4, star.radius * 0.7);
-        const streak = 1 + depthShift * 26 * star.depth;
+        const streak = 1 + depthShift * 10 * star.depth;
         context.beginPath();
         context.moveTo(px, py);
         context.lineTo(px, py + streak);
@@ -240,6 +240,25 @@ export function Stage() {
       <canvas ref={canvasRef} className="stage__canvas" />
       <div className="stage__atmosphere" />
       <div className="stage__atmosphere stage__atmosphere--warm" />
+      <svg
+        className="stage__flow"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        fill="none"
+      >
+        <path
+          className="stage__flow-path stage__flow-path--a"
+          d="M-80 760C210 520 480 900 780 610S1240 420 1520 540"
+        />
+        <path
+          className="stage__flow-path stage__flow-path--b"
+          d="M-60 210C260 420 540 60 860 280S1300 520 1520 300"
+        />
+        <path
+          className="stage__flow-path stage__flow-path--c"
+          d="M120 960C320 640 700 760 900 470S1240 180 1480 120"
+        />
+      </svg>
     </div>
   );
 }

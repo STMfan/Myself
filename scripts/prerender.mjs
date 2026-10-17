@@ -201,7 +201,17 @@ async function main() {
 
   // Sanity check: the baked markup must carry the real zh content.
   const html = await readFile(DIST_HTML, 'utf8');
-  const required = ['探月下，尘世万象', 'id="hero"', 'id="contact-title"'];
+  const required = [
+    '探月下，尘世万象',
+    'id="hero"',
+    'id="workshop"',
+    'id="opensource"',
+    'id="commission"',
+    'id="extras"',
+    'id="notes"',
+    'id="contact"',
+    'id="contact-title"',
+  ];
   for (const needle of required) {
     if (!html.includes(needle)) {
       fail(`prerendered dist/index.html is missing required marker: ${needle}`);

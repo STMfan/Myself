@@ -36,12 +36,11 @@ const SIZE_CEILING = 24 * 1024 * 1024; // 24 MB
 
 const SECTION_IDS = [
   'hero',
-  'manifesto',
   'workshop',
+  'opensource',
   'commission',
-  'maibot',
-  'games',
-  'characters',
+  'extras',
+  'notes',
   'contact',
   'contact-title',
 ];
@@ -210,6 +209,40 @@ async function main() {
     check(
       ok,
       `HTML references ${ref} but ${path.relative(ROOT, file)} does not exist in dist`,
+    );
+  }
+
+  // Runtime-referenced assets live in JS, so the HTML crawl cannot see them.
+  const REQUIRED_ASSETS = [
+    'assets/logo.png',
+    'assets/avatar.png',
+    'assets/art/moon-map.webp',
+    'assets/art/moon-map-1k.webp',
+    'assets/art/horizon.webp',
+    'assets/art/atmosphere-haze.webp',
+    'assets/art/light-paper.webp',
+    'assets/art/dark-emulsion.webp',
+    'assets/games/phigros.webp',
+    'assets/games/delta.webp',
+    'assets/games/genshin.webp',
+    'assets/games/zzz.webp',
+    'assets/games/minecraft.webp',
+    'assets/cast/wriothesley.webp',
+    'assets/cast/varka.webp',
+    'assets/cast/lycaon.webp',
+    'assets/cast/vyron.webp',
+    'assets/cast/gizmo.webp',
+    'assets/icons/icon-192.png',
+    'assets/icons/apple-touch-icon.png',
+    'assets/maibot.webp',
+    'assets/playlist-cover.webp',
+    'assets/share/og.png',
+  ];
+  for (const relative of REQUIRED_ASSETS) {
+    const file = path.join(DIST, relative);
+    check(
+      await fileExists(file),
+      `runtime asset ${relative} is missing from dist (abort: a broken image would ship)`,
     );
   }
 

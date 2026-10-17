@@ -1,10 +1,10 @@
 import { useLayoutEffect, useRef } from 'react';
-import { ArrowUpRight, GithubLogo } from '@phosphor-icons/react';
+import { ArrowDown, ArrowUpRight } from '@phosphor-icons/react';
 import { CONTACT } from '../content/site';
 import { useCopy, usePreferences } from '../lib/preferences';
-import { gsap, isCalm } from '../lib/scroll';
+import { gsap, isCalm, scrollToId } from '../lib/scroll';
 import { Chars } from '../components/Type';
-import { Orrery } from '../components/Orrery';
+import { MoonPanel } from '../components/MoonPanel';
 
 export function Hero({ booted }: { booted: boolean }) {
   const { locale } = usePreferences();
@@ -13,21 +13,16 @@ export function Hero({ booted }: { booted: boolean }) {
 
   useLayoutEffect(() => {
     const scope = root.current;
-    if (!scope) return;
-    if (isCalm()) {
-      gsap.set(scope.querySelectorAll('[data-hero]'), { clearProps: 'all' });
-      return;
-    }
+    if (!scope || isCalm()) return;
 
     const context = gsap.context(() => {
       const chars = scope.querySelectorAll('.hero__slogan .split-char');
       const fade = scope.querySelectorAll('[data-hero-fade]');
-      const instrument = scope.querySelector('[data-hero-instrument]');
-      const outline = scope.querySelector('.hero__slogan-line--outline');
+      const panel = scope.querySelector('[data-hero-moon]');
 
-      gsap.set(chars, { yPercent: 118, opacity: 0, rotate: 4 });
-      gsap.set(fade, { y: 26, opacity: 0 });
-      gsap.set(instrument, { opacity: 0, scale: 0.94, y: 18 });
+      gsap.set(chars, { yPercent: 120, opacity: 0, rotate: 3 });
+      gsap.set(fade, { y: 24, opacity: 0 });
+      gsap.set(panel, { opacity: 0, scale: 0.92, y: 20 });
 
       if (!booted) return;
 
@@ -37,46 +32,22 @@ export function Hero({ booted }: { booted: boolean }) {
           yPercent: 0,
           opacity: 1,
           rotate: 0,
-          duration: 1.35,
-          stagger: { each: 0.045, from: 'start' },
+          duration: 1.3,
+          stagger: { each: 0.04 },
         })
-        .to(
-          outline,
-          { opacity: 1, duration: 1.2, ease: 'power2.out' },
-          '-=1.05',
-        )
-        .to(
-          fade,
-          { y: 0, opacity: 1, duration: 1.1, stagger: 0.08 },
-          '-=0.85',
-        )
-        .to(
-          instrument,
-          { opacity: 1, scale: 1, y: 0, duration: 1.6, ease: 'expo.out' },
-          '-=1.2',
-        );
+        .to(fade, { y: 0, opacity: 1, duration: 1, stagger: 0.07 }, '-=1.1')
+        .to(panel, { opacity: 1, scale: 1, y: 0, duration: 1.5 }, '-=1.15');
 
       gsap.to(scope.querySelector('.hero__copy'), {
-        yPercent: -14,
-        opacity: 0.24,
+        yPercent: -8,
+        opacity: 0.35,
         ease: 'none',
-        scrollTrigger: {
-          trigger: scope,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.6,
-        },
+        scrollTrigger: { trigger: scope, start: 'top top', end: 'bottom top', scrub: 0.5 },
       });
-
-      gsap.to(instrument, {
-        yPercent: -26,
+      gsap.to(panel, {
+        yPercent: -12,
         ease: 'none',
-        scrollTrigger: {
-          trigger: scope,
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 0.8,
-        },
+        scrollTrigger: { trigger: scope, start: 'top top', end: 'bottom top', scrub: 0.6 },
       });
     }, scope);
 
@@ -89,11 +60,11 @@ export function Hero({ booted }: { booted: boolean }) {
         <div className="hero__grid">
           <div className="hero__copy">
             <p className="hero__kicker mono" data-hero-fade>
-              <span className="hero__kicker-mark" aria-hidden="true" />
+              <span className="hero__pulse" aria-hidden="true" />
               {copy.hero.kicker}
             </p>
 
-            <h1 className="hero__slogan display" id="hero-title" data-hero>
+            <h1 className="hero__slogan display" id="hero-title">
               <span className="split-line hero__slogan-line">
                 <Chars text={copy.hero.slogan[0]} />
               </span>
@@ -111,36 +82,39 @@ export function Hero({ booted }: { booted: boolean }) {
             </p>
 
             <div className="hero__actions" data-hero-fade>
-              <a className="btn btn--solid" href={`mailto:${CONTACT.email}`} data-cursor="link">
+              <span className="hero__halo" aria-hidden="true" />
+              <a className="btn btn--solid btn--hero" href={`mailto:${CONTACT.email}`} data-cursor="link">
                 {copy.hero.primary}
-                <ArrowUpRight className="btn__arrow" weight="light" size={16} />
+                <ArrowUpRight className="btn__arrow" weight="light" size={18} />
               </a>
-              <a
-                className="btn hero__secondary"
-                href={CONTACT.github}
-                target="_blank"
-                rel="noreferrer noopener"
+              <button
+                className="hero__secondary"
+                onClick={() => scrollToId('workshop')}
                 data-cursor="link"
               >
-                <GithubLogo weight="light" size={17} />
                 {copy.hero.secondary}
-              </a>
+                <ArrowDown weight="light" size={15} />
+              </button>
             </div>
+
+            <p className="hero__available mono" data-hero-fade>
+              <span className="hero__available-dot" aria-hidden="true" />
+              {copy.hero.available}
+            </p>
           </div>
 
-          <div className="hero__instrument" data-hero-instrument>
-            <Orrery />
+          <div className="hero__moon" data-hero-moon>
+            <MoonPanel />
           </div>
         </div>
 
         <div className="hero__foot" data-hero-fade>
-          <span className="mono hero__coords">{copy.hero.coordinates}</span>
-          <span className="hero__status mono">
-            <span className="hero__status-dot" aria-hidden="true" />
-            {copy.hero.status}
-          </span>
-          <span className="mono hero__lang-note">
+          <span className="mono">{copy.hero.coordinates}</span>
+          <span className="mono hero__foot-mark">
             {locale === 'zh' ? 'SUBLUNARY · ONE TAKE' : '月下 · 一镜到底'}
+          </span>
+          <span className="mono hero__foot-hint">
+            {locale === 'zh' ? '拖动月球' : 'DRAG THE MOON'}
           </span>
         </div>
       </div>

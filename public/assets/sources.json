@@ -1,6 +1,6 @@
 {
-  "$comment": "Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored).",
-  "site": "STMfan · Sublunary (v2)",
+  "$comment": "Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored). avatar.png and logo.png are supplied by the Lead and are never written by this pipeline.",
+  "site": "STMfan · Sublunary (v2.1)",
   "generatedOn": "2026-10-17",
   "model": "gpt-image",
   "generated": [
@@ -93,25 +93,66 @@
       "date": "2026-10-17",
       "promptSummary": "Brass-and-steel spherical automaton sigil: riveted plating, side ports, glowing amber lens eye, antenna orb, blue rim light, near-black background. Square, no text.",
       "transform": "resize 640x640; webp q86"
+    },
+    {
+      "id": "wriothesley",
+      "output": "public/assets/cast/wriothesley.webp",
+      "source": "assets-src/cast/wriothesley-raw.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Full-body Genshin Impact fan art of Wriothesley: tall adult man, athletic build, short black hair with silver-grey streaks, pale ice-grey eyes, scar on one cheek, black high-collar coat with charcoal fur collar, crimson lining and red accents, dark gloves and gauntlets, chains, heavy boots; confident half-smile, frost-crackling fist; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.",
+      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 568x1000, webp q88 with alpha",
+      "alpha": true
+    },
+    {
+      "id": "varka",
+      "output": "public/assets/cast/varka.webp",
+      "source": "assets-src/cast/varka-raw.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Full-body Genshin Impact fan art of Varka, Grand Master of the Knights of Favonius: huge older knight in his late fifties, long silver-blond hair and beard, weathered scarred face, white and gold heavy plate armor, deep blue cape with a lion crest, massive greatsword held point-down with both hands; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.",
+      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 618x1000, webp q88 with alpha",
+      "alpha": true
+    },
+    {
+      "id": "lycaon",
+      "output": "public/assets/cast/lycaon.webp",
+      "source": "assets-src/cast/lycaon-raw.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Full-body Zenless Zone Zero fan art of Von Lycaon: anthropomorphic white-furred wolf butler, lean elegant build, sharp ice-blue eye with a cybernetic monocle eyepiece, black tailcoat with ice-blue trim, white dress shirt, bow tie, white gloves, silver-blue prosthetic legs, tail; refined butler pose holding a silver tray; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.",
+      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 535x1000, webp q88 with alpha",
+      "alpha": true
+    },
+    {
+      "id": "vyron",
+      "output": "public/assets/cast/vyron.webp",
+      "source": "assets-src/cast/vyron-raw.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Full-body Delta Force fan art key art of Vyron, a Chinese tactical operator: athletic adult man, short black hair, light stubble, dark plate carrier over a grey combat uniform, fast helmet with raised visor and headset, amber signal lights, tactical gloves, knee pads, boots, modern assault rifle in a low-ready grip; semi-realistic military key art, cool teal fill / amber rim light right; flat #00FF00 background, no text or insignia lettering.",
+      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 379x1000, webp q88 with alpha",
+      "alpha": true
+    },
+    {
+      "id": "gizmo",
+      "output": "public/assets/cast/gizmo.webp",
+      "source": "assets-src/cast/gizmo-raw.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Full-body Zenless Zone Zero fan art of Gizmo, a small round hovering engineer robot: spherical scuffed industrial plating in off-white, gunmetal and safety yellow, orange hazard stripes, one large amber lens eye, antenna with an amber bulb, articulated mechanical arms with three-finger grippers holding a wrench, blue-glowing thrusters, folded treads; cheerful hovering pose; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.",
+      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 1033x1000, webp q88 with alpha",
+      "alpha": true
     }
   ],
   "external": [
-    {
-      "id": "avatar",
-      "output": "public/assets/avatar.png",
-      "url": "https://github.com/STMfan.png?size=320",
-      "owner": "STMfan (GitHub account avatar)",
-      "license": "Personal avatar, © STMfan. Redistributed as part of this site; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T14:18:26.500Z",
-      "transform": "resize 320x320 (cover), written as PNG"
-    },
     {
       "id": "maibot",
       "output": "public/assets/maibot.webp",
       "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",
       "owner": "Mai-with-u (MaiBot project) — mascot artwork",
       "license": "Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T14:18:27.906Z",
+      "fetchedAt": "2026-10-17T15:32:10.520Z",
       "transform": "contained on an 800x800 transparent canvas, webp q82"
     },
     {
@@ -120,8 +161,106 @@
       "url": "https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp",
       "owner": "Bilibili archive cover (Bilibili / original uploader)",
       "license": "Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T14:18:31.433Z",
+      "fetchedAt": "2026-10-17T15:32:13.798Z",
       "transform": "kept 672x378, webp q82"
+    },
+    {
+      "id": "moon-map",
+      "output": [
+        "public/assets/art/moon-map.webp",
+        "public/assets/art/moon-map-1k.webp"
+      ],
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Solarsystemscope_texture_8k_moon.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Solarsystemscope_texture_8k_moon.jpg",
+      "owner": "Solar System Scope (solarsystemscope.com/textures), CC BY 4.0; base lunar photography NASA / LRO",
+      "license": "CC BY 4.0 — Solar System Scope moon texture. Attribution: “Moon texture by Solar System Scope, CC BY 4.0”.",
+      "fetchedAt": "2026-10-17T15:23:31.608Z",
+      "sourceSize": "8192x4096",
+      "projection": "equirectangular (2:1), 0 deg longitude at image centre",
+      "seamCheck": {
+        "seam": 10.28,
+        "interior": 10.14
+      },
+      "transform": "downscaled once to 2048x1024, then 1024x512; webp q82 (no upscaling)"
+    },
+    {
+      "id": "game-phigros",
+      "output": "public/assets/games/phigros.webp",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/bf/12/eebf123e-f676-da25-6800-44c6f2d74629/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "appStoreLookup": "https://itunes.apple.com/lookup?id=1454809109&country=us",
+      "appName": "Phigros",
+      "owner": "Pigeon Games (Xiamen Pigeon Games Network Co., Ltd.)",
+      "license": "Official App Store artwork (c) Pigeon Games. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
+      "fetchedAt": "2026-10-17T15:32:15.721Z",
+      "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
+    },
+    {
+      "id": "game-genshin",
+      "output": "public/assets/games/genshin.webp",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5c/e2/13/5ce21317-a08a-24ac-cc5f-2b25a4d71fa6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg",
+      "appStoreLookup": "https://itunes.apple.com/lookup?id=1517783697&country=us",
+      "appName": "Genshin Impact",
+      "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
+      "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
+      "fetchedAt": "2026-10-17T15:32:15.926Z",
+      "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
+    },
+    {
+      "id": "game-zzz",
+      "output": "public/assets/games/zzz.webp",
+      "url": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/4a/fb/2d4afb82-bdb9-cc80-b5b7-d1d7f515b2ae/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg",
+      "appStoreLookup": "https://itunes.apple.com/lookup?id=1606356401&country=us",
+      "appName": "Zenless Zone Zero",
+      "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
+      "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
+      "fetchedAt": "2026-10-17T15:32:16.116Z",
+      "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
+    },
+    {
+      "id": "game-minecraft",
+      "output": "public/assets/games/minecraft.webp",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/d/d8/Minecraft_cube.svg",
+      "page": "https://commons.wikimedia.org/wiki/File:Minecraft_cube.svg",
+      "owner": "Mojang Studios / Microsoft (game); Commons file by Albin Olsson",
+      "license": "Commons file released into the public domain (simple geometric logo, PD-textlogo). “Minecraft” and the grass-block icon are trademarks of Mojang Synergies AB; used nominatively, not relicensed.",
+      "fetchedAt": "2026-10-17T15:32:16.685Z",
+      "transform": "rasterised from the Commons SVG at 1200 dpi, fitted to a transparent 256x256 canvas (contain)"
+    },
+    {
+      "id": "game-delta",
+      "output": "public/assets/games/delta.webp",
+      "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Delta_Force_Logo.svg",
+      "page": "https://commons.wikimedia.org/wiki/File:Delta_Force_Logo.svg",
+      "owner": "Team Jade / TiMi Studio Group (Delta Force, 2024)",
+      "license": "Commons file marked public domain (PD-textlogo: simple geometric wordmark). “DELTA FORCE” is a trademark of its owner; used nominatively, not relicensed.",
+      "fetchedAt": "2026-10-17T15:32:16.874Z",
+      "transform": "wordmark recoloured #000000 -> #F2F6FF (emblem kept #0FF796) so the logo reads on the dark tile; rendered at 900 dpi, centred on a 256x256 rounded dark plate (#0d131b)"
+    }
+  ],
+  "provided": [
+    {
+      "id": "avatar",
+      "output": "public/assets/avatar.png",
+      "width": 640,
+      "height": 640,
+      "bytes": 217927,
+      "source": "C:/Users/STMfan/Pictures/GithubAvatar.png (1080x1080)",
+      "owner": "STMfan",
+      "license": "Personal artwork, © STMfan. Not relicensed under MIT.",
+      "transform": "Full illustration downscaled to 640x640",
+      "note": "Provided by the Lead; the asset pipeline only verifies and records it."
+    },
+    {
+      "id": "logo",
+      "output": "public/assets/logo.png",
+      "width": 256,
+      "height": 256,
+      "bytes": 47964,
+      "source": "C:/Users/STMfan/Pictures/GithubAvatar.png (1080x1080)",
+      "owner": "STMfan",
+      "license": "Personal artwork, © STMfan. Not relicensed under MIT.",
+      "transform": "256x256 face crop",
+      "note": "Provided by the Lead; the asset pipeline only verifies and records it."
     }
   ],
   "fonts": [
@@ -164,10 +303,59 @@
       "base": "assets-src/horizon.png",
       "elements": [
         "dark scrim gradients",
+        "circular avatar mark (public/assets/logo.png) at (1080,170) r=76, amber hairline ring",
         "wordmark \"STMfan\" in Bricolage Grotesque 700",
         "slogan \"探月下，尘世万象\" in Noto Serif SC 500",
         "mono line \"TO DECIPHER THE SUBLUNARY SPHERE.\" in JetBrains Mono 400",
         "domain \"STMFAN.TECH\" in JetBrains Mono 400"
+      ],
+      "createdOn": "2026-10-17"
+    },
+    {
+      "output": "public/assets/icons/icon-512.png",
+      "width": 512,
+      "height": 512,
+      "base": "public/assets/logo.png",
+      "elements": [
+        "lanczos upscale/downscale",
+        "slight saturation lift",
+        "corner vignette for circular OS masks"
+      ],
+      "createdOn": "2026-10-17"
+    },
+    {
+      "output": "public/assets/icons/icon-192.png",
+      "width": 192,
+      "height": 192,
+      "base": "public/assets/logo.png",
+      "elements": [
+        "lanczos upscale/downscale",
+        "slight saturation lift",
+        "corner vignette for circular OS masks"
+      ],
+      "createdOn": "2026-10-17"
+    },
+    {
+      "output": "public/assets/icons/apple-touch-icon.png",
+      "width": 180,
+      "height": 180,
+      "base": "public/assets/logo.png",
+      "elements": [
+        "lanczos upscale/downscale",
+        "slight saturation lift",
+        "corner vignette for circular OS masks"
+      ],
+      "createdOn": "2026-10-17"
+    },
+    {
+      "output": "public/assets/apple-touch-icon.png",
+      "width": 180,
+      "height": 180,
+      "base": "public/assets/logo.png",
+      "elements": [
+        "lanczos upscale/downscale",
+        "slight saturation lift",
+        "corner vignette for circular OS masks"
       ],
       "createdOn": "2026-10-17"
     }

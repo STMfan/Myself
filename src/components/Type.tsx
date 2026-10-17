@@ -1,30 +1,24 @@
 import type { CSSProperties } from 'react';
 
-export function Sigil({
+export function Logo({
   className,
+  src = '/assets/logo.png',
+  alt = 'STMfan',
   style,
 }: {
   className?: string;
+  src?: string;
+  alt?: string;
   style?: CSSProperties;
 }) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      className={className}
-      style={style}
-    >
-      <circle cx="16" cy="16" r="14.6" stroke="currentColor" strokeWidth="0.9" opacity="0.55" />
-      <circle cx="16" cy="16" r="10.4" stroke="currentColor" strokeWidth="0.7" opacity="0.28" />
-      <path
-        d="M20.1 7.9a8.9 8.9 0 1 0 0 16.2 7.15 7.15 0 1 1 0-16.2Z"
-        fill="currentColor"
-        opacity="0.92"
-      />
-      <circle cx="24.6" cy="10.6" r="1.35" fill="currentColor" />
-      <path d="M16 1.6v3.2M16 27.2v3.2M1.6 16h3.2M27.2 16h3.2" stroke="currentColor" strokeWidth="0.8" opacity="0.5" />
-    </svg>
+    <span className={`logo ${className ?? ''}`} style={style}>
+      <img src={src} alt={alt} width={64} height={64} decoding="async" />
+      <span className="logo__ring" aria-hidden="true" />
+      <span className="logo__orbit" aria-hidden="true">
+        <span className="logo__satellite" />
+      </span>
+    </span>
   );
 }
 

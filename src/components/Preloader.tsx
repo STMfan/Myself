@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useCopy } from '../lib/preferences';
-import { Sigil } from './Type';
+import { Logo } from './Type';
 
 const DURATION = 1750;
 
@@ -76,7 +76,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       <div className="preloader__panel preloader__panel--bottom" />
       <div className="preloader__content">
         <div className="preloader__mark">
-          <Sigil className="preloader__sigil" />
+          <Logo className="preloader__logo" />
         </div>
         <div className="preloader__readout">
           <span className="mono preloader__line">{ui.preloaderLine}</span>
