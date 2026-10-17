@@ -46,6 +46,13 @@ docs/                  deployment, assets, validation
 Static output in `dist`, built by `.github/workflows/build.yml` and ready for
 Cloudflare Pages Git integration. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
+## Design
+
+The concept, tokens, act-by-act choreography and tradeoffs are written up in
+[docs/DESIGN.md](docs/DESIGN.md). Asset provenance lives in
+[docs/ASSETS.md](docs/ASSETS.md), and the commands that produced the current
+build are recorded in [docs/VALIDATION.md](docs/VALIDATION.md).
+
 ## License
 
 MIT for the original source. Third party trademarks, game names, character
