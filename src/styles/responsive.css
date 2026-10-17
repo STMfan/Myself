@@ -1,0 +1,445 @@
+/* ============================================================
+   Responsive collapse and calm mode
+   ============================================================ */
+
+@media (max-width: 1280px) {
+  .hero__copy {
+    max-width: 56ch;
+  }
+
+  .workshop__body {
+    gap: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  .characters__map {
+    height: min(68svh, 620px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero__instrument {
+    display: block;
+    width: min(34vw, 230px);
+    max-width: 230px;
+    margin: 1.2rem auto 0;
+    justify-self: center;
+  }
+
+  .orrery__readout {
+    display: none;
+  }
+
+  .orrery__dial {
+    width: 100%;
+    max-width: 230px;
+    margin-inline: auto;
+  }
+
+  .workshop__visual {
+    max-width: 320px;
+  }
+
+  .characters__map {
+    height: 620px;
+  }
+}
+
+@media (max-width: 980px) {
+  .workshop__head,
+  .characters__head,
+  .contact__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .workshop__body,
+  .maibot__grid,
+  .commission__grid,
+  .contact__lower {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workshop__visual {
+    display: none;
+  }
+
+  .commission__intro {
+    position: static;
+  }
+
+  .commission__title {
+    max-width: 18ch;
+  }
+
+  .commission__note {
+    grid-column: 1;
+  }
+
+  .maibot__media {
+    width: min(78vw, 380px);
+  }
+
+  .maibot__copy {
+    max-width: 62ch;
+  }
+
+  .contact__head .lede {
+    max-width: 44ch;
+  }
+
+  .manifesto {
+    height: 290svh;
+  }
+
+  .manifesto__inner {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'label'
+      'lead'
+      'lines'
+      'echo';
+    gap: 1.2rem;
+  }
+
+  .manifesto__lead {
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 5.2vw, 3rem);
+  }
+
+  .manifesto__lines {
+    max-width: none;
+  }
+
+  .manifesto__echo {
+    justify-self: start;
+    text-align: left;
+    width: 100%;
+    max-width: none;
+  }
+
+  .characters__map {
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.4rem 1rem;
+    margin-top: 2.4rem;
+  }
+
+  .characters__lines,
+  .characters__ghost {
+    display: none;
+  }
+
+  .characters__node {
+    position: static;
+    transform: none;
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .characters__readout {
+    position: static;
+    grid-column: 1 / -1;
+    max-width: none;
+    border-top: 1px solid var(--rule);
+    padding-top: 1rem;
+  }
+
+  .characters__hint {
+    position: static;
+    grid-column: 1 / -1;
+    text-align: left;
+    margin-top: 0.2rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .games__sticky {
+    height: auto;
+    display: block;
+    overflow: visible;
+  }
+
+  .games__track {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.6rem;
+    min-height: 0;
+    padding-block: clamp(5rem, 12vh, 8rem);
+    transform: none !important;
+  }
+
+  .games__intro {
+    flex: 0 0 auto;
+    border-right: none;
+    border-bottom: 1px solid var(--rule);
+    padding: 0 0 1.8rem;
+    gap: 0.7rem;
+  }
+
+  .game {
+    flex: 0 0 auto;
+    width: 100%;
+    min-height: 0;
+    gap: 1.1rem;
+    padding-block: 1.3rem;
+  }
+
+  .game:hover {
+    transform: none;
+  }
+
+  .games__hint {
+    display: none;
+  }
+
+  .games__outro {
+    flex: 0 0 auto;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    padding-block: 1.2rem;
+  }
+
+  .games__outro-mark {
+    font-size: 2.6rem;
+    align-self: center;
+  }
+}
+
+@media (max-width: 720px) {
+  :root {
+    --gutter: 1.15rem;
+  }
+
+  .nav__role {
+    display: none;
+  }
+
+  .nav__lang {
+    padding-inline: 0.35rem;
+  }
+
+  .hero {
+    padding-top: calc(64px + 1.6rem);
+    padding-bottom: 1.2rem;
+    min-height: 100svh;
+  }
+
+  .hero__inner {
+    justify-content: space-between;
+    gap: 1.2rem;
+  }
+
+  .hero__grid {
+    flex: 1 1 auto;
+    align-content: space-between;
+    align-items: start;
+    padding-top: 0.6rem;
+  }
+
+  .hero__instrument {
+    width: 154px;
+    margin-top: 0.8rem;
+  }
+
+  .orrery__dial {
+    max-width: 154px;
+  }
+
+  .hero__foot {
+    margin-top: 0.2rem;
+  }
+
+  html[data-lang='zh'] .hero__slogan {
+    font-size: clamp(2.9rem, 13.2vw, 4.4rem);
+  }
+
+  html[data-lang='en'] .hero__slogan {
+    font-size: clamp(1.9rem, 8.2vw, 2.9rem);
+  }
+
+  .hero__slogan-line--outline {
+    margin-left: 0.7rem;
+  }
+
+  .hero__intro {
+    margin-top: 0.9rem;
+    font-size: 0.94rem;
+    line-height: 1.75;
+  }
+
+  .hero__actions {
+    margin-top: 1.3rem;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .hero__foot {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.45rem;
+    font-size: 0.5rem;
+    margin-top: 0.2rem;
+  }
+
+  .hero__status {
+    justify-self: start;
+  }
+
+  .hero__lang-note {
+    display: none;
+  }
+
+  .hero__coords {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .manifesto {
+    height: 270svh;
+  }
+
+  .manifesto__inner {
+    padding-bottom: 2.4rem;
+  }
+
+  .manifesto__line {
+    grid-template-columns: 1.6rem minmax(0, 1fr);
+    gap: 0.5rem;
+  }
+
+  .manifesto__line-text {
+    font-size: 0.88rem;
+    line-height: 1.68;
+  }
+
+  .manifesto__echo {
+    font-size: 0.9rem;
+  }
+
+  .workshop,
+  .commission,
+  .maibot,
+  .characters,
+  .contact {
+    padding-block: 5rem;
+  }
+
+  .workshop__name {
+    font-size: 1.35rem;
+  }
+
+  .workshop__trigger {
+    padding: 1.2rem 0 1.3rem 0.9rem;
+    gap: 0.4rem 0.9rem;
+  }
+
+  .workshop__stack {
+    font-size: 0.52rem;
+    line-height: 1.9;
+  }
+
+  .commission__item {
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.7rem;
+  }
+
+  .commission__item:hover {
+    padding-inline: 0;
+  }
+
+  .maibot__media {
+    width: min(72vw, 320px);
+  }
+
+  .maibot__body {
+    font-size: 0.95rem;
+  }
+
+  .characters__map {
+    gap: 1.8rem 0.6rem;
+  }
+
+  .contact__title {
+    font-size: clamp(2.8rem, 14vw, 4.2rem);
+  }
+
+  .contact__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.2rem 0.8rem;
+  }
+
+  .contact__row-label {
+    grid-column: 1 / -1;
+  }
+
+  .contact__row-value {
+    font-size: 1.15rem;
+  }
+
+  .contact__playlist {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact__cover {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .contact__social-link {
+    font-size: 0.86rem;
+  }
+
+  .footer__line {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .footer__slogan {
+    font-size: clamp(1.6rem, 9vw, 2.6rem);
+  }
+
+  .footer__top {
+    margin-left: 0;
+  }
+
+  .grain {
+    opacity: 0.24;
+  }
+}
+
+@media (max-width: 420px) {
+  .characters__map {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .characters__sigil {
+    width: 64px;
+  }
+}
+
+/* calm mode: no ambient loops */
+html[data-motion='calm'] .orrery__ring,
+html[data-motion='calm'] .workshop__ring,
+html[data-motion='calm'] .workshop__glyph,
+html[data-motion='calm'] .maibot__orbit,
+html[data-motion='calm'] .characters__sigil-ring,
+html[data-motion='calm'] .hero__status-dot,
+html[data-motion='calm'] .commission__pulse,
+html[data-motion='calm'] .stage__atmosphere,
+html[data-motion='calm'] .preloader__sigil {
+  animation: none;
+}
+
+html[data-motion='calm'] .workshop__row-text,
+html[data-motion='calm'] .workshop__detail {
+  transition: none;
+}

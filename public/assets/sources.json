@@ -1,0 +1,175 @@
+{
+  "$comment": "Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored).",
+  "site": "STMfan · Sublunary (v2)",
+  "generatedOn": "2026-10-17",
+  "model": "gpt-image",
+  "generated": [
+    {
+      "id": "moon-macro",
+      "output": "public/assets/art/moon-macro.webp",
+      "source": "assets-src/moon-macro.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Macro of the lunar surface: cratered highlands and a large rayed impact crater on the left, smooth mare on the right, hard terminator shadow along the lower-left edge and a warm grazing rim light in the upper-right corner. Square; near-black space only at the extreme corner, no text.",
+      "transform": "extract 1000x1000 at 127,127; resize 720x720; webp q84"
+    },
+    {
+      "id": "horizon",
+      "output": "public/assets/art/horizon.webp",
+      "source": "assets-src/horizon.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Ultrawide dusk horizon: a snow-dusted mountain ridge under a thin amber band of sunset light, layered blue haze over a dark city skyline with scattered warm windows, foreground conifers. Cinematic, no text.",
+      "transform": "resize 1920x823; webp q82"
+    },
+    {
+      "id": "atmosphere-haze",
+      "output": "public/assets/art/atmosphere-haze.webp",
+      "source": "assets-src/atmosphere-haze.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Near-black atmosphere plate: low blue mist drifting in from the lower left, a single warm amber light leak in the upper-right corner, fine grain. 16:9, no text.",
+      "transform": "resize 1600x900; webp q84"
+    },
+    {
+      "id": "light-paper",
+      "output": "public/assets/art/light-paper.webp",
+      "source": "assets-src/light-paper.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Cold-pressed white paper texture: fine fibres, tiny flecks, flat even light. Square, no text.",
+      "transform": "resize 512x512; webp q82"
+    },
+    {
+      "id": "dark-emulsion",
+      "output": "public/assets/art/dark-emulsion.webp",
+      "source": "assets-src/dark-emulsion.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Aged dark film emulsion: near-black base, dust specks, fine scratches, faint umber edge burn. Square, no text.",
+      "transform": "resize 512x512; webp q82"
+    },
+    {
+      "id": "sigil-wriothesley",
+      "output": "public/assets/art/sigil-wriothesley.webp",
+      "source": "assets-src/sigil-wriothesley.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Heraldic wolf-skull sigil: forged steel and fractured blue-white crystal, keyhole brow, brass gears and chains, a single amber eye ember, symmetrical crest on near-black. Square, no text.",
+      "transform": "resize 640x640; webp q86"
+    },
+    {
+      "id": "sigil-varka",
+      "output": "public/assets/art/sigil-varka.webp",
+      "source": "assets-src/sigil-varka.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Heraldic sigil of a pale wolf-fang spear crossing a white feather, twin engraved crescents and blue crystal filigree, a warm amber spark at the crossing, near-black background. Square, no text.",
+      "transform": "resize 640x640; webp q86"
+    },
+    {
+      "id": "sigil-lycaon",
+      "output": "public/assets/art/sigil-lycaon.webp",
+      "source": "assets-src/sigil-lycaon.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Frost-wolf head sigil in silver-blue crystal, framed by a four-point star ring, amber eye, symmetrical crest on near-black. Square, no text.",
+      "transform": "resize 640x640; webp q86"
+    },
+    {
+      "id": "sigil-vyron",
+      "output": "public/assets/art/sigil-vyron.webp",
+      "source": "assets-src/sigil-vyron.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Compass-rose sigil: eight-point steel star over concentric astrolabe rings, glowing amber core, blue rim light, near-black background. Square, no text.",
+      "transform": "resize 640x640; webp q86"
+    },
+    {
+      "id": "sigil-gizmo",
+      "output": "public/assets/art/sigil-gizmo.webp",
+      "source": "assets-src/sigil-gizmo.png",
+      "model": "gpt-image",
+      "date": "2026-10-17",
+      "promptSummary": "Brass-and-steel spherical automaton sigil: riveted plating, side ports, glowing amber lens eye, antenna orb, blue rim light, near-black background. Square, no text.",
+      "transform": "resize 640x640; webp q86"
+    }
+  ],
+  "external": [
+    {
+      "id": "avatar",
+      "output": "public/assets/avatar.png",
+      "url": "https://github.com/STMfan.png?size=320",
+      "owner": "STMfan (GitHub account avatar)",
+      "license": "Personal avatar, © STMfan. Redistributed as part of this site; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T14:18:26.500Z",
+      "transform": "resize 320x320 (cover), written as PNG"
+    },
+    {
+      "id": "maibot",
+      "output": "public/assets/maibot.webp",
+      "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",
+      "owner": "Mai-with-u (MaiBot project) — mascot artwork",
+      "license": "Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T14:18:27.906Z",
+      "transform": "contained on an 800x800 transparent canvas, webp q82"
+    },
+    {
+      "id": "playlist-cover",
+      "output": "public/assets/playlist-cover.webp",
+      "url": "https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp",
+      "owner": "Bilibili archive cover (Bilibili / original uploader)",
+      "license": "Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T14:18:31.433Z",
+      "transform": "kept 672x378, webp q82"
+    }
+  ],
+  "fonts": [
+    {
+      "file": "assets-src/fonts/bricolage-grotesque-700.ttf",
+      "family": "Bricolage Grotesque",
+      "weight": 700,
+      "subset": "full latin (Google Fonts static instance)",
+      "source": "Google Fonts",
+      "url": "https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700&display=swap",
+      "license": "SIL Open Font License 1.1",
+      "usage": "OG card lettering, converted to SVG outlines at build time"
+    },
+    {
+      "file": "assets-src/fonts/jetbrains-mono-400-latin-subset.ttf",
+      "family": "JetBrains Mono",
+      "weight": 400,
+      "subset": "latin subset, text=TO DECIPHER THE SUBLUNARY SPHERE. STMFAN.TECH 2026",
+      "source": "Google Fonts",
+      "url": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&text=TO%20DECIPHER%20THE%20SUBLUNARY%20SPHERE.%20STMFAN.TECH%202026",
+      "license": "SIL Open Font License 1.1",
+      "usage": "OG card lettering, converted to SVG outlines at build time"
+    },
+    {
+      "file": "assets-src/fonts/noto-serif-sc-500-slogan-subset.ttf",
+      "family": "Noto Serif SC",
+      "weight": 500,
+      "subset": "slogan subset, text=探月下，尘世万象",
+      "source": "Google Fonts",
+      "url": "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@500&text=%E6%8E%A2%E6%9C%88%E4%B8%8B%EF%BC%8C%E5%B0%98%E4%B8%96%E4%B8%87%E8%B1%A1",
+      "license": "SIL Open Font License 1.1",
+      "usage": "OG card lettering, converted to SVG outlines at build time"
+    }
+  ],
+  "composed": [
+    {
+      "output": "public/assets/share/og.png",
+      "width": 1200,
+      "height": 630,
+      "base": "assets-src/horizon.png",
+      "elements": [
+        "dark scrim gradients",
+        "wordmark \"STMfan\" in Bricolage Grotesque 700",
+        "slogan \"探月下，尘世万象\" in Noto Serif SC 500",
+        "mono line \"TO DECIPHER THE SUBLUNARY SPHERE.\" in JetBrains Mono 400",
+        "domain \"STMFAN.TECH\" in JetBrains Mono 400"
+      ],
+      "createdOn": "2026-10-17"
+    }
+  ]
+}

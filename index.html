@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="dark" data-lang="zh" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#04060b" />
+    <title>STMfan | 探月下，尘世万象</title>
+    <meta
+      name="description"
+      content="STMfan，在校学生与个人开发者。Python / FastAPI 后端、Debian 服务器运维、全栈 Vibe Coding。探月下，尘世万象。"
+    />
+    <link rel="canonical" href="https://stmfan.tech/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="STMfan" />
+    <meta property="og:title" content="STMfan | To Decipher the Sublunary Sphere." />
+    <meta
+      property="og:description"
+      content="在校学生与个人开发者。后端开发、长期服务器运维、全栈 Vibe Coding。"
+    />
+    <meta property="og:url" content="https://stmfan.tech/" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:image" content="https://stmfan.tech/assets/share/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="STMfan · To Decipher the Sublunary Sphere." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="STMfan | 探月下，尘世万象" />
+    <meta
+      name="twitter:description"
+      content="在校学生与个人开发者。Python / FastAPI、Debian 运维、全栈 Vibe Coding。"
+    />
+    <meta name="twitter:image" content="https://stmfan.tech/assets/share/og.png" />
+    <link rel="icon" href="/assets/sigil.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/avatar.png" />
+    <link rel="preconnect" href="https://github.com" crossorigin />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "STMfan",
+        "alternateName": "STM__fan",
+        "url": "https://stmfan.tech/",
+        "image": "https://stmfan.tech/assets/avatar.png",
+        "email": "mailto:stmfanofficial@gmail.com",
+        "jobTitle": "学生 / 个人开发者",
+        "description": "在校学生与个人开发者。Python / FastAPI 后端、Debian 服务器运维与全栈 Vibe Coding。",
+        "knowsAbout": ["Python", "FastAPI", "Debian", "Server Operations", "Prompt Engineering", "Vibe Coding", "Dart", "Flutter"],
+        "sameAs": ["https://github.com/STMfan", "https://space.bilibili.com/625979245"]
+      }
+    </script>
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.replace('no-js', 'js');
+        var theme = 'dark';
+        var lang = 'zh';
+        var motion = 'full';
+        try {
+          var saved = JSON.parse(localStorage.getItem('stmfan.sublunary') || '{}');
+          if (saved.theme === 'light' || saved.theme === 'dark') theme = saved.theme;
+          else if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+          if (saved.lang === 'zh' || saved.lang === 'en') lang = saved.lang;
+          else if (!/^zh/i.test(navigator.language || 'zh')) lang = 'en';
+          if (saved.motion === 'calm') motion = 'calm';
+        } catch (e) {}
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) motion = 'calm';
+        root.dataset.theme = theme;
+        root.dataset.lang = lang;
+        root.dataset.motion = motion;
+        root.lang = lang === 'en' ? 'en' : 'zh-CN';
+        root.style.setProperty('--vh', window.innerHeight * 0.01 + 'px');
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <div class="noscript">
+        <h1>STMfan</h1>
+        <p>探月下，尘世万象 / To Decipher the Sublunary Sphere.</p>
+        <p>在校学生与个人开发者。Python / FastAPI 后端、Debian 服务器运维、全栈 Vibe Coding。</p>
+        <p>
+          <a href="https://github.com/STMfan">GitHub</a> ·
+          <a href="https://space.bilibili.com/625979245">Bilibili</a> ·
+          <a href="mailto:stmfanofficial@gmail.com">stmfanofficial@gmail.com</a>
+        </p>
+      </div>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

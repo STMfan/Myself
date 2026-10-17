@@ -1,0 +1,25 @@
+STMfan · Sublunary (v2)
+
+The original website source code, design system and documentation are licensed
+under MIT. Copyright (c) 2026 STMfan. See LICENSE.
+
+Third-party packages retain their original licenses. License evidence for every
+runtime and build dependency is generated into docs/dependency-licenses.json and
+docs/licenses/ by `bun run licenses`. The deployed site also exposes
+/assets/PROJECT_LICENSE.txt and /assets/THIRD_PARTY_NOTICES.txt.
+
+Image provenance
+----------------
+Generated backdrop and sigil artwork in /public/assets/art/ was produced for this
+project with an image generation model. Provenance and prompts are recorded in
+docs/ASSETS.md and /public/assets/sources.json.
+
+The GitHub avatar, the Bilibili playlist cover and the MaiBot artwork are used
+as provided by their owners and remain the property of those rights holders.
+
+Game names, character names, game UGC identifiers and trademarks remain the
+property of their respective rights holders. This fan page is not affiliated
+with or endorsed by miHoYo / HoYoverse, Tencent, Mojang or Microsoft.
+
+Fonts remain under the SIL Open Font License 1.1 and are distributed through
+@fontsource packages with their license texts preserved in docs/licenses/.
