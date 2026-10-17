@@ -37,30 +37,27 @@ list: they are official artwork now (see below).
   - Output: `public/assets/art/dark-emulsion.webp` (512x512)
   - Prompt summary recorded in `public/assets/sources.json`; model `gpt-image`, date 2026-10-17.
 
-## Character portraits (official, v2.2)
+## Character portraits (official, v2.4)
 
 The gallery shows **official character artwork**, not generated fan art. Every
 plate is cut to a half-body portrait (head plus torso, cut around the waist), and
 the crop is scaled so the head measures exactly 300 px in the
-output, which gives all five the same visual weight at the gallery's fixed
+output, which gives all three the same visual weight at the gallery's fixed
 display height. The face crops are square 160 px frames of
 the same source, sized to stay readable in the 40-56 px circle of the thumbnail
 strip.
 
-Three sources are official **transparent character renders** (Wriothesley,
-Varka, Von Lycaon), so no keying was needed. Varka is playable and has an
-official render of his own, so the manga/group-art fallback was not required.
+All three are official **transparent character renders** (Wriothesley, Varka,
+Von Lycaon), so no keying was needed. Varka is playable and has an official render
+of his own, so the manga/group-art fallback was not required.
 
-The two Delta Force operators (Vyron, Gizmo) have **no published transparent
-render**. They use the official operator key art from the official Chinese
-operator page, with the photographic backdrop removed locally using rembg
-(u2net), then trimmed to the alpha bounds and cropped to a half-body portrait.
-The characters are untouched; only the background is removed. The committed
-cutouts were inspected on the dark page.
+The two Delta Force key-art cutouts from v2.3 were removed in v2.4: the
+photo-real style did not belong beside the transparent anime portraits. There is
+no generated character art in the gallery.
 
 Every output keeps a real alpha channel with a 0..255 range; `verify()` asserts
 `hasAlpha`, the frame height, the 300 px head scale and the 160x160 face crop
-before the pipeline exits. All ten files were inspected on a dark ground while
+before the pipeline exits. All six files were inspected on a dark ground while
 this document was written.
 
 - **wriothesley** — `public/assets/cast/wriothesley.webp` (894x999, alpha) + `public/assets/cast/wriothesley-face.webp` (160x160)
@@ -68,7 +65,7 @@ this document was written.
   - Page: https://genshin-impact.fandom.com/wiki/File:Wriothesley_Portrait.png
   - Owner: HoYoverse / COGNOSPHERE (Genshin Impact)
   - Scope: Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery, which hosts the official game render. Used nominatively on a personal, non-commercial site; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:36.810Z (1009x1534 source, already transparent)
+  - Fetched at: 2026-10-17T18:15:55.081Z (1009x1534 source, already transparent)
   - Cut: head + torso to the belt/upper thigh; the raised left fist and coat are cropped, the hair top is intact
   - Transform: crop 614x686 at (395,0), scale 1.456x to 894x999, head 300px; webp q88 with alpha; face crop 280x280 to 160x160, webp q88.
 - **varka** — `public/assets/cast/varka.webp` (784x1000, alpha) + `public/assets/cast/varka-face.webp` (160x160)
@@ -76,7 +73,7 @@ this document was written.
   - Page: https://genshin-impact.fandom.com/wiki/File:Varka_Portrait.png
   - Owner: HoYoverse / COGNOSPHERE (Genshin Impact)
   - Scope: Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery. Varka is playable (Knights of Favonius Grand Master), so no manga/group-art compromise was needed. Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:37.400Z (1376x1776 source, already transparent)
+  - Fetched at: 2026-10-17T18:15:55.684Z (1376x1776 source, already transparent)
   - Cut: head + torso to the waist; the greatsword leaves the frame on both sides, the hair top is intact
   - Transform: crop 528x673 at (496,0), scale 1.485x to 784x1000, head 300px; webp q88 with alpha; face crop 280x280 to 160x160, webp q88.
 - **lycaon** — `public/assets/cast/lycaon.webp` (851x1000, alpha) + `public/assets/cast/lycaon-face.webp` (160x160)
@@ -84,25 +81,9 @@ this document was written.
   - Page: https://zenless-zone-zero.fandom.com/wiki/File:Agent_Von_Lycaon_Portrait.png
   - Owner: HoYoverse / COGNOSPHERE (Zenless Zone Zero)
   - Scope: Official Zenless Zone Zero agent render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom agent gallery. Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:38.042Z (1836x2480 source, already transparent)
+  - Fetched at: 2026-10-17T18:15:56.364Z (1836x2480 source, already transparent)
   - Cut: head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact
   - Transform: crop 996x1170 at (530,14), scale 0.855x to 851x1000, head 300px; webp q88 with alpha; face crop 390x390 to 160x160, webp q88.
-- **vyron** — `public/assets/cast/vyron.webp` (650x1000, alpha) + `public/assets/cast/vyron-face.webp` (160x160)
-  - Source: https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg
-  - Page: https://df.qq.com/cp/a20240906main/index.html
-  - Owner: Tencent / Team Jade (Delta Force, 三角洲行动)
-  - Scope: Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron; the background was removed locally with rembg (u2net). Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:38.606Z (4096x2160 source, key art, background removed with rembg, then alpha-trimmed)
-  - Cut: half-body crop of the official key art; the background is removed with rembg and the alpha is trimmed to the subject
-  - Transform: crop 1300x2000 at (2104,150), scale 0.500x to 650x1000, head 300px; webp q88 with alpha; face crop 600x600 to 160x160, webp q88.
-- **gizmo** — `public/assets/cast/gizmo.webp` (800x991, alpha) + `public/assets/cast/gizmo-face.webp` (160x160)
-  - Source: https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg
-  - Page: https://df.qq.com/cp/a20240906main/index.html
-  - Owner: Tencent / Team Jade (Delta Force, 三角洲行动)
-  - Scope: Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published; the background was removed locally with rembg (u2net). Used nominatively; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:39.221Z (3840x2212 source, key art, background removed with rembg, then alpha-trimmed)
-  - Cut: head + torso of the official key art (glasses, raised hand, shoulder spider intact); background removed with rembg and alpha-trimmed
-  - Transform: crop 1672x2072 at (1439,140), scale 0.478x to 800x991, head 300px; webp q88 with alpha; face crop 620x620 to 160x160, webp q88.
 
 ## 3D moon map (v2.1)
 
@@ -128,32 +109,32 @@ encoded webp under 80 KB.
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ee/bf/12/eebf123e-f676-da25-6800-44c6f2d74629/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg
   - Owner: Pigeon Games (Xiamen Pigeon Games Network Co., Ltd.)
   - Scope: Official App Store artwork (c) Pigeon Games. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T16:05:34.953Z
+  - Fetched at: 2026-10-17T18:15:53.361Z
 - **genshin** — `public/assets/games/genshin.webp` (256x256)
   - App Store lookup: https://itunes.apple.com/lookup?id=1517783697&country=us (trackId 1517783697, “Genshin Impact”)
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5c/e2/13/5ce21317-a08a-24ac-cc5f-2b25a4d71fa6/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg
   - Owner: COGNOSPHERE PTE. LTD. (HoYoverse)
   - Scope: Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T16:05:35.204Z
+  - Fetched at: 2026-10-17T18:15:53.543Z
 - **zzz** — `public/assets/games/zzz.webp` (256x256)
   - App Store lookup: https://itunes.apple.com/lookup?id=1606356401&country=us (trackId 1606356401, “Zenless Zone Zero”)
   - Artwork URL: https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/4a/fb/2d4afb82-bdb9-cc80-b5b7-d1d7f515b2ae/AppIcon-1x_U007emarketing-0-8-0-85-220-0.png/512x512bb.jpg
   - Owner: COGNOSPHERE PTE. LTD. (HoYoverse)
   - Scope: Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.
-  - Fetched at: 2026-10-17T16:05:35.396Z
+  - Fetched at: 2026-10-17T18:15:53.742Z
 - **minecraft** — `public/assets/games/minecraft.webp` (256x256)
   - URL: https://upload.wikimedia.org/wikipedia/commons/d/d8/Minecraft_cube.svg
   - Commons page: https://commons.wikimedia.org/wiki/File:Minecraft_cube.svg
   - Owner: Mojang Studios / Microsoft (game); Commons file by Albin Olsson
   - Scope: Commons file released into the public domain (simple geometric logo, PD-textlogo). “Minecraft” and the grass-block icon are trademarks of Mojang Synergies AB; used nominatively, not relicensed.
-  - Fetched at: 2026-10-17T16:05:35.972Z
+  - Fetched at: 2026-10-17T18:15:54.314Z
   - Transform: rasterised from the Commons SVG at 1200 dpi, fitted to a transparent 256x256 canvas (contain)
 - **delta** — `public/assets/games/delta.webp` (256x256)
   - URL: https://upload.wikimedia.org/wikipedia/commons/c/c6/Delta_Force_Logo.svg
   - Commons page: https://commons.wikimedia.org/wiki/File:Delta_Force_Logo.svg
   - Owner: Team Jade / TiMi Studio Group (Delta Force, 2024)
   - Scope: Commons file marked public domain (PD-textlogo: simple geometric wordmark). “DELTA FORCE” is a trademark of its owner; used nominatively, not relicensed.
-  - Fetched at: 2026-10-17T16:05:36.158Z
+  - Fetched at: 2026-10-17T18:15:54.514Z
   - Transform: wordmark recoloured #000000 -> #F2F6FF (emblem kept #0FF796) so the logo reads on the dark tile; rendered at 900 dpi, centred on a 256x256 rounded dark plate (#0d131b)
 
 ## Icon marks (v2.1)
@@ -181,13 +162,13 @@ would silently throw away the Lead's crop. Do not add them back to `EXTERNAL`.
   - URL: https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png
   - Owner: Mai-with-u (MaiBot project) — mascot artwork
   - Scope: Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:30.702Z
+  - Fetched at: 2026-10-17T18:15:49.074Z
   - Transform: contained on an 800x800 transparent canvas, webp q82
 - **playlist-cover** — `playlist-cover.webp`
   - URL: https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp
   - Owner: Bilibili archive cover (Bilibili / original uploader)
   - Scope: Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.
-  - Fetched at: 2026-10-17T16:05:33.331Z
+  - Fetched at: 2026-10-17T18:15:51.701Z
   - Transform: kept 672x378, webp q82
 
 ## Fonts used for the social card
@@ -269,14 +250,10 @@ from `@fontsource-variable` packages in `src/`.
 
 | File | Dimensions | Size | Source |
 | --- | --- | --- | --- |
-| `public/assets/cast/gizmo-face.webp` | 160x160 | 6.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg (face crop 620x620 at 1965,330)` |
-| `public/assets/cast/gizmo.webp` | 900x790 | 134.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg (official key art, background removed)` |
 | `public/assets/cast/lycaon-face.webp` | 160x160 | 9.8 KB | `https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420 (face crop 390x390 at 790,110)` |
 | `public/assets/cast/lycaon.webp` | 851x1000 | 108.6 KB | `https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420 (official transparent render)` |
 | `public/assets/cast/varka-face.webp` | 160x160 | 11.5 KB | `https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455 (face crop 280x280 at 620,10)` |
 | `public/assets/cast/varka.webp` | 784x1000 | 141.4 KB | `https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455 (official transparent render)` |
-| `public/assets/cast/vyron-face.webp` | 160x160 | 8.5 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg (face crop 600x600 at 2448,290)` |
-| `public/assets/cast/vyron.webp` | 900x1031 | 162.2 KB | `https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg (official key art, background removed)` |
 | `public/assets/cast/wriothesley-face.webp` | 160x160 | 9.9 KB | `https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933 (face crop 280x280 at 603,28)` |
 | `public/assets/cast/wriothesley.webp` | 894x999 | 121.0 KB | `https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933 (official transparent render)` |
 
@@ -317,7 +294,7 @@ from `@fontsource-variable` packages in `src/`.
    comes back opaque. It does not silently upscale: the only enlargement is the
    horizon plate (1916x821 to 1920x823, +0.2%) and it is imperceptible. The
    character plates are normalised so the head is 300 px tall;
-   the output frame height follows from the crop (wriothesley 999, varka 1000, lycaon 1000, vyron 1000, gizmo 991).
+   the output frame height follows from the crop (wriothesley 999, varka 1000, lycaon 1000).
 
 ## Caveats
 
@@ -328,7 +305,7 @@ from `@fontsource-variable` packages in `src/`.
   them once `src/` stops referencing them.
 - The two Delta Force portraits (Vyron, Gizmo) are **official key art**, not
   transparent renders: Delta Force publishes no standalone transparent operator
-  art. Their photographic backgrounds are removed locally with rembg
+  art. Their backgrounds are photographic, so they are kept (feathered + dark
   vignette) rather than keyed. If the publisher ever ships transparent renders,
   swap the URL/crop in `CAST` and set `transparentSource: true, mask: false`.
 - The cast sources are re-downloaded on every build. Fandom serves them through

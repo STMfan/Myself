@@ -268,41 +268,8 @@ const CAST = [
     mask: false,
     cut: 'head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact',
   },
-  {
-    id: 'vyron',
-    out: 'cast/vyron.webp',
-    url: 'https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg',
-    page: 'https://df.qq.com/cp/a20240906main/index.html',
-    cache: 'cast/vyron-key-art.jpg',
-    owner: 'Tencent / Team Jade (Delta Force, 三角洲行动)',
-    license:
-      'Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.',
-    sourceSize: '4096x2160',
-    crop: { left: 2104, top: 150, width: 1300, height: 2000 },
-    headPx: 600,
-    face: { left: 2448, top: 290, width: 600, height: 600 },
-    transparentSource: false,
-    mask: true,
-    cut: 'half-body crop of the official key art; the battlefield background stays (it cannot be keyed cleanly), feathered to alpha at the edges and darkened into the site background',
-  },
-  {
-    id: 'gizmo',
-    out: 'cast/gizmo.webp',
-    url: 'https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg',
-    page: 'https://df.qq.com/cp/a20240906main/index.html',
-    cache: 'cast/gizmo-key-art.jpg',
-    owner: 'Tencent / Team Jade (Delta Force, 三角洲行动)',
-    license:
-      'Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.',
-    sourceSize: '3840x2212',
-    crop: { left: 1439, top: 140, width: 1672, height: 2072 },
-    headPx: 627,
-    face: { left: 1965, top: 330, width: 620, height: 620 },
-    transparentSource: false,
-    mask: true,
-    cut: 'head + torso of the official key art (glasses, raised hand, shoulder spider intact); backdrop feathered and darkened like Vyron',
-  },
 ];
+
 
 const CAST_FRAME = {
   headPx: 300, // head height in every output, keeps visual weight consistent

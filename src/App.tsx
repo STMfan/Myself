@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { PreferencesProvider } from './lib/preferences';
 import { gsap, ScrollTrigger, startScrollTracking, stopScrollTracking } from './lib/scroll';
 import { Stage } from './components/Stage';
@@ -6,6 +6,7 @@ import { Nav } from './components/Nav';
 import { Cursor } from './components/Cursor';
 import { Toast } from './components/Toast';
 import { ScrollRefresh } from './components/ScrollRefresh';
+import { Preloader } from './components/Preloader';
 import { Hero } from './sections/Hero';
 import { Workshop } from './sections/Workshop';
 import { OpenSource } from './sections/OpenSource';
@@ -16,6 +17,17 @@ import { Contact } from './sections/Contact';
 import { Footer } from './sections/Footer';
 
 export function App() {
+  const [lateArrival] = useState(
+    () => typeof window !== 'undefined' && performance.now() > 2000,
+  );
+  const [booted, setBooted] = useState(lateArrival);
+  const [showPreloader, setShowPreloader] = useState(!lateArrival);
+
+  const finishBoot = useCallback(() => {
+    setBooted(true);
+    window.setTimeout(() => setShowPreloader(false), 520);
+  }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -51,6 +63,7 @@ export function App() {
 
   return (
     <PreferencesProvider>
+      {showPreloader ? <Preloader onDone={finishBoot} /> : null}
       <Stage />
       <div className="grain" aria-hidden="true" />
       <div className="vignette" aria-hidden="true" />
@@ -58,7 +71,7 @@ export function App() {
       <Nav />
       <ScrollRefresh />
       <main id="main">
-        <Hero />
+        <Hero booted={booted} />
         <Workshop />
         <OpenSource />
         <Commission />

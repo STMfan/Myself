@@ -6,7 +6,7 @@ import { gsap, isCalm, scrollToId } from '../lib/scroll';
 import { Chars } from '../components/Type';
 import { MoonPanel } from '../components/MoonPanel';
 
-export function Hero() {
+export function Hero({ booted }: { booted: boolean }) {
   const copy = useCopy();
   const root = useRef<HTMLElement>(null);
 
@@ -25,6 +25,8 @@ export function Hero() {
       gsap.set(chars, { yPercent: 118, opacity: 0, rotate: 3 });
       gsap.set(fade, { y: 22, opacity: 0 });
       gsap.set(moon, { opacity: 0, scale: 0.94 });
+
+      if (!booted) return;
 
       gsap
         .timeline({ defaults: { ease: 'expo.out' } })
@@ -82,7 +84,7 @@ export function Hero() {
       detach?.();
       context.revert();
     };
-  }, []);
+  }, [booted]);
 
   return (
     <section className="hero act" id="hero" ref={root} aria-labelledby="hero-title">
@@ -106,10 +108,12 @@ export function Hero() {
             <span className="split-line hero__slogan-line">
               <Chars text={copy.hero.slogan[0]} />
             </span>
-            <span className="split-line hero__slogan-line hero__slogan-line--outline">
+            <span className="split-line hero__slogan-line hero__slogan-line--accent">
               <Chars text={copy.hero.slogan[1]} />
             </span>
           </h1>
+
+          <span className="hero__slogan-rule" aria-hidden="true" />
 
           <p className="hero__latin mono" data-hero-fade>
             {copy.hero.latin}

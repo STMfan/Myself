@@ -7,9 +7,9 @@ Personal homepage, one continuous take. A giant draggable moon behind the title,
 - Slogan: 探月下，尘世万象。 / To Decipher the Sublunary Sphere.
 - Branch `v2`: rebuilt from an orphan branch. `v1` remains the archived previous site.
 - Information order: 技术能力 → 开源与贡献 → 付费委托（开源项目看兴趣，有时免费）→ 画册（游戏 / 角色 / 歌单三张卡片）→ 手记 → 联系.
-- Character art is official artwork (Genshin Impact, Zenless Zone Zero, Delta Force), not generated. The two Delta Force key arts are cut out locally with rembg.
+- Character art is official artwork (Genshin Impact, Zenless Zone Zero), not generated. The three portraits are official transparent renders; the previous Delta Force cutouts were removed.
 - The avatar is fetched from the GitHub API at runtime, with the full local avatar as an offline fallback and a 12 hour cache.
-- No preloader: the page paints immediately, including on mobile.
+- A short preloader (620-1800ms, no numeric counter) hides the font/asset swap; a CSS failsafe removes it after 2.8s even if the bundle fails.
 
 ## Stack
 
@@ -17,7 +17,7 @@ Personal homepage, one continuous take. A giant draggable moon behind the title,
 - three.js for the real, draggable 3D moon (lazy loaded as its own chunk)
 - GSAP ScrollTrigger for reveal and parallax, with **native scrolling**: no Lenis, no wheel hijack, no pinned scroll traps
 - A hand written canvas starfield behind the whole page, with a lighter 30fps mobile profile
-- No CSS framework. A token layer plus five scoped stylesheets
+- No CSS framework. A token layer plus six scoped stylesheets
 - Self hosted variable fonts via `@fontsource-variable`
 - SSR prerender for crawlers, static output for Cloudflare Pages
 
@@ -29,7 +29,7 @@ bun run dev         # local dev server on 127.0.0.1
 bun run typecheck   # tsc --noEmit
 bun run build       # typecheck, client build, prerender
 bun run preview     # preview the production build
-bun run check:site  # validate the built dist (290 checks)
+bun run check:site  # validate the built dist (284 checks)
 bun run licenses    # regenerate dependency license evidence
 bun run assets      # regenerate art derivatives from assets-src
 ```

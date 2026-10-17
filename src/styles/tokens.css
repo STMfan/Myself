@@ -68,9 +68,9 @@ html[data-theme='dark'] {
 
 html[data-theme='light'] {
   color-scheme: light;
-  --bg: #edeff3;
-  --bg-2: #e6e9ee;
-  --bg-3: #dfe3ea;
+  --bg: #f1f3f6;
+  --bg-2: #e9edf2;
+  --bg-3: #dfe5ec;
   --text: #0a0e15;
   --text-2: rgba(10, 14, 21, 0.72);
   --text-3: rgba(10, 14, 21, 0.46);

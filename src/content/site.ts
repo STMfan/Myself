@@ -35,6 +35,8 @@ export interface Copy {
     menuOpen: string;
     menuClose: string;
     skip: string;
+    preloaderLine: string;
+    preloaderNote: string;
     copy: string;
     copied: string;
     backTop: string;
@@ -136,6 +138,8 @@ export const site: Record<Locale, Copy> = {
       menuOpen: '打开菜单',
       menuClose: '关闭菜单',
       skip: '跳到正文',
+      preloaderLine: '正在对准月下',
+      preloaderNote: 'STMfan · SUBLUNARY',
       copy: '复制',
       copied: '已复制',
       backTop: '回到顶部',
@@ -175,9 +179,9 @@ export const site: Record<Locale, Copy> = {
         {
           id: 'fullstack',
           key: { zh: '全栈', en: 'Full stack' },
-          sub: { zh: 'Full stack', en: '全栈' },
-          body: '页面和接口一起交付，不用再找第二个人对接。',
-          tags: 'React · Vite · API',
+          sub: { zh: 'Vibe Coding', en: 'Vibe Coding' },
+          tags: 'Vibe Coding · React · Vite',
+          body: '页面和接口一起交付，用 Vibe Coding 完成，不是逐行手搓。',
         },
         {
           id: 'mobile',
@@ -224,7 +228,7 @@ export const site: Record<Locale, Copy> = {
         {
           id: 'fullstack',
           title: '全栈交付',
-          body: '页面和接口一起做完，你只需要验收。',
+          body: '页面和接口一起交付，以 Vibe Coding 为主，你只需要验收。',
           pricing: '按项目',
         },
       ],
@@ -286,6 +290,8 @@ export const site: Record<Locale, Copy> = {
       menuOpen: 'Open menu',
       menuClose: 'Close menu',
       skip: 'Skip to content',
+      preloaderLine: 'Aligning to the sublunary',
+      preloaderNote: 'STMfan · SUBLUNARY',
       copy: 'Copy',
       copied: 'Copied',
       backTop: 'Back to top',
@@ -325,9 +331,9 @@ export const site: Record<Locale, Copy> = {
         {
           id: 'fullstack',
           key: { zh: '全栈', en: 'Full stack' },
-          sub: { zh: 'Full stack', en: '全栈' },
-          body: 'Pages and APIs delivered together, no second vendor to coordinate.',
-          tags: 'React · Vite · API',
+          sub: { zh: 'Vibe Coding', en: 'Vibe Coding' },
+          body: 'Pages and APIs delivered together with Vibe Coding, not hand-written line by line.',
+          tags: 'Vibe Coding · React · Vite',
         },
         {
           id: 'mobile',
@@ -374,7 +380,7 @@ export const site: Record<Locale, Copy> = {
         {
           id: 'fullstack',
           title: 'Full stack delivery',
-          body: 'Pages and APIs delivered together. You review, I ship.',
+          body: 'Pages and APIs delivered together with Vibe Coding. You review, I ship.',
           pricing: 'Per project',
         },
       ],
@@ -487,7 +493,6 @@ export interface CharacterEntry {
   origin: Text;
   art: string;
   face: string;
-  framed?: boolean;
 }
 
 export const characters: CharacterEntry[] = [
@@ -514,21 +519,5 @@ export const characters: CharacterEntry[] = [
     origin: { zh: '绝区零', en: 'Zenless Zone Zero' },
     art: '/assets/cast/lycaon.webp',
     face: '/assets/cast/lycaon-face.webp',
-  },
-  {
-    id: 'vyron',
-    zh: '威龙',
-    en: 'Vyron',
-    origin: { zh: '三角洲行动', en: 'Delta Force' },
-    art: '/assets/cast/vyron.webp',
-    face: '/assets/cast/vyron-face.webp',
-  },
-  {
-    id: 'gizmo',
-    zh: '比特',
-    en: 'Gizmo',
-    origin: { zh: '三角洲行动', en: 'Delta Force' },
-    art: '/assets/cast/gizmo.webp',
-    face: '/assets/cast/gizmo-face.webp',
   },
 ];

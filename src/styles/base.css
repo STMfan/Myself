@@ -402,8 +402,9 @@ html[data-lang='zh'] .section-lede {
 }
 
 html[data-theme='light'] .grain {
-  opacity: 0.18;
+  opacity: 0.06;
   mix-blend-mode: multiply;
+  filter: grayscale(1);
 }
 
 @keyframes grain-drift {
@@ -429,8 +430,8 @@ html[data-theme='light'] .grain {
 html[data-theme='light'] .vignette {
   background: radial-gradient(
     ellipse 120% 90% at 50% 42%,
-    transparent 50%,
-    rgba(22, 30, 46, 0.1) 100%
+    transparent 52%,
+    rgba(22, 30, 46, 0.06) 100%
   );
 }
 
@@ -573,3 +574,35 @@ html[data-theme='light'] .vignette {
 html[data-motion='calm'] .grain {
   animation: none;
 }
+
+.cursor-aura {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  width: 520px;
+  height: 520px;
+  margin: -260px 0 0 -260px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, var(--accent-soft), transparent 66%);
+  opacity: 0.5;
+  mix-blend-mode: screen;
+  will-change: transform;
+  contain: strict;
+}
+
+html[data-theme='light'] .cursor-aura {
+  display: none;
+}
+
+@media (hover: none) {
+  .cursor-aura {
+    display: none;
+  }
+}
+
+html[data-motion='calm'] .cursor-aura {
+  display: none;
+}
+

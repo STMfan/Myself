@@ -120,10 +120,11 @@ export function MoonCanvas({
 
     const applyTheme = () => {
       const light = document.documentElement.dataset.theme === 'light';
-      ambient.intensity = light ? 0.58 : 0.16;
-      key.intensity = light ? 2.2 : 2.9;
-      fill.intensity = light ? 0.38 : 0.3;
-      rimUniforms.uStrength.value = light ? 0.2 : 0.42;
+      ambient.intensity = light ? 0.5 : 0.16;
+      key.intensity = light ? 1.95 : 2.9;
+      fill.intensity = light ? 0.4 : 0.3;
+      rimUniforms.uColor.value.set(light ? '#8ea4c6' : '#f2a24b');
+      rimUniforms.uStrength.value = light ? 0.1 : 0.42;
     };
     applyTheme();
     const themeObserver = new MutationObserver(applyTheme);

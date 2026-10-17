@@ -183,7 +183,7 @@ export function Extras() {
               <span className="shelf__rule" aria-hidden="true" />
             </header>
 
-            <div className={`cast-stage ${activeCast.framed ? 'is-framed' : ''}`}>
+            <div className="cast-stage">
               <img
                 key={activeCast.id}
                 className="cast-stage__art"

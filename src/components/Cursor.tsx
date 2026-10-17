@@ -2,14 +2,19 @@ import { useEffect, useRef } from 'react';
 
 export function Cursor() {
   const dotRef = useRef<HTMLDivElement>(null);
+  const auraRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
+    if (document.documentElement.dataset.motion === 'calm') return;
     const node = dotRef.current;
-    if (!node) return;
+    const aura = auraRef.current;
+    if (!node || !aura) return;
 
     let x = window.innerWidth / 2;
     let y = window.innerHeight / 2;
+    let ax = x;
+    let ay = y;
     let tx = x;
     let ty = y;
     let raf = 0;
@@ -36,7 +41,10 @@ export function Cursor() {
     const render = () => {
       x += (tx - x) * 0.2;
       y += (ty - y) * 0.2;
+      ax += (tx - ax) * 0.055;
+      ay += (ty - ay) * 0.055;
       node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      aura.style.transform = `translate3d(${ax}px, ${ay}px, 0)`;
       raf = requestAnimationFrame(render);
     };
 
@@ -51,5 +59,10 @@ export function Cursor() {
     };
   }, []);
 
-  return <div className="cursor" ref={dotRef} aria-hidden="true" />;
+  return (
+    <>
+      <div className="cursor-aura" ref={auraRef} aria-hidden="true" />
+      <div className="cursor" ref={dotRef} aria-hidden="true" />
+    </>
+  );
 }

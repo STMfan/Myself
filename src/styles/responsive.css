@@ -76,11 +76,7 @@
   }
 
   .shelf__card--cast {
-    min-height: 0;
-  }
-
-  .cast-stage {
-    height: min(38vh, 320px);
+    min-height: 420px;
   }
 
   .notes__lines {
@@ -166,9 +162,8 @@
     font-size: clamp(1.7rem, 6.8vw, 2.3rem);
   }
 
-  .hero__slogan-line--outline {
+  .hero__slogan-line--accent {
     margin-left: 0.35rem;
-    -webkit-text-stroke-width: 1px;
   }
 
   .hero__latin {
@@ -324,6 +319,33 @@
     padding: 0.8rem 0.85rem 0.9rem;
   }
 
+  .shelf__card--games {
+    min-height: 0;
+  }
+
+  .shelf__card--cast {
+    min-height: 380px;
+    padding: 0;
+  }
+
+  .shelf__card--cast .shelf__head {
+    top: 0.85rem;
+    left: 0.85rem;
+    right: 0.85rem;
+  }
+
+  .cast-stage__meta {
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 3.1rem;
+  }
+
+  .cast-rail {
+    left: 0.85rem;
+    right: 0.85rem;
+    bottom: 0.85rem;
+  }
+
   .game-row {
     grid-template-columns: 44px minmax(0, 1fr) auto;
     gap: 0.6rem;
@@ -354,16 +376,8 @@
     height: 2.1rem;
   }
 
-  .cast-stage {
-    height: 200px;
-  }
-
   .cast-stage__name {
-    font-size: 1.4rem;
-  }
-
-  .cast-stage.is-framed .cast-stage__art {
-    width: min(100%, 190px);
+    font-size: 1.5rem;
   }
 
   .cast-dot {
@@ -511,6 +525,8 @@
 @media (hover: none) {
   .grain,
   .stage__atmosphere,
+  .stage__aurora,
+  .stage__orbits,
   .stage__flow {
     display: none;
   }
@@ -553,6 +569,8 @@
 
 html[data-motion='calm'] .hero__meteor,
 html[data-motion='calm'] .moon__ring,
+html[data-motion='calm'] .stage__aurora,
+html[data-motion='calm'] .stage__orbit,
 html[data-motion='calm'] .workshop__ring,
 html[data-motion='calm'] .workshop__glyph,
 html[data-motion='calm'] .workshop__glyph-key,

@@ -40,12 +40,12 @@ const PALETTES: Record<'dark' | 'light', Palette> = {
     core: '#020308',
   },
   light: {
-    skyTop: '#e2e6ed',
-    skyMid: '#eef0f4',
-    skyBottom: '#f4f5f7',
+    skyTop: '#eef1f5',
+    skyMid: '#f3f5f8',
+    skyBottom: '#f7f8fa',
     star: '#2a3854',
     glow: '#c06a22',
-    grid: 'rgba(56,72,100,0.14)',
+    grid: 'rgba(56,72,100,0.15)',
     core: '#f4f5f7',
   },
 };
@@ -89,6 +89,10 @@ export function Stage() {
       size: 0.6 + random() * 1.8,
       phase: random() * Math.PI * 2,
     }));
+
+    type Meteor = { x: number; y: number; vx: number; vy: number; life: number; max: number };
+    const meteors: Meteor[] = [];
+    let nextMeteor = 4200;
 
     let width = 0;
     let height = 0;
@@ -152,7 +156,7 @@ export function Stage() {
         height * 0.16 + height * 0.22 * progress,
         Math.max(width, height) * 0.72,
       );
-      const glowAlpha = document.documentElement.dataset.theme === 'light' ? '16' : '1e';
+      const glowAlpha = document.documentElement.dataset.theme === 'light' ? '06' : '1e';
       warm.addColorStop(0, `${palette.glow}${glowAlpha}`);
       warm.addColorStop(0.45, 'transparent');
       context.fillStyle = warm;
@@ -178,6 +182,43 @@ export function Stage() {
         context.stroke();
       }
       context.globalAlpha = 1;
+
+      if (!compact && !calm) {
+        if (now > nextMeteor) {
+          meteors.push({
+            x: width * (0.32 + random() * 0.62),
+            y: height * (0.04 + random() * 0.3),
+            vx: -width * (0.004 + random() * 0.003),
+            vy: height * (0.0024 + random() * 0.002),
+            life: 34 + random() * 26,
+            max: 34 + random() * 26,
+          });
+          nextMeteor = now + 5200 + random() * 5400;
+        }
+        for (let i = meteors.length - 1; i >= 0; i -= 1) {
+          const meteor = meteors[i];
+          meteor.x += meteor.vx;
+          meteor.y += meteor.vy;
+          meteor.life -= 1;
+          if (meteor.life <= 0) {
+            meteors.splice(i, 1);
+            continue;
+          }
+          const tailX = meteor.x - meteor.vx * 18;
+          const tailY = meteor.y - meteor.vy * 18;
+          const trail = context.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+          trail.addColorStop(0, palette.star);
+          trail.addColorStop(1, `${palette.glow}00`);
+          context.globalAlpha = (meteor.life / meteor.max) * 0.55;
+          context.strokeStyle = trail;
+          context.lineWidth = 1.1;
+          context.beginPath();
+          context.moveTo(meteor.x, meteor.y);
+          context.lineTo(tailX, tailY);
+          context.stroke();
+        }
+        context.globalAlpha = 1;
+      }
 
       const horizon = height * (0.92 - progress * 0.16);
       const haze = context.createLinearGradient(
@@ -247,6 +288,12 @@ export function Stage() {
       <canvas ref={canvasRef} className="stage__canvas" />
       <div className="stage__atmosphere" />
       <div className="stage__atmosphere stage__atmosphere--warm" />
+      <div className="stage__aurora" aria-hidden="true" />
+      <div className="stage__orbits" aria-hidden="true">
+        <span className="stage__orbit stage__orbit--a" />
+        <span className="stage__orbit stage__orbit--b" />
+        <span className="stage__orbit stage__orbit--c" />
+      </div>
       <svg
         className="stage__flow"
         viewBox="0 0 1440 900"

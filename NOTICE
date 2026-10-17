@@ -18,9 +18,8 @@ Character portraits in /public/assets/cast and game icons in
 /public/assets/games are official artwork from HoYoverse / COGNOSPHERE,
 Pigeon Games and Team Jade / Tencent, used nominatively on this personal,
 non-commercial fan page. They are not generated art and are not relicensed
-under MIT. The Delta Force portraits use official key art with the photographic
-background removed locally for this page, because no transparent official render
-is published; see docs/ASSETS.md.
+under MIT. The remaining three character portraits are official HoYoverse
+renders; the previous Delta Force cutouts were removed from the site.
 
 The 3D moon is textured with the lunar albedo map by Solar System Scope
 (https://www.solarsystemscope.com/textures/), licensed under CC BY 4.0. The
