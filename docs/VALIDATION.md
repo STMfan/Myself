@@ -1,8 +1,7 @@
-# Validation · STMfan / Sublunary (v2)
+# Validation · STMfan / Sublunary (v2.1)
 
-Real command output for the v2 build pipeline, recorded on Windows 11
-(`10.0.26200`), PowerShell 7.6.7, from the repository root on branch `v2`
-(orphan branch, worktree not yet committed).
+Real command output recorded on Windows 11 (`10.0.26200`), PowerShell 7.6.7, from
+the repository root on branch `v2`, after the v2.1 restructure.
 
 | Fact | Value |
 | --- | --- |
@@ -11,14 +10,16 @@ Real command output for the v2 build pipeline, recorded on Windows 11
 | Vite | `8.3.4` |
 | React / React DOM | `19.3.0` |
 | TypeScript | `7.0.2` |
-| `dist` | 236 files, 12.30 MB (ceiling 24.00 MB) |
-| Prerendered markup | 39,349 characters injected into `#root` |
-| Dependency audit | 38 packages (11 production, 27 build), 38 license texts copied |
+| three.js | `0.186.1` |
+| `dist` | 248 files, 14.10 MB (ceiling 24.00 MB) |
+| Client bundle | `index-*.js` 439,951 B (about 130 KB gzip) |
+| Moon chunk | `MoonCanvas-*.js` 535,455 B (about 134 KB gzip, lazy) |
+| CSS | `style-*.css` 253,614 B (font faces dominate) |
+| Prerendered markup | 34,243 characters injected into `#root` |
+| Dependency audit | 45 packages (11 production, 34 build) |
+| Site checks | 282 passed |
 
-## 1. Commands and results
-
-Run in CI order, exactly as `.github/workflows/build.yml` and
-`docs/DEPLOYMENT.md` execute them.
+## 1. Commands, CI order
 
 ### `bun run typecheck`
 
@@ -26,184 +27,102 @@ Run in CI order, exactly as `.github/workflows/build.yml` and
 $ tsc --noEmit
 ```
 
-Exit code `0`. No diagnostics.
+Exit `0`, no diagnostics.
 
 ### `bun run licenses`
 
 ```
-$ node scripts/audit-licenses.mjs
-[licenses] ok  38 packages (11 production, 27 build)  38 license/notice files -> docs/licenses/  docs/dependency-licenses.json  public/assets/PROJECT_LICENSE.txt  public/assets/THIRD_PARTY_NOTICES.txt
+[licenses] ok  45 packages (11 production, 34 build)  45 license/notice files -> docs/licenses/  docs/dependency-licenses.json  public/assets/PROJECT_LICENSE.txt  public/assets/THIRD_PARTY_NOTICES.txt
 ```
 
-Exit code `0`. Outputs:
-
-- `docs/dependency-licenses.json`, deterministic: no timestamps, packages sorted by
-  name and version, one entry per installed package with `scope`, `license`,
-  `licenseSource` and `licenseFiles`.
-- `docs/licenses/`, 38 files named `<name>@<version>__<LICENSE|NOTICE|COPYING>`;
-  scoped packages use `+` instead of the path separator, for example
-  `docs/licenses/@fontsource-variable+noto-sans-sc@5.3.1__LICENSE`.
-- `public/assets/PROJECT_LICENSE.txt`, byte copy of `LICENSE` (1,063 bytes).
-- `public/assets/THIRD_PARTY_NOTICES.txt`, `NOTICE` plus the generated inventory
-  (4,165 bytes; production and build sections, each line
-  `name version license`).
+Exit `0`. It now includes three.js and its transitive typings, and no longer
+includes Lenis.
 
 ### `bun run build`
 
 ```
-$ tsc --noEmit && vite build && node scripts/prerender.mjs
-dist/assets/style-Teem7YdB.css   247.49 kB │ gzip:  82.67 kB
-dist/assets/index-Bp2XDLAn.js    443.99 kB │ gzip: 144.40 kB
-✓ built in 515ms
+✓ built in ~0.5 s
 [prerender] building SSR bundle -> .ssr/
-[prerender] injected 39,349 bytes of markup (43,623 bytes total)
+[prerender] injected 34,243 bytes of markup (38,591 bytes total)
 [prerender] ok -> dist\index.html
 ```
 
-Exit code `0`. The reported size is JavaScript string length (43,623 characters);
-`dist/index.html` is 46,040 bytes on disk because CJK characters are three bytes
-in UTF-8.
-
-Post-build spot checks on `dist/index.html`:
-
-| Check | Result |
-| --- | --- |
-| `<div id="root">` contains prerendered markup | yes, 39,349 characters |
-| `探月下，尘世万象` present | yes |
-| `To Decipher the Sublunary Sphere.` present | yes |
-| `id="hero"`…`id="contact-title"` present | all 9 markers |
-| `<script type="module" crossorigin src="/assets/index-Bp2XDLAn.js">` intact | yes |
-| `<link rel="stylesheet" crossorigin href="/assets/style-Teem7YdB.css">` intact | yes |
-| U+2014 em dashes | 0 |
-| `/src/main.tsx` references left | 0 |
+Exit `0`. Three.js is dynamically imported by `MoonPanel`, so it lands in a
+separate `MoonCanvas-*.js` chunk and is absent from the initial bundle. Vite warns
+that this one chunk exceeds 500 KB; that is the expected cost of a real moon.
 
 ### `bun run check:site`
 
 ```
-$ node scripts/check-site.mjs
-[check:site] ok  dist size: 12.30 MB (ceiling 24.00 MB)  |  257 checks passed
+[check:site] ok  dist size: 14.10 MB (ceiling 24.00 MB)  |  282 checks passed
 ```
 
-Exit code `0`.
+Exit `0`.
 
-## 2. What `check:site` actually verifies (257 checks)
+## 2. What `check:site` verifies
 
-- Metadata: non-empty `<title>` mentioning STMfan, `meta[name=description]`
-  (>= 40 characters), `link[rel=canonical]` equal to `https://stmfan.tech/`,
-  `meta[property=og:image]` equal to `/assets/share/og.png` or
-  `https://stmfan.tech/assets/share/og.png`, and the OG image file existing in
-  `dist`.
-- Prerender: `#root` markup larger than 2,000 characters, all nine markers
-  (`hero`, `manifesto`, `workshop`, `commission`, `maibot`, `games`, `characters`,
-  `contact`, `contact-title`), a hashed `/assets/*.js` module script, a hashed
-  `/assets/*.css` stylesheet, and no leftover `/src/main.tsx`.
-- Slogans: `探月下，尘世万象` and `To Decipher` in `dist/index.html`.
-- Zero U+2014 em dashes in `dist/index.html`.
-- Asset resolution: every local `/assets/...` reference in the HTML (including
-  the absolute `https://stmfan.tech/assets/...` forms in the social tags) and
-  every `url(...)` in every `dist` CSS file resolves to a real file, so all 10
-  art files, the avatar, the MaiBot art, the playlist cover, the OG card, the
-  favicon, the hashed bundles and every other file in dist are covered.
-- Static passthrough: `dist/_headers`, `dist/robots.txt`, `dist/sitemap.xml`
-  exist and are byte-identical to `public/`.
-- No source maps: no `*.map` files anywhere in `dist`, and no
-  `sourceMappingURL` comment in HTML, CSS or JS.
-- Size ceiling: total `dist` bytes <= 24 MB. Actual: 12.30 MB.
+- Metadata: title, description, canonical `https://stmfan.tech/`, `og:image`
+  pointing at an existing `/assets/share/og.png`.
+- Prerender: more than 2 KB of markup in `#root`, hashed module script and CSS
+  link intact, no `/src/main.tsx` leftovers, and all section markers:
+  `hero`, `workshop`, `opensource`, `commission`, `extras`, `notes`, `contact`,
+  `contact-title`.
+- Slogans `探月下，尘世万象` and `To Decipher` in `dist/index.html`.
+- Zero U+2014 em dashes in the prerendered HTML.
+- Every `/assets/...` reference in the HTML and every CSS `url()` resolves.
+- 23 runtime-referenced assets that the HTML crawl cannot see, including
+  `moon-map.webp`, `moon-map-1k.webp`, all five game tiles, all five character
+  cutouts, the icon set and the OG card.
+- `dist/_headers`, `robots.txt`, `sitemap.xml` copied byte-for-byte from `public/`.
+- No source maps, total `dist` size within budget.
 
-The checker aggregates every failure and exits `1` with a list. During the
-build it caught 13 real problems before the art landed: the ten `public/assets`
-files (`art/*.webp` x7, `avatar.png`, `maibot.webp`, `playlist-cover.webp`,
-`share/og.png`) plus the CSS `url()` for `art/atmosphere-haze.webp`. All cleared
-once the asset pipeline delivered; no placeholder art was added by this
-pipeline.
+## 3. Prerender markers and client takeover
 
-## 3. Prerender behaviour
+`scripts/prerender.mjs` SSR-builds `src/entry-server.tsx`, renders the zh page and
+injects it into `<div id="root">`. It asserts the client module script and the
+hashed stylesheet survive, and that all eight section markers are present. The
+client uses `createRoot`, not `hydrateRoot`, so the live clock, moon phase and the
+3D canvas cannot produce hydration mismatches; they replace the static markup on
+boot.
 
-`scripts/prerender.mjs`:
+## 4. Scrolling and layout checks
 
-1. SSR-builds `src/entry-server.tsx` through the Vite JS API into `.ssr/`
-   (`emptyOutDir: true`, `copyPublicDir: false`, es module output).
-2. Loads the bundle with `NODE_ENV=production` and calls `render()`.
-3. Replaces exactly `<div id="root"></div>` with the returned markup, leaving
-   the client module script, the hashed CSS link, the JSON-LD block, the inline
-   theme bootstrap and the `noscript` fallback untouched. It asserts that the
-   module-script and stylesheet counts do not change.
-4. Fails loudly (exit `1`) if `dist/index.html` is missing, if the root marker is
-   gone, if the host tags are missing, if `render()` throws or returns nothing,
-   or if the required zh markers are absent from the result.
+- No Lenis and no GSAP `pin`. Wheel and touch scrolling are native.
+- `scroll-padding-top` plus JS navigation offset the fixed nav: a nav click lands
+  the section top 12px below the nav rather than under it.
+- Hero fit measured at 1440×900 (hero bottom 900, CTA bottom 691), 1366×768
+  (hero 768) and 1280×720 (hero 720, CTA 573) with no clipped CTA.
+- `document.documentElement.scrollWidth` equals the viewport width on 390px and
+  1440px viewports; body uses `overflow-x: clip`.
+- Mobile hero is taller than 100svh because the 3D moon medallion is part of it;
+  it scrolls normally and no element is hidden behind the browser chrome.
+- Reduced motion was emulated: `data-motion="calm"`, no preloader, no GSAP
+  timelines, ambient animations disabled and all content visible.
 
-Guard tests performed:
+## 5. Interaction checks
 
-| Scenario | Result |
-| --- | --- |
-| Run against an unbuilt `dist/` | `[prerender] FAILED: dist/index.html not found.` exit 1 |
-| Run twice against the same `dist/` | `[prerender] FAILED: dist/index.html already contains prerendered markup inside #root.` exit 1 |
-| React `useLayoutEffect` server warning | filtered; every other stderr message is passed through |
+- Copy email / QQ / UID / Minecraft ID writes to the clipboard and shows the
+  "已复制 / Copied" toast.
+- The gallery auto-rotates after 6 s (observed 莱欧斯利 to 法尔伽), pauses on
+  hover/focus/offscreen, and its progress line restarts when the state changes.
+- Theme switching applies the light palette to the whole page and the 3D moon
+  relights through a `MutationObserver`.
+- Language switching updates nav, sections, gallery, readout, title and meta.
 
-The client calls `createRoot`, not `hydrateRoot`, so the prerendered DOM is
-replaced on boot by design. There is no hydration contract to keep, which is why
-build-time values in the markup (see below) are acceptable.
+## 6. Reproducibility caveats
 
-## 4. Reproducibility
+- `docs/licenses/` and its JSON are deterministic and idempotent.
+- The only non-deterministic prerendered values come from application state:
+  the current moon phase, the clock and the shade opacity. They are replaced by
+  the live client immediately on boot.
+- `assets-src/` is gitignored (generated originals plus downloaded sources). The
+  committed derivatives in `public/assets/` are what the build uses; `bun run
+  assets` can regenerate them from `assets-src/` and cached sources.
 
-`bun run licenses` was executed twice in a row. SHA-256 of
-`docs/dependency-licenses.json`, `public/assets/PROJECT_LICENSE.txt` and
-`public/assets/THIRD_PARTY_NOTICES.txt` were identical before and after, and
-`docs/licenses/` is rebuilt from scratch each run. The step is idempotent.
+## 7. CI
 
-`scripts/prerender.mjs` contains no timestamps, no random ids and no
-environment-dependent branching; given the same source tree it produces the same
-structure and byte count. One deliberate exception lives in the application, not
-in the script: `src/components/Orrery.tsx` renders the current moon phase and the
-current clock. Two consecutive builds from an unchanged tree differ only in those
-values, for example the shaded limb style:
-
-```
-run 1: <span class="orrery__shade" style="opacity:0.5116245202709266">
-run 2: <span class="orrery__shade" style="opacity:0.5116194809241836">
-```
-
-Everything else in the two `dist/index.html` files was identical. Because the
-client uses `createRoot`, the live clock takes over immediately after boot; a
-no-JS reader sees the time at build. This is the only non-deterministic content
-in `dist`, and it comes from app state, not from the pipeline. It is documented
-here rather than frozen, because baking a fake clock would make the static page
-lie.
-
-## 5. License audit details
-
-- Production closure: `dependencies` + `optionalDependencies`; build closure:
-  `devDependencies`. Every entry carries `scope`, so the JSON states exactly what
-  ships. `docs/licenses/` holds the shipped texts.
-- `gsap@3.15.0` declares a non-SPDX vendor string
-  (`Standard 'no charge' license: https://gsap.com/standard-license.`) in
-  `package.json` and ships no license file. The string is recorded verbatim, no
-  license text exists to copy, and the package is flagged in the JSON by
-  `licenseSource: "package.json"` with an empty `licenseFiles` array.
-- Font packages resolve to `OFL-1.1` and their OFL text is copied.
-  `@img/sharp-win32-x64` declares `Apache-2.0 AND LGPL-3.0-or-later`,
-  `typescript`, `detect-libc` and `sharp` declare `Apache-2.0`,
-  `lightningcss*` declares `MPL-2.0`, the rest are MIT, ISC or BSD-3-Clause.
-- The script exits `1` if a production package has neither a declared license nor
-  a license text, or if a declared non-optional dependency is missing from
-  `node_modules`. It warns (exit `0`) for build-only packages without a license
-  field, after still copying whatever text they ship.
-
-## 6. Iterations during this build
-
-| Step | Result |
-| --- | --- |
-| First `bun run build` after `src/` reached a consistent state | exit 0, prerender injected 38,963 bytes |
-| `bun run check:site` before the art landed | exit 1, 13 missing-asset failures only |
-| Art and OG card delivered by the asset pipeline | all assets resolved |
-| Final CI-order run (`typecheck`, `licenses`, `build`, `check:site`) | exit 0, exit 0, exit 0, exit 0 |
-
-## 7. Not changed
-
-- `.github/workflows/build.yml` already matched the v1 standard (Bun 1.4.0,
-  `bun install --frozen-lockfile`, `bun run licenses`, `bun run build:pages`,
-  `bun run check:site`, artifact `cloudflare-pages-dist`, retention 7 days,
-  triggers `main`/`v2`/pull requests/dispatch, `contents: read`). It was left
-  untouched.
-- No file outside the pipeline write scope was modified: no `src/**`, no
-  `public/assets` art, no `public/_headers`, no `index.html`, no `README.md`.
+`.github/workflows/build.yml` runs on pushes to `main` and `v2`, pull requests and
+manual dispatch: `bun install --frozen-lockfile`, `bun run licenses`,
+`bun run build:pages`, `bun run check:site`, then uploads `cloudflare-pages-dist`.
+The workflow was green on the previous v2 commits; the local CI-order run above is
+the same command sequence.

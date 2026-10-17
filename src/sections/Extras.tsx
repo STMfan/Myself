@@ -154,7 +154,7 @@ export function Extras() {
             </div>
             <span
               className="album__timer"
-              key={`${tab}-${gameIndex}-${castIndex}`}
+              key={`${tab}-${gameIndex}-${castIndex}-${paused}-${visible}`}
               aria-hidden="true"
             />
           </div>

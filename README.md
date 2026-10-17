@@ -1,19 +1,22 @@
 # STMfan · Sublunary (v2)
 
-个人主页，一镜到底。从月下轨道缓缓落到地面：一段连续的镜头，一张会呼吸的夜空，一篇中英双语的自述。
+个人主页，一镜到底。从月面轨道落到地面：一颗可以拖动的地球卫星，一段连续的夜空，一份把技术与委托讲清楚的自述。
 
-Personal homepage, one continuous take. A slow descent from lunar orbit to the ground, in a single unbroken shot.
+Personal homepage, one continuous take. A draggable moon, a continuous night sky, and a page that gets to the point about skills and paid work.
 
 - Slogan: 探月下，尘世万象 / To Decipher the Sublunary Sphere.
 - Branch `v2`: rebuilt from an orphan branch. `v1` remains the archived previous site.
+- Information order: 技术能力 → 开源与贡献 → 付费委托 → 画册（游戏 / 角色 / 歌单）→ 手记 → 联系.
 
 ## Stack
 
 - Vite 8 + React 19 + TypeScript
-- GSAP ScrollTrigger for the scroll choreography, Lenis for inertia
-- A hand written canvas stage for the sky, moon and dust
-- No CSS framework. A small token layer plus scoped stylesheets
+- three.js for the real, draggable 3D moon (lazy loaded as its own chunk)
+- GSAP ScrollTrigger for reveal and parallax, with **native scrolling**: no Lenis, no wheel hijack, no pinned scroll traps
+- A hand written canvas starfield and guided motion lines behind the whole page
+- No CSS framework. A token layer plus four scoped stylesheets
 - Self hosted variable fonts via `@fontsource-variable`
+- SSR prerender for crawlers, static output for Cloudflare Pages
 
 ## Scripts
 
@@ -23,8 +26,9 @@ bun run dev         # local dev server on 127.0.0.1
 bun run typecheck   # tsc --noEmit
 bun run build       # typecheck, client build, prerender
 bun run preview     # preview the production build
-bun run check:site  # validate the built dist
+bun run check:site  # validate the built dist (282 checks)
 bun run licenses    # regenerate dependency license evidence
+bun run assets      # regenerate art derivatives from assets-src
 ```
 
 ## Structure
@@ -32,13 +36,13 @@ bun run licenses    # regenerate dependency license evidence
 ```
 src/
   content/site.ts      all bilingual copy and structured data
-  lib/                 i18n, theme, motion, smooth scroll, shared stores
-  components/          stage, cursor, navigation, preloader, controls
-  sections/            one file per act of the continuous shot
-  styles/              tokens, base, layout, sections
+  lib/                 i18n/theme, scroll helpers, moon maths, toast
+  components/          stage, nav, 3D moon, preloader, controls
+  sections/            hero, skills, open source, commissions, gallery, notes, contact
+  styles/              tokens, base, chrome, stage, sections, responsive
 public/                static assets, headers, sitemap, robots
 scripts/               prerender, site checks, license and asset pipeline
-docs/                  deployment, assets, validation
+docs/                  design, deployment, assets, validation
 ```
 
 ## Deployment
@@ -48,12 +52,12 @@ Cloudflare Pages Git integration. See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 ## Design
 
-The concept, tokens, act-by-act choreography and tradeoffs are written up in
-[docs/DESIGN.md](docs/DESIGN.md). Asset provenance lives in
+The concept, tokens, act-by-act choreography, viewport strategy and tradeoffs are
+written up in [docs/DESIGN.md](docs/DESIGN.md). Asset provenance lives in
 [docs/ASSETS.md](docs/ASSETS.md), and the commands that produced the current
 build are recorded in [docs/VALIDATION.md](docs/VALIDATION.md).
 
 ## License
 
-MIT for the original source. Third party trademarks, game names, character
-names and provided artwork stay with their owners. See [NOTICE](NOTICE).
+MIT for the original source. Third party trademarks, game names, character names,
+artwork and the CC BY 4.0 moon texture stay with their owners. See [NOTICE](NOTICE).

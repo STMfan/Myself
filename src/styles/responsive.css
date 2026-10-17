@@ -565,6 +565,11 @@
     display: none;
   }
 
+  .grain {
+    animation: none;
+    opacity: 0.18;
+  }
+
   .thumb,
   .album__tab,
   .icon-btn,
