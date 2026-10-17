@@ -1,6 +1,6 @@
 {
-  "$comment": "Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored). avatar.png and logo.png are supplied by the Lead and are never written by this pipeline.",
-  "site": "STMfan · Sublunary (v2.1)",
+  "$comment": "Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored). The five cast portraits are OFFICIAL game artwork (see the cast array), not generated. avatar.png and avatar.png are supplied by the Lead and are never written by this pipeline.",
+  "site": "STMfan · Sublunary (v2.2)",
   "generatedOn": "2026-10-17",
   "model": "gpt-image",
   "generated": [
@@ -39,56 +39,128 @@
       "date": "2026-10-17",
       "promptSummary": "Aged dark film emulsion: near-black base, dust specks, fine scratches, faint umber edge burn. Square, no text.",
       "transform": "resize 512x512; webp q82"
+    }
+  ],
+  "cast": [
+    {
+      "id": "cast-wriothesley",
+      "output": [
+        "public/assets/cast/wriothesley.webp",
+        "public/assets/cast/wriothesley-face.webp"
+      ],
+      "url": "https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933",
+      "page": "https://genshin-impact.fandom.com/wiki/File:Wriothesley_Portrait.png",
+      "owner": "HoYoverse / COGNOSPHERE (Genshin Impact)",
+      "license": "Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery, which hosts the official game render. Used nominatively on a personal, non-commercial site; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T16:05:36.810Z",
+      "official": true,
+      "sourceSize": "1009x1534",
+      "sourceTransparent": true,
+      "alpha": true,
+      "mask": "none (source is already transparent)",
+      "headPx": 206,
+      "headPxOut": 300,
+      "crop": "614x686 at 395,0",
+      "faceCrop": "280x280 at 603,28",
+      "cut": "head + torso to the belt/upper thigh; the raised left fist and coat are cropped, the hair top is intact",
+      "transform": "crop 614x686 at 395,0, scale 1.456x to 894x999 (head 300px), webp q88 with alpha; face crop 280x280 to 160x160 webp q88",
+      "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
     },
     {
-      "id": "wriothesley",
-      "output": "public/assets/cast/wriothesley.webp",
-      "source": "assets-src/cast/wriothesley-raw.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Full-body Genshin Impact fan art of Wriothesley: tall adult man, athletic build, short black hair with silver-grey streaks, pale ice-grey eyes, scar on one cheek, black high-collar coat with charcoal fur collar, crimson lining and red accents, dark gloves and gauntlets, chains, heavy boots; confident half-smile, frost-crackling fist; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.",
-      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 568x1000, webp q88 with alpha",
-      "alpha": true
+      "id": "cast-varka",
+      "output": [
+        "public/assets/cast/varka.webp",
+        "public/assets/cast/varka-face.webp"
+      ],
+      "url": "https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455",
+      "page": "https://genshin-impact.fandom.com/wiki/File:Varka_Portrait.png",
+      "owner": "HoYoverse / COGNOSPHERE (Genshin Impact)",
+      "license": "Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery. Varka is playable (Knights of Favonius Grand Master), so no manga/group-art compromise was needed. Used nominatively; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T16:05:37.400Z",
+      "official": true,
+      "sourceSize": "1376x1776",
+      "sourceTransparent": true,
+      "alpha": true,
+      "mask": "none (source is already transparent)",
+      "headPx": 202,
+      "headPxOut": 300,
+      "crop": "528x673 at 496,0",
+      "faceCrop": "280x280 at 620,10",
+      "cut": "head + torso to the waist; the greatsword leaves the frame on both sides, the hair top is intact",
+      "transform": "crop 528x673 at 496,0, scale 1.485x to 784x1000 (head 300px), webp q88 with alpha; face crop 280x280 to 160x160 webp q88",
+      "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
     },
     {
-      "id": "varka",
-      "output": "public/assets/cast/varka.webp",
-      "source": "assets-src/cast/varka-raw.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Full-body Genshin Impact fan art of Varka, Grand Master of the Knights of Favonius: huge older knight in his late fifties, long silver-blond hair and beard, weathered scarred face, white and gold heavy plate armor, deep blue cape with a lion crest, massive greatsword held point-down with both hands; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.",
-      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 618x1000, webp q88 with alpha",
-      "alpha": true
+      "id": "cast-lycaon",
+      "output": [
+        "public/assets/cast/lycaon.webp",
+        "public/assets/cast/lycaon-face.webp"
+      ],
+      "url": "https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420",
+      "page": "https://zenless-zone-zero.fandom.com/wiki/File:Agent_Von_Lycaon_Portrait.png",
+      "owner": "HoYoverse / COGNOSPHERE (Zenless Zone Zero)",
+      "license": "Official Zenless Zone Zero agent render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom agent gallery. Used nominatively; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T16:05:38.042Z",
+      "official": true,
+      "sourceSize": "1836x2480",
+      "sourceTransparent": true,
+      "alpha": true,
+      "mask": "none (source is already transparent)",
+      "headPx": 351,
+      "headPxOut": 300,
+      "crop": "996x1170 at 530,14",
+      "faceCrop": "390x390 at 790,110",
+      "cut": "head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact",
+      "transform": "crop 996x1170 at 530,14, scale 0.855x to 851x1000 (head 300px), webp q88 with alpha; face crop 390x390 to 160x160 webp q88",
+      "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
     },
     {
-      "id": "lycaon",
-      "output": "public/assets/cast/lycaon.webp",
-      "source": "assets-src/cast/lycaon-raw.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Full-body Zenless Zone Zero fan art of Von Lycaon: anthropomorphic white-furred wolf butler, lean elegant build, sharp ice-blue eye with a cybernetic monocle eyepiece, black tailcoat with ice-blue trim, white dress shirt, bow tie, white gloves, silver-blue prosthetic legs, tail; refined butler pose holding a silver tray; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.",
-      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 535x1000, webp q88 with alpha",
-      "alpha": true
+      "id": "cast-vyron",
+      "output": [
+        "public/assets/cast/vyron.webp",
+        "public/assets/cast/vyron-face.webp"
+      ],
+      "url": "https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg",
+      "page": "https://df.qq.com/cp/a20240906main/index.html",
+      "owner": "Tencent / Team Jade (Delta Force, 三角洲行动)",
+      "license": "Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T16:05:38.606Z",
+      "official": true,
+      "sourceSize": "4096x2160",
+      "sourceTransparent": false,
+      "alpha": true,
+      "mask": "official key art; feathered radial alpha + dark vignette (background retained, not keyed)",
+      "headPx": 600,
+      "headPxOut": 300,
+      "crop": "1300x2000 at 2104,150",
+      "faceCrop": "600x600 at 2448,290",
+      "cut": "half-body crop of the official key art; the battlefield background stays (it cannot be keyed cleanly), feathered to alpha at the edges and darkened into the site background",
+      "transform": "crop 1300x2000 at 2104,150, scale 0.500x to 650x1000 (head 300px), webp q88 with alpha; face crop 600x600 to 160x160 webp q88",
+      "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
     },
     {
-      "id": "vyron",
-      "output": "public/assets/cast/vyron.webp",
-      "source": "assets-src/cast/vyron-raw.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Full-body Delta Force fan art key art of Vyron, a Chinese tactical operator: athletic adult man, short black hair, light stubble, dark plate carrier over a grey combat uniform, fast helmet with raised visor and headset, amber signal lights, tactical gloves, knee pads, boots, modern assault rifle in a low-ready grip; semi-realistic military key art, cool teal fill / amber rim light right; flat #00FF00 background, no text or insignia lettering.",
-      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 379x1000, webp q88 with alpha",
-      "alpha": true
-    },
-    {
-      "id": "gizmo",
-      "output": "public/assets/cast/gizmo.webp",
-      "source": "assets-src/cast/gizmo-raw.png",
-      "model": "gpt-image",
-      "date": "2026-10-17",
-      "promptSummary": "Full-body Zenless Zone Zero fan art of Gizmo, a small round hovering engineer robot: spherical scuffed industrial plating in off-white, gunmetal and safety yellow, orange hazard stripes, one large amber lens eye, antenna with an amber bulb, articulated mechanical arms with three-finger grippers holding a wrench, blue-glowing thrusters, folded treads; cheerful hovering pose; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.",
-      "transform": "chroma key 1024x1536 on #00FF00 (despill), trim alpha, 1033x1000, webp q88 with alpha",
-      "alpha": true
+      "id": "cast-gizmo",
+      "output": [
+        "public/assets/cast/gizmo.webp",
+        "public/assets/cast/gizmo-face.webp"
+      ],
+      "url": "https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg",
+      "page": "https://df.qq.com/cp/a20240906main/index.html",
+      "owner": "Tencent / Team Jade (Delta Force, 三角洲行动)",
+      "license": "Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.",
+      "fetchedAt": "2026-10-17T16:05:39.221Z",
+      "official": true,
+      "sourceSize": "3840x2212",
+      "sourceTransparent": false,
+      "alpha": true,
+      "mask": "official key art; feathered radial alpha + dark vignette (background retained, not keyed)",
+      "headPx": 627,
+      "headPxOut": 300,
+      "crop": "1672x2072 at 1439,140",
+      "faceCrop": "620x620 at 1965,330",
+      "cut": "head + torso of the official key art (glasses, raised hand, shoulder spider intact); backdrop feathered and darkened like Vyron",
+      "transform": "crop 1672x2072 at 1439,140, scale 0.478x to 800x991 (head 300px), webp q88 with alpha; face crop 620x620 to 160x160 webp q88",
+      "note": "Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art."
     }
   ],
   "external": [
@@ -98,7 +170,7 @@
       "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",
       "owner": "Mai-with-u (MaiBot project) — mascot artwork",
       "license": "Mascot artwork © Mai-with-u and the original artist. Used with attribution to illustrate the MaiBot section; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T15:38:03.850Z",
+      "fetchedAt": "2026-10-17T16:05:30.702Z",
       "transform": "contained on an 800x800 transparent canvas, webp q82"
     },
     {
@@ -107,7 +179,7 @@
       "url": "https://i1.hdslb.com/bfs/archive/5c8ee48913bdb5b994901950ab9047ae170af189.jpg@672w_378h_1c.webp",
       "owner": "Bilibili archive cover (Bilibili / original uploader)",
       "license": "Cover artwork © Bilibili and the original uploader. Used as the Bilibili playlist card; not relicensed under MIT.",
-      "fetchedAt": "2026-10-17T15:38:06.944Z",
+      "fetchedAt": "2026-10-17T16:05:33.331Z",
       "transform": "kept 672x378, webp q82"
     },
     {
@@ -137,7 +209,7 @@
       "appName": "Phigros",
       "owner": "Pigeon Games (Xiamen Pigeon Games Network Co., Ltd.)",
       "license": "Official App Store artwork (c) Pigeon Games. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:38:08.881Z",
+      "fetchedAt": "2026-10-17T16:05:34.953Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -148,7 +220,7 @@
       "appName": "Genshin Impact",
       "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
       "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:38:09.344Z",
+      "fetchedAt": "2026-10-17T16:05:35.204Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -159,7 +231,7 @@
       "appName": "Zenless Zone Zero",
       "owner": "COGNOSPHERE PTE. LTD. (HoYoverse)",
       "license": "Official App Store artwork (c) HoYoverse / COGNOSPHERE. Used nominatively to identify the game the author plays; trademarks remain with the publisher.",
-      "fetchedAt": "2026-10-17T15:38:09.522Z",
+      "fetchedAt": "2026-10-17T16:05:35.396Z",
       "transform": "512 px App Store artwork, cover-cropped to 256x256, webp q88"
     },
     {
@@ -169,7 +241,7 @@
       "page": "https://commons.wikimedia.org/wiki/File:Minecraft_cube.svg",
       "owner": "Mojang Studios / Microsoft (game); Commons file by Albin Olsson",
       "license": "Commons file released into the public domain (simple geometric logo, PD-textlogo). “Minecraft” and the grass-block icon are trademarks of Mojang Synergies AB; used nominatively, not relicensed.",
-      "fetchedAt": "2026-10-17T15:38:10.163Z",
+      "fetchedAt": "2026-10-17T16:05:35.972Z",
       "transform": "rasterised from the Commons SVG at 1200 dpi, fitted to a transparent 256x256 canvas (contain)"
     },
     {
@@ -179,7 +251,7 @@
       "page": "https://commons.wikimedia.org/wiki/File:Delta_Force_Logo.svg",
       "owner": "Team Jade / TiMi Studio Group (Delta Force, 2024)",
       "license": "Commons file marked public domain (PD-textlogo: simple geometric wordmark). “DELTA FORCE” is a trademark of its owner; used nominatively, not relicensed.",
-      "fetchedAt": "2026-10-17T15:38:10.362Z",
+      "fetchedAt": "2026-10-17T16:05:36.158Z",
       "transform": "wordmark recoloured #000000 -> #F2F6FF (emblem kept #0FF796) so the logo reads on the dark tile; rendered at 900 dpi, centred on a 256x256 rounded dark plate (#0d131b)"
     }
   ],
@@ -194,18 +266,6 @@
       "owner": "STMfan",
       "license": "Personal artwork, © STMfan. Not relicensed under MIT.",
       "transform": "Full illustration downscaled to 640x640",
-      "note": "Provided by the Lead; the asset pipeline only verifies and records it."
-    },
-    {
-      "id": "logo",
-      "output": "public/assets/logo.png",
-      "width": 256,
-      "height": 256,
-      "bytes": 47964,
-      "source": "C:/Users/STMfan/Pictures/GithubAvatar.png (1080x1080)",
-      "owner": "STMfan",
-      "license": "Personal artwork, © STMfan. Not relicensed under MIT.",
-      "transform": "256x256 face crop",
       "note": "Provided by the Lead; the asset pipeline only verifies and records it."
     }
   ],
@@ -249,7 +309,7 @@
       "base": "assets-src/horizon.png",
       "elements": [
         "dark scrim gradients",
-        "circular avatar mark (public/assets/logo.png) at (1080,170) r=76, amber hairline ring",
+        "circular avatar mark (public/assets/avatar.png) at (1080,170) r=76, amber hairline ring",
         "wordmark \"STMfan\" in Bricolage Grotesque 700",
         "slogan \"探月下，尘世万象\" in Noto Serif SC 500",
         "mono line \"TO DECIPHER THE SUBLUNARY SPHERE.\" in JetBrains Mono 400",
@@ -261,7 +321,7 @@
       "output": "public/assets/icons/icon-512.png",
       "width": 512,
       "height": 512,
-      "base": "public/assets/logo.png",
+      "base": "public/assets/avatar.png",
       "elements": [
         "lanczos upscale/downscale",
         "slight saturation lift",
@@ -273,7 +333,7 @@
       "output": "public/assets/icons/icon-192.png",
       "width": 192,
       "height": 192,
-      "base": "public/assets/logo.png",
+      "base": "public/assets/avatar.png",
       "elements": [
         "lanczos upscale/downscale",
         "slight saturation lift",
@@ -285,7 +345,7 @@
       "output": "public/assets/icons/apple-touch-icon.png",
       "width": 180,
       "height": 180,
-      "base": "public/assets/logo.png",
+      "base": "public/assets/avatar.png",
       "elements": [
         "lanczos upscale/downscale",
         "slight saturation lift",
@@ -297,7 +357,7 @@
       "output": "public/assets/apple-touch-icon.png",
       "width": 180,
       "height": 180,
-      "base": "public/assets/logo.png",
+      "base": "public/assets/avatar.png",
       "elements": [
         "lanczos upscale/downscale",
         "slight saturation lift",

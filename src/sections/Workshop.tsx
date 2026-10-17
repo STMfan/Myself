@@ -72,10 +72,6 @@ export function Workshop() {
             <span className="workshop__glyph-key display" key={`${current.id}-key`}>
               {current.key[locale]}
             </span>
-            <span className="workshop__visual-label mono">
-              {String(activeIndex + 1).padStart(2, '0')} /{' '}
-              {String(copy.workshop.items.length).padStart(2, '0')}
-            </span>
           </aside>
 
           <ol className="workshop__list">

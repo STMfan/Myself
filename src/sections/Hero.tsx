@@ -1,13 +1,12 @@
 import { useLayoutEffect, useRef } from 'react';
 import { ArrowDown, ArrowUpRight } from '@phosphor-icons/react';
 import { CONTACT } from '../content/site';
-import { useCopy, usePreferences } from '../lib/preferences';
+import { useCopy } from '../lib/preferences';
 import { gsap, isCalm, scrollToId } from '../lib/scroll';
 import { Chars } from '../components/Type';
 import { MoonPanel } from '../components/MoonPanel';
 
 export function Hero({ booted }: { booted: boolean }) {
-  const { locale } = usePreferences();
   const copy = useCopy();
   const root = useRef<HTMLElement>(null);
 
@@ -74,7 +73,7 @@ export function Hero({ booted }: { booted: boolean }) {
             </h1>
 
             <p className="hero__latin mono" data-hero-fade>
-              {copy.hero.latin[0]} {copy.hero.latin[1]}
+              {copy.hero.latin}
             </p>
 
             <p className="hero__intro" data-hero-fade>
@@ -106,16 +105,6 @@ export function Hero({ booted }: { booted: boolean }) {
           <div className="hero__moon" data-hero-moon>
             <MoonPanel />
           </div>
-        </div>
-
-        <div className="hero__foot" data-hero-fade>
-          <span className="mono">{copy.hero.coordinates}</span>
-          <span className="mono hero__foot-mark">
-            {locale === 'zh' ? 'SUBLUNARY · ONE TAKE' : '月下 · 一镜到底'}
-          </span>
-          <span className="mono hero__foot-hint">
-            {locale === 'zh' ? '拖动月球' : 'DRAG THE MOON'}
-          </span>
         </div>
       </div>
     </section>

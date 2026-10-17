@@ -214,7 +214,6 @@ async function main() {
 
   // Runtime-referenced assets live in JS, so the HTML crawl cannot see them.
   const REQUIRED_ASSETS = [
-    'assets/logo.png',
     'assets/avatar.png',
     'assets/art/moon-map.webp',
     'assets/art/moon-map-1k.webp',
@@ -232,6 +231,11 @@ async function main() {
     'assets/cast/lycaon.webp',
     'assets/cast/vyron.webp',
     'assets/cast/gizmo.webp',
+    'assets/cast/wriothesley-face.webp',
+    'assets/cast/varka-face.webp',
+    'assets/cast/lycaon-face.webp',
+    'assets/cast/vyron-face.webp',
+    'assets/cast/gizmo-face.webp',
     'assets/icons/icon-192.png',
     'assets/icons/apple-touch-icon.png',
     'assets/maibot.webp',

@@ -9,12 +9,11 @@ import {
   VideoCamera,
 } from '@phosphor-icons/react';
 import { CONTACT } from '../content/site';
-import { useCopy, usePreferences } from '../lib/preferences';
+import { useCopy } from '../lib/preferences';
 import { announce, copyText } from '../lib/toast';
 
 export function Contact() {
   const copy = useCopy();
-  const { locale } = usePreferences();
   const [copied, setCopied] = useState<string | null>(null);
 
   const handleCopy = async (value: string) => {
@@ -113,7 +112,6 @@ export function Contact() {
         <div className="contact__cta">
           <span className="contact__cta-halo" aria-hidden="true" />
           <div className="contact__cta-copy">
-            <span className="mono">{locale === 'zh' ? '直接说' : 'Say it directly'}</span>
             <p className="contact__cta-title display">{copy.contact.ctaLine}</p>
           </div>
           <a className="btn btn--solid btn--big" href={`mailto:${CONTACT.email}`} data-cursor="link">

@@ -9,8 +9,6 @@ export const CONTACT = {
   bilibili: 'https://space.bilibili.com/625979245',
   playlist: 'https://space.bilibili.com/625979245/favlist?fid=4151524245',
   maibotDocs: 'https://docs.mai-mai.org/',
-  avatar: '/assets/avatar.png',
-  logo: '/assets/logo.png',
   maibotImage: '/assets/maibot.webp',
   playlistCover: '/assets/playlist-cover.webp',
 } as const;
@@ -41,17 +39,14 @@ export interface Copy {
     preloaderNote: string;
     copy: string;
     copied: string;
-    close: string;
     backTop: string;
     source: string;
     license: string;
-    open: string;
-    scrollHint: string;
   };
   hero: {
     kicker: string;
     slogan: [string, string];
-    latin: [string, string];
+    latin: string;
     intro: string;
     primary: string;
     secondary: string;
@@ -60,7 +55,6 @@ export interface Copy {
     coordinates: string;
   };
   workshop: {
-    label: string;
     title: string;
     lede: string;
     items: {
@@ -72,27 +66,22 @@ export interface Copy {
     }[];
   };
   opensource: {
-    label: string;
     title: string;
     lede: string;
     caseLabel: string;
     caseTitle: string;
     caseBody: string;
-    caseTags: string[];
     caseLink: string;
     slotsTitle: string;
     slots: { title: string; body: string }[];
   };
   commission: {
-    label: string;
     title: string;
     lede: string;
     availability: string;
-    paidLabel: string;
     paidTitle: string;
     paidNote: string;
     items: { id: string; title: string; body: string; pricing: string }[];
-    freeLabel: string;
     freeTitle: string;
     freeBody: string;
     freeItems: string[];
@@ -100,12 +89,9 @@ export interface Copy {
     cta: string;
   };
   extras: {
-    label: string;
     title: string;
     lede: string;
     tabs: { games: string; characters: string; playlist: string };
-    gamesNote: string;
-    charactersNote: string;
     playlistLabel: string;
     playlistTitle: string;
     playlistNote: string;
@@ -114,13 +100,11 @@ export interface Copy {
     copyAccount: string;
   };
   notes: {
-    label: string;
     lead: string;
     lines: string[];
     aside: string;
   };
   contact: {
-    label: string;
     title: string;
     lede: string;
     emailLabel: string;
@@ -143,7 +127,7 @@ export const site: Record<Locale, Copy> = {
     meta: {
       title: 'STMfan | 探月下，尘世万象',
       description:
-        'STMfan，在校学生与个人开发者。技术能力、付费委托与开源贡献。探月下，尘世万象。',
+        'STMfan，在校学生与独立开发者。后端、服务器运维、全栈交付，接小型付费委托，也帮开源项目。探月下，尘世万象。',
     },
     ui: {
       langLabel: '切换语言',
@@ -154,130 +138,117 @@ export const site: Record<Locale, Copy> = {
       menuClose: '关闭菜单',
       skip: '跳到正文',
       preloaderLine: '正在对准月下',
-      preloaderNote: '一镜到底 / one continuous take',
+      preloaderNote: 'STMfan',
       copy: '复制',
       copied: '已复制',
-      close: '关闭',
-      backTop: '回到月面',
+      backTop: '回到顶部',
       source: '仓库',
       license: 'MIT 许可',
-      open: '打开',
-      scrollHint: '继续向下',
     },
     hero: {
-      kicker: '在校学生 · 个人开发者',
-      slogan: ['探月下，', '尘世万象'],
-      latin: ['To Decipher', 'the Sublunary Sphere.'],
+      kicker: '在校学生 · 独立开发者',
+      slogan: ['探月下，', '尘世万象。'],
+      latin: 'To Decipher the Sublunary Sphere.',
       intro:
-        '我是 STMfan。做后端、守服务器，把念头变成能上线的产品。',
+        '做后端，也照顾几台服务器。你把想法说清楚，我把它做成能上线、能长期运行的东西。',
       primary: '发起咨询',
       secondary: '看看能做什么',
       status: '学生 / 独立开发者',
-      available: '可接小型委托',
+      available: '现在可以接小型委托',
       coordinates: '31.2°N 121.5°E',
     },
     workshop: {
-      label: '技术能力',
-      title: '四个方向，长期在用',
-      lede: '先把边界画清楚，再让它稳定运行。技术栈会变，习惯不会。',
+      title: '从接口到服务器',
+      lede: '项目交给我，你只需要说清楚要解决什么问题。',
       items: [
         {
           id: 'backend',
           key: { zh: '后端', en: 'Backend' },
           sub: { zh: 'Backend', en: '后端' },
-          body: '接口、鉴权、任务与数据，从零搭到稳定运行。',
+          body: '登录、支付、数据、定时任务，按你的业务来搭。',
           tags: 'Python · FastAPI · PostgreSQL',
         },
         {
           id: 'ops',
           key: { zh: '运维', en: 'Operations' },
           sub: { zh: 'Operations', en: '运维' },
-          body: 'Debian 服务器的部署、备份、监控与故障处理。',
+          body: '服务器有人看着：部署、备份、监控，出问题及时处理。',
           tags: 'Debian · systemd · Nginx',
         },
         {
           id: 'fullstack',
           key: { zh: '全栈', en: 'Full stack' },
           sub: { zh: 'Full stack', en: '全栈' },
-          body: '从想法到可访问的站点与接口，用提示词把产品写完。',
-          tags: 'Vibe Coding · Prompt Engineering',
+          body: '页面和接口一起交付，不用再找第二个人对接。',
+          tags: 'React · Vite · API',
         },
         {
           id: 'mobile',
           key: { zh: '移动端', en: 'Mobile' },
           sub: { zh: 'Mobile', en: '移动端' },
-          body: '学过一阵 Flutter，知道它适合做什么，也更偏爱服务端。',
+          body: '需要 App 时，先用 Flutter 把核心流程做出来。',
           tags: 'Dart · Flutter',
         },
       ],
     },
     opensource: {
-      label: '开源与贡献',
-      title: '做过的事，和留白的位置',
-      lede: '感兴趣的项目我会无偿帮忙。自己的项目，正在一个个补上。',
-      caseLabel: '案例 / Case',
+      title: '做过的事',
+      lede: '在 MaiBot 的文档和社区里帮过忙。也在这里留了位置，给接下来的项目。',
+      caseLabel: '开源贡献',
       caseTitle: 'MaiBot 文档与社区',
-      caseBody: '补过说明，也接过社区里的问题。',
-      caseTags: ['文档', '社区', '无偿'],
+      caseBody: '补过文档，也回答过社区里的问题。',
       caseLink: '打开 MaiBot 文档',
-      slotsTitle: '自主开源项目',
+      slotsTitle: '更多项目，正在整理',
       slots: [
-        { title: '待补充', body: '一个还在成形的小工具。' },
-        { title: '待补充', body: '一个准备长期维护的服务。' },
-        { title: '待补充', body: '留给下一个想法。' },
+        { title: '项目一', body: '整理中' },
+        { title: '项目二', body: '整理中' },
+        { title: '项目三', body: '整理中' },
       ],
     },
     commission: {
-      label: '付费委托',
-      title: '小型、清楚、交付干净',
-      lede: '接下边界清楚、周期短的活。也欢迎无偿的开源协作。',
-      availability: '可接委托',
-      paidLabel: '付费委托',
-      paidTitle: '我能接的三类活',
-      paidNote: '范围与报价先说清楚，再开工。',
+      title: '可以这样合作',
+      lede: '小型委托优先。范围清楚、周期短的活，我接得比较快。',
+      availability: '现在可以接',
+      paidTitle: '付费委托',
+      paidNote: '先谈清范围和报价，再开工。',
       items: [
         {
           id: 'backend',
           title: '后端开发',
-          body: '一套能上线的 API 服务，或整理一套已有的后端。',
-          pricing: '按项目报价',
+          body: '一套能上线的接口服务，或把现有后端整理干净。',
+          pricing: '按项目',
         },
         {
           id: 'ops',
           title: '长期运维',
-          body: 'Debian 服务器的部署、备份、监控与故障处理。',
+          body: '服务器交给我：部署、备份、监控与故障处理。',
           pricing: '按月',
         },
         {
           id: 'fullstack',
           title: '全栈交付',
-          body: '从想法到可访问的站点与接口，一起做完。',
-          pricing: '按项目报价',
+          body: '页面和接口一起做完，你只需要验收。',
+          pricing: '按项目',
         },
       ],
-      freeLabel: '无偿贡献',
-      freeTitle: '也会免费帮忙',
-      freeBody: '对感兴趣的开源项目，文档、部署与后端问题都可以找我。',
-      freeItems: ['文档与说明整理', '部署与迁移', '后端问题排查'],
+      freeTitle: '开源项目不收费',
+      freeBody: '文档、部署、后端问题，能帮就帮。',
+      freeItems: ['文档整理', '部署与迁移', '后端排查'],
       freeLink: '在 GitHub 找我',
       cta: '发起咨询',
     },
     extras: {
-      label: '画册',
-      title: '游戏、角色与歌单',
-      lede: '不重要的东西，放在同一页。点开看，或让它自己翻。',
+      title: '工作之外',
+      lede: '常玩的几款游戏，几个偏爱的角色，还有写代码时循环的歌单。',
       tabs: { games: '游戏', characters: '角色', playlist: '歌单' },
-      gamesNote: '账号随手记在这里。',
-      charactersNote: '五个我会反复回看的角色。',
       playlistLabel: '歌单',
       playlistTitle: '写代码时的背景音',
-      playlistNote: '一些循环播放的曲子，写着代码就开着。',
+      playlistNote: '循环很久也不腻的几首。',
       playlistLink: '在 Bilibili 打开',
       account: '账号',
       copyAccount: '复制账号',
     },
     notes: {
-      label: '手记',
       lead: '我住在月亮与尘世之间。',
       lines: [
         '上面是理想主义的夜空。',
@@ -287,19 +258,18 @@ export const site: Record<Locale, Copy> = {
       aside: '探月下，尘世万象。',
     },
     contact: {
-      label: '联系',
       title: '说点什么',
-      lede: '有一个小项目，或只是想说说话，都可以。',
+      lede: '有个小项目，或只是想聊聊，都可以。',
       emailLabel: '邮箱',
       qqLabel: 'QQ',
       githubLabel: 'GitHub',
       bilibiliLabel: 'Bilibili',
       cta: '发起咨询',
-      ctaLine: '把范围、周期和预算发我，我来判断能不能接。',
-      ctaNote: '邮件通常一天内回复。',
+      ctaLine: '简单说说你的想法，我会尽快回复。',
+      ctaNote: '通常一天内回信。',
     },
     footer: {
-      line: '以一个连续的长镜头写成。',
+      line: '手工搭建，长期维护。',
       credits: '站点、文案与代码：STMfan',
       rights: '© 2026 STMfan',
     },
@@ -308,7 +278,7 @@ export const site: Record<Locale, Copy> = {
     meta: {
       title: 'STMfan | To Decipher the Sublunary Sphere.',
       description:
-        'STMfan, student and independent developer. Skills, paid commissions and open source contributions. To decipher the sublunary sphere.',
+        'STMfan, student and independent developer. Backends, server operations and full stack delivery. Small paid commissions, free help for open source. To decipher the sublunary sphere.',
     },
     ui: {
       langLabel: 'Switch language',
@@ -319,130 +289,117 @@ export const site: Record<Locale, Copy> = {
       menuClose: 'Close menu',
       skip: 'Skip to content',
       preloaderLine: 'Aligning to the sublunary',
-      preloaderNote: 'one continuous take',
+      preloaderNote: 'STMfan',
       copy: 'Copy',
       copied: 'Copied',
-      close: 'Close',
-      backTop: 'Back to the surface',
+      backTop: 'Back to top',
       source: 'Source',
       license: 'MIT license',
-      open: 'Open',
-      scrollHint: 'Keep going',
     },
     hero: {
       kicker: 'Student · Independent developer',
       slogan: ['To Decipher', 'the Sublunary Sphere.'],
-      latin: ['探月下，', '尘世万象'],
+      latin: '探月下，尘世万象。',
       intro:
-        'I am STMfan. I build backends, keep servers alive, and turn ideas into products that ship.',
+        'I build backends and keep servers running. Tell me what needs to work, and I will make it ship, and keep shipping.',
       primary: 'Start a brief',
       secondary: 'See what I build',
       status: 'Student / independent developer',
-      available: 'Open for small work',
+      available: 'Open for small commissions',
       coordinates: '31.2°N 121.5°E',
     },
     workshop: {
-      label: 'Skills',
-      title: 'Four directions I use',
-      lede: 'Draw the boundary first, then keep it running. Stacks change, habits do not.',
+      title: 'From API to server',
+      lede: 'Tell me what needs to work. I build the rest.',
       items: [
         {
           id: 'backend',
           key: { zh: '后端', en: 'Backend' },
           sub: { zh: 'Backend', en: '后端' },
-          body: 'APIs, auth, jobs and data, built from scratch to stable.',
+          body: 'Accounts, payments, data and scheduled jobs, shaped around your product.',
           tags: 'Python · FastAPI · PostgreSQL',
         },
         {
           id: 'ops',
           key: { zh: '运维', en: 'Operations' },
           sub: { zh: 'Operations', en: '运维' },
-          body: 'Debian servers: deployment, backups, monitoring and incidents.',
+          body: 'Someone owns the servers: deploys, backups, monitoring and incidents.',
           tags: 'Debian · systemd · Nginx',
         },
         {
           id: 'fullstack',
           key: { zh: '全栈', en: 'Full stack' },
           sub: { zh: 'Full stack', en: '全栈' },
-          body: 'From idea to a site and API someone can open, written with prompts.',
-          tags: 'Vibe Coding · Prompt Engineering',
+          body: 'Pages and APIs delivered together, no second vendor to coordinate.',
+          tags: 'React · Vite · API',
         },
         {
           id: 'mobile',
           key: { zh: '移动端', en: 'Mobile' },
           sub: { zh: 'Mobile', en: '移动端' },
-          body: 'Studied Flutter for a while. I know what it suits, and still prefer the server.',
+          body: 'When you need an app, Flutter gets the core flow running first.',
           tags: 'Dart · Flutter',
         },
       ],
     },
     opensource: {
-      label: 'Open source',
-      title: 'Work done, room left',
-      lede: 'I help open source projects for free. My own projects are coming, one at a time.',
-      caseLabel: 'Case',
+      title: 'Things I have shipped',
+      lede: 'I helped with MaiBot docs and community. Here is room for what comes next.',
+      caseLabel: 'Open source',
       caseTitle: 'MaiBot docs and community',
       caseBody: 'I filled in guides and answered questions in the community.',
-      caseTags: ['Docs', 'Community', 'Free'],
       caseLink: 'Open the MaiBot docs',
-      slotsTitle: 'Own projects',
+      slotsTitle: 'More projects, in progress',
       slots: [
-        { title: 'To be added', body: 'A small tool still taking shape.' },
-        { title: 'To be added', body: 'A service meant to run for years.' },
-        { title: 'To be added', body: 'Space for the next idea.' },
+        { title: 'Project one', body: 'In progress' },
+        { title: 'Project two', body: 'In progress' },
+        { title: 'Project three', body: 'In progress' },
       ],
     },
     commission: {
-      label: 'Paid commissions',
-      title: 'Small, clear, cleanly delivered',
-      lede: 'I take clearly scoped, short work. Free open source help is welcome too.',
+      title: 'Ways to work together',
+      lede: 'Small jobs first. Clear scope and a short timeline get a fast yes.',
       availability: 'Open for work',
-      paidLabel: 'Paid work',
-      paidTitle: 'Three kinds of work I take',
-      paidNote: 'Scope and price agreed first, then I start.',
+      paidTitle: 'Paid work',
+      paidNote: 'Scope and price agreed before I start.',
       items: [
         {
           id: 'backend',
-          title: 'Backend build',
-          body: 'An API service ready to ship, or a backend that needs tidying.',
-          pricing: 'Quoted per project',
+          title: 'Backend development',
+          body: 'An API service ready to ship, or a backend cleaned up.',
+          pricing: 'Per project',
         },
         {
           id: 'ops',
           title: 'Ongoing server care',
-          body: 'Debian deployment, backups, monitoring and incident handling.',
+          body: 'I look after the server: deploys, backups, monitoring and incidents.',
           pricing: 'Monthly',
         },
         {
           id: 'fullstack',
           title: 'Full stack delivery',
-          body: 'From an idea to a site and API someone can open.',
-          pricing: 'Quoted per project',
+          body: 'Pages and APIs delivered together. You review, I ship.',
+          pricing: 'Per project',
         },
       ],
-      freeLabel: 'Free help',
-      freeTitle: 'Also free of charge',
-      freeBody: 'For open source projects I care about: docs, deployment and backend help.',
-      freeItems: ['Docs and guides', 'Deployment and migration', 'Backend troubleshooting'],
+      freeTitle: 'Free for open source',
+      freeBody: 'Docs, deployment and backend questions. If I can help, I will.',
+      freeItems: ['Docs', 'Deployment and migration', 'Backend debugging'],
       freeLink: 'Find me on GitHub',
       cta: 'Start a brief',
     },
     extras: {
-      label: 'Gallery',
-      title: 'Games, characters, playlist',
-      lede: 'The less important things, on one page. Click, or let them turn.',
+      title: 'Outside work',
+      lede: 'A few games, a few favourite characters, and the playlist I keep on while coding.',
       tabs: { games: 'Games', characters: 'Characters', playlist: 'Playlist' },
-      gamesNote: 'Handles are written down here.',
-      charactersNote: 'Five names I keep coming back to.',
       playlistLabel: 'Playlist',
-      playlistTitle: 'Background loops while coding',
-      playlistNote: 'A few tracks I leave on while writing code.',
+      playlistTitle: 'Background loops',
+      playlistNote: 'A few tracks that never get old.',
       playlistLink: 'Open on Bilibili',
       account: 'Handle',
       copyAccount: 'Copy handle',
     },
     notes: {
-      label: 'Notes',
       lead: 'I live between the moon and the ground.',
       lines: [
         "Above is an idealist's night sky.",
@@ -452,7 +409,6 @@ export const site: Record<Locale, Copy> = {
       aside: 'To decipher the sublunary sphere.',
     },
     contact: {
-      label: 'Contact',
       title: 'Say something',
       lede: 'A small project, or simply a conversation. Both are welcome.',
       emailLabel: 'Email',
@@ -460,11 +416,11 @@ export const site: Record<Locale, Copy> = {
       githubLabel: 'GitHub',
       bilibiliLabel: 'Bilibili',
       cta: 'Start a brief',
-      ctaLine: 'Send the scope, timeline and budget. I will tell you if I can take it.',
-      ctaNote: 'Email usually answered within a day.',
+      ctaLine: 'Tell me the idea. I will get back to you soon.',
+      ctaNote: 'Usually answered within a day.',
     },
     footer: {
-      line: 'Written as one continuous take.',
+      line: 'Hand-built, kept running.',
       credits: 'Site, copy and code by STMfan',
       rights: '© 2026 STMfan',
     },
@@ -533,6 +489,8 @@ export interface CharacterEntry {
   en: string;
   origin: Text;
   art: string;
+  face: string;
+  framed?: boolean;
 }
 
 export const characters: CharacterEntry[] = [
@@ -540,22 +498,25 @@ export const characters: CharacterEntry[] = [
     id: 'wriothesley',
     zh: '莱欧斯利',
     en: 'Wriothesley',
-    origin: { zh: '原神 · 梅洛彼得堡', en: 'Genshin Impact' },
+    origin: { zh: '原神', en: 'Genshin Impact' },
     art: '/assets/cast/wriothesley.webp',
+    face: '/assets/cast/wriothesley-face.webp',
   },
   {
     id: 'varka',
     zh: '法尔伽',
     en: 'Varka',
-    origin: { zh: '原神 · 西风骑士团', en: 'Genshin Impact' },
+    origin: { zh: '原神', en: 'Genshin Impact' },
     art: '/assets/cast/varka.webp',
+    face: '/assets/cast/varka-face.webp',
   },
   {
     id: 'lycaon',
     zh: '莱卡恩',
     en: 'Von Lycaon',
-    origin: { zh: '绝区零 · 维多利亚家政', en: 'Zenless Zone Zero' },
+    origin: { zh: '绝区零', en: 'Zenless Zone Zero' },
     art: '/assets/cast/lycaon.webp',
+    face: '/assets/cast/lycaon-face.webp',
   },
   {
     id: 'vyron',
@@ -563,12 +524,16 @@ export const characters: CharacterEntry[] = [
     en: 'Vyron',
     origin: { zh: '三角洲行动', en: 'Delta Force' },
     art: '/assets/cast/vyron.webp',
+    face: '/assets/cast/vyron-face.webp',
+    framed: true,
   },
   {
     id: 'gizmo',
     zh: '比特',
     en: 'Gizmo',
-    origin: { zh: '绝区零', en: 'Zenless Zone Zero' },
+    origin: { zh: '三角洲行动', en: 'Delta Force' },
     art: '/assets/cast/gizmo.webp',
+    face: '/assets/cast/gizmo-face.webp',
+    framed: true,
   },
 ];

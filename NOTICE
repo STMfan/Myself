@@ -10,22 +10,24 @@ docs/licenses/ by `bun run licenses`. The deployed site also exposes
 
 Image provenance
 ----------------
-Generated backdrop and character artwork in /public/assets/art, /public/assets/cast
-and /public/assets/games was produced for this project with an image generation
-model. Provenance and prompts are recorded in docs/ASSETS.md and
-/public/assets/sources.json.
+The atmospheric plates in /public/assets/art were produced for this project with
+an image generation model. Provenance and prompts are recorded in docs/ASSETS.md
+and /public/assets/sources.json.
+
+Character portraits in /public/assets/cast and game icons in
+/public/assets/games are official artwork from HoYoverse / COGNOSPHERE,
+Pigeon Games and Team Jade / Tencent, used nominatively on this personal,
+non-commercial fan page. They are not generated art and are not relicensed
+under MIT. The Delta Force portraits use official key art because no transparent
+official render is published; see docs/ASSETS.md.
 
 The 3D moon is textured with the lunar albedo map by Solar System Scope
 (https://www.solarsystemscope.com/textures/), licensed under CC BY 4.0. The
 attribution is displayed in the site footer.
 
-Game names, character names, game artwork and trademarks remain the property of
-HoYoverse, Pigeon Games, Team Jade / Tencent and Mojang / Microsoft. Character
-cutouts are non-commercial fan art for this personal page. This fan page is not
-affiliated with or endorsed by any of those rights holders.
-
 The GitHub avatar, the Bilibili playlist cover and the MaiBot artwork are used
 as provided by their owners and remain the property of those rights holders.
+This fan page is not affiliated with or endorsed by any of the rights holders.
 
 Fonts remain under the SIL Open Font License 1.1 and are distributed through
 @fontsource packages with their license texts preserved in docs/licenses/.

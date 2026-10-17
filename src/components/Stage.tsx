@@ -71,8 +71,10 @@ export function Stage() {
     if (!context) return;
 
     const calm = document.documentElement.dataset.motion === 'calm';
+    const compact =
+      window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
     const random = mulberry32(2718);
-    const stars: Star[] = Array.from({ length: calm ? 100 : 260 }, () => ({
+    const stars: Star[] = Array.from({ length: compact ? 120 : calm ? 160 : 260 }, () => ({
       x: random(),
       y: random(),
       depth: 0.18 + random() * 0.92,
@@ -80,7 +82,7 @@ export function Stage() {
       phase: random() * Math.PI * 2,
       speed: 0.4 + random() * 1.5,
     }));
-    const motes: Mote[] = Array.from({ length: calm ? 14 : 46 }, () => ({
+    const motes: Mote[] = Array.from({ length: compact ? 18 : calm ? 24 : 46 }, () => ({
       x: random(),
       y: random(),
       depth: 0.35 + random() * 0.85,
@@ -94,6 +96,8 @@ export function Stage() {
     let palette = PALETTES.dark;
     let frame = 0;
     let raf = 0;
+    let lastPaint = 0;
+    const minFrame = compact ? 1000 / 30 : 0;
 
     const readPalette = () => {
       const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
@@ -101,7 +105,7 @@ export function Stage() {
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, compact ? 1.25 : 2);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = Math.round(width * dpr);
@@ -123,7 +127,11 @@ export function Stage() {
     const onResize = () => resize();
     window.addEventListener('resize', onResize);
 
-    const draw = () => {
+    const draw = (now: number) => {
+      raf = requestAnimationFrame(draw);
+      if (compact && now - lastPaint < minFrame) return;
+      lastPaint = now;
+
       const { progress, velocity } = getScrollReading();
       const depthShift = Math.min(1, Math.abs(velocity) / 180);
       pointer.x += (pointer.targetX - pointer.x) * 0.045;
@@ -220,10 +228,9 @@ export function Stage() {
         context.arc(px, py, mote.size * (0.5 + mote.depth), 0, Math.PI * 2);
         context.fill();
       }
-      context.globalAlpha = 1;
+    context.globalAlpha = 1;
 
       frame += 1;
-      raf = requestAnimationFrame(draw);
     };
 
     raf = requestAnimationFrame(draw);

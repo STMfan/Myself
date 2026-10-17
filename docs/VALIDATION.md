@@ -1,7 +1,8 @@
-# Validation · STMfan / Sublunary (v2.1)
+# Validation · STMfan / Sublunary (v2.2)
 
 Real command output recorded on Windows 11 (`10.0.26200`), PowerShell 7.6.7, from
-the repository root on branch `v2`, after the v2.1 restructure.
+the repository root on branch `v2`, after the v2.2 copy, typography, official-art
+and mobile-performance pass.
 
 | Fact | Value |
 | --- | --- |
@@ -11,53 +12,25 @@ the repository root on branch `v2`, after the v2.1 restructure.
 | React / React DOM | `19.3.0` |
 | TypeScript | `7.0.2` |
 | three.js | `0.186.1` |
-| `dist` | 248 files, 14.10 MB (ceiling 24.00 MB) |
-| Client bundle | `index-*.js` 439,951 B (about 130 KB gzip) |
-| Moon chunk | `MoonCanvas-*.js` 535,455 B (about 134 KB gzip, lazy) |
-| CSS | `style-*.css` 253,614 B (font faces dominate) |
-| Prerendered markup | 34,243 characters injected into `#root` |
+| `dist` | 251 files, 14.19 MB (ceiling 24.00 MB) |
+| Client bundle | `index-*.js` 437,064 B |
+| Moon chunk | `MoonCanvas-*.js` 535,614 B (lazy) |
+| CSS | `style-*.css` 248,446 B (font faces dominate) |
+| Prerendered markup | 32,367 characters injected into `#root` |
 | Dependency audit | 45 packages (11 production, 34 build) |
-| Site checks | 282 passed |
+| Site checks | 283 passed |
 
 ## 1. Commands, CI order
 
-### `bun run typecheck`
-
 ```
-$ tsc --noEmit
-```
-
-Exit `0`, no diagnostics.
-
-### `bun run licenses`
-
-```
-[licenses] ok  45 packages (11 production, 34 build)  45 license/notice files -> docs/licenses/  docs/dependency-licenses.json  public/assets/PROJECT_LICENSE.txt  public/assets/THIRD_PARTY_NOTICES.txt
+$ bun run typecheck          # tsc --noEmit, exit 0
+$ bun run licenses           # 45 packages, exit 0
+$ bun run build              # typecheck + vite build + prerender, exit 0
+$ bun run check:site         # 283 checks, exit 0
 ```
 
-Exit `0`. It now includes three.js and its transitive typings, and no longer
-includes Lenis.
-
-### `bun run build`
-
-```
-✓ built in ~0.5 s
-[prerender] building SSR bundle -> .ssr/
-[prerender] injected 34,243 bytes of markup (38,591 bytes total)
-[prerender] ok -> dist\index.html
-```
-
-Exit `0`. Three.js is dynamically imported by `MoonPanel`, so it lands in a
-separate `MoonCanvas-*.js` chunk and is absent from the initial bundle. Vite warns
-that this one chunk exceeds 500 KB; that is the expected cost of a real moon.
-
-### `bun run check:site`
-
-```
-[check:site] ok  dist size: 14.10 MB (ceiling 24.00 MB)  |  282 checks passed
-```
-
-Exit `0`.
+The last build reported `injected 32,367 bytes of markup (36,790 bytes total)`.
+Three.js remains a separate lazy chunk, so first paint does not wait for it.
 
 ## 2. What `check:site` verifies
 
@@ -69,60 +42,89 @@ Exit `0`.
   `contact-title`.
 - Slogans `探月下，尘世万象` and `To Decipher` in `dist/index.html`.
 - Zero U+2014 em dashes in the prerendered HTML.
-- Every `/assets/...` reference in the HTML and every CSS `url()` resolves.
-- 23 runtime-referenced assets that the HTML crawl cannot see, including
-  `moon-map.webp`, `moon-map-1k.webp`, all five game tiles, all five character
-  cutouts, the icon set and the OG card.
+- Every `/assets/...` reference in HTML and every CSS `url()` resolves.
+- 27 runtime-referenced assets the HTML crawl cannot see: moon maps, five game
+  tiles, five official portraits, five face crops, icons, the OG card, the MaiBot
+  image and the playlist cover.
 - `dist/_headers`, `robots.txt`, `sitemap.xml` copied byte-for-byte from `public/`.
 - No source maps, total `dist` size within budget.
 
-## 3. Prerender markers and client takeover
+## 3. Copy and typography
 
-`scripts/prerender.mjs` SSR-builds `src/entry-server.tsx`, renders the zh page and
-injects it into `<div id="root">`. It asserts the client module script and the
-hashed stylesheet survive, and that all eight section markers are present. The
-client uses `createRoot`, not `hydrateRoot`, so the live clock, moon phase and the
-3D canvas cannot produce hydration mismatches; they replace the static markup on
-boot.
+- All visible copy was rewritten in both languages around what a visitor needs:
+  who, what can be built, proof, price posture, contact. Requirement language
+  ("four directions", "this is not important", "reserved", "case") was removed.
+- The slogan stays `探月下，尘世万象。` / `To Decipher the Sublunary Sphere.`
+- Minimum type sizes: 12px labels, 13px captions and links, 14.4px secondary
+  body, 16-17px body, 30-43px section titles. The contact title is capped at
+  59px and the hero remains the only oversized moment.
+- Section titles were reduced from up to 80px to 30-43px; card and item titles
+  use 19-30px. The mono labels that were under 10px were raised to 12px.
 
-## 4. Scrolling and layout checks
+## 4. Layout and touch
 
-- No Lenis and no GSAP `pin`. Wheel and touch scrolling are native.
-- `scroll-padding-top` plus JS navigation offset the fixed nav: a nav click lands
-  the section top 12px below the nav rather than under it.
-- Hero fit measured at 1440×900 (hero bottom 900, CTA bottom 691), 1366×768
-  (hero 768) and 1280×720 (hero 720, CTA 573) with no clipped CTA.
-- `document.documentElement.scrollWidth` equals the viewport width on 390px and
-  1440px viewports; body uses `overflow-x: clip`.
-- Mobile hero is taller than 100svh because the 3D moon medallion is part of it;
-  it scrolls normally and no element is hidden behind the browser chrome.
-- Reduced motion was emulated: `data-motion="calm"`, no preloader, no GSAP
-  timelines, ambient animations disabled and all content visible.
+- Filled panels were removed. Skills, open source, commissions, gallery and
+  contact are separated by 1px rules and spacing; only media (case image, game
+  tile, framed key art, playlist cover) keeps a 2px-radius frame.
+- Hero fits without clipping at 1440×900, 1366×768, 1280×720 and 390×844. The
+  measured hero bottom equals the viewport height at each size.
+- `document.documentElement.scrollWidth` equals the viewport width at 390 and
+  1440.
+- Nav clicks land 12px below the fixed header via `scroll-padding-top` and the
+  JS offset.
+- Mobile: 190px moon below the copy, hidden readout, sticky gallery tabs,
+  44px thumbnails and icon buttons, full-width contact CTA, safe-area bottom
+  padding.
+- Touch scrolling is native; `touch-action: pan-y` on the moon means a vertical
+  swipe still scrolls the page.
 
-## 5. Interaction checks
+## 5. Mobile performance
 
-- Copy email / QQ / UID / Minecraft ID writes to the clipboard and shows the
-  "已复制 / Copied" toast.
-- The gallery auto-rotates after 6 s (observed 莱欧斯利 to 法尔伽), pauses on
-  hover/focus/offscreen, and its progress line restarts when the state changes.
-- Theme switching applies the light palette to the whole page and the 3D moon
-  relights through a `MutationObserver`.
-- Language switching updates nav, sections, gallery, readout, title and meta.
+Measured with a mobile-emulated Chromium (390×844, DPR 2, touch), scrolling the
+page in 70% viewport steps:
 
-## 6. Reproducibility caveats
+| Metric | Result |
+| --- | --- |
+| Long tasks during the full scroll | 0 |
+| rAF sample at the hero | 60 fps |
+| Canvas elements | 2 (starfield + one moon) |
+| Moon canvases created | 1 |
+| DOM mutations during the scroll | 10 |
+| Horizontal overflow | none |
 
-- `docs/licenses/` and its JSON are deterministic and idempotent.
-- The only non-deterministic prerendered values come from application state:
-  the current moon phase, the clock and the shade opacity. They are replaced by
-  the live client immediately on boot.
-- `assets-src/` is gitignored (generated originals plus downloaded sources). The
-  committed derivatives in `public/assets/` are what the build uses; `bun run
-  assets` can regenerate them from `assets-src/` and cached sources.
+The fixes: no backdrop-filter on touch, grain/atmosphere/flow layers hidden on
+touch, starfield at 30fps with 120 stars and DPR ≤1.25, moon at 30fps with
+DPR ≤1.4 and no bump map, preloader counter written to refs instead of state,
+and the clock isolated in its own readout component.
 
-## 7. CI
+## 6. Official character artwork
 
-`.github/workflows/build.yml` runs on pushes to `main` and `v2`, pull requests and
-manual dispatch: `bun install --frozen-lockfile`, `bun run licenses`,
-`bun run build:pages`, `bun run check:site`, then uploads `cloudflare-pages-dist`.
-The workflow was green on the previous v2 commits; the local CI-order run above is
-the same command sequence.
+All five portraits are official art. Wriothesley, Varka and Von Lycaon use
+transparent official portraits from the official galleries; Vyron and Gizmo are
+Delta Force operators whose official key art is presented in a 3:4 frame because
+no transparent render is published. Each has a 160px face crop. Provenance and
+the compromise are recorded in `docs/ASSETS.md` and `sources.json`.
+
+## 7. Avatar
+
+The visible logo calls the GitHub API for `STMfan` on mount, preloads the returned
+`avatar_url`, then swaps it in, so there is no blank flash. It caches the URL for
+12 hours and falls back to `https://github.com/STMfan.png?size=240`. The favicon
+and Apple touch icon also point at the GitHub avatar endpoint; no hand-cropped
+local avatar is rendered. The local `avatar.png` is now only a build input for
+the icon set and the OG card; `logo.png` was removed.
+
+## 8. Reproducibility
+
+- `docs/licenses/` and `dependency-licenses.json` are deterministic.
+- The only non-deterministic prerendered values are the current moon phase, the
+  clock and the shade opacity. The client replaces them on boot; `createRoot` is
+  used instead of hydration, so there is no mismatch.
+- `assets-src/` remains gitignored; the committed `public/assets/` derivatives
+  are what the build uses. `bun run assets` regenerates them from cached sources.
+
+## 9. CI
+
+`.github/workflows/build.yml` runs on `main`, `v2`, pull requests and manual
+dispatch: frozen `bun install`, license audit, `build:pages`, `check:site`, then
+uploads `cloudflare-pages-dist`. The local run above uses the same sequence.

@@ -2,14 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useCopy } from '../lib/preferences';
 import { Logo } from './Type';
 
-const DURATION = 1750;
+const DURATION = 1500;
 
 export function Preloader({ onDone }: { onDone: () => void }) {
   const { ui } = useCopy();
-  const [progress, setProgress] = useState(0);
   const [leaving, setLeaving] = useState(false);
   const done = useRef(false);
   const raf = useRef(0);
+  const countRef = useRef<HTMLSpanElement>(null);
+  const fillRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const calm =
@@ -22,12 +23,19 @@ export function Preloader({ onDone }: { onDone: () => void }) {
       return;
     }
 
+    const paint = (value: number) => {
+      if (countRef.current) {
+        countRef.current.textContent = String(value).padStart(3, '0');
+      }
+      if (fillRef.current) {
+        fillRef.current.style.transform = `scaleX(${value / 100})`;
+      }
+    };
+
     const start = performance.now();
     const tick = (now: number) => {
-      const elapsed = now - start;
-      const raw = Math.min(1, elapsed / DURATION);
-      const eased = 1 - Math.pow(1 - raw, 2.4);
-      setProgress(Math.round(eased * 100));
+      const raw = Math.min(1, (now - start) / DURATION);
+      paint(Math.round((1 - Math.pow(1 - raw, 2.4)) * 100));
       if (raw < 1) {
         raf.current = requestAnimationFrame(tick);
       } else {
@@ -38,7 +46,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
             done.current = true;
             onDone();
           }
-        }, 980);
+        }, 950);
       }
     };
     raf.current = requestAnimationFrame(tick);
@@ -46,7 +54,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
     const skip = () => {
       if (done.current) return;
       cancelAnimationFrame(raf.current);
-      setProgress(100);
+      paint(100);
       setLeaving(true);
       document.documentElement.dataset.booted = 'true';
       window.setTimeout(() => {
@@ -54,7 +62,7 @@ export function Preloader({ onDone }: { onDone: () => void }) {
           done.current = true;
           onDone();
         }
-      }, 420);
+      }, 320);
     };
 
     const onKey = (event: KeyboardEvent) => {
@@ -83,9 +91,11 @@ export function Preloader({ onDone }: { onDone: () => void }) {
           <span className="mono preloader__note">{ui.preloaderNote}</span>
         </div>
         <div className="preloader__meter" role="presentation">
-          <span className="preloader__meter-fill" style={{ transform: `scaleX(${progress / 100})` }} />
+          <span className="preloader__meter-fill" ref={fillRef} />
         </div>
-        <span className="preloader__count display">{String(progress).padStart(3, '0')}</span>
+        <span className="preloader__count display" ref={countRef}>
+          000
+        </span>
       </div>
     </div>
   );

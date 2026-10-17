@@ -200,52 +200,135 @@ const GAMES_VECTOR = [
 ];
 
 /* ------------------------------------------------------------------ *
- * v2.1: character cutouts (gpt-image, chroma-keyed)
+ * v2.2: official character portraits (half-body)
  * ------------------------------------------------------------------ */
 
-// Each source was generated head-to-toe on a flat #00FF00 background by
-// gpt-image via Codex on 2026-10-17. `keyCast` removes the green, trims the
-// alpha bounding box, normalises the figure to 1000 px tall and encodes webp.
+// The gallery now shows OFFICIAL artwork, not generated fan art. Every plate
+// is cut from an official render or an official key art to a half-body
+// portrait: head plus torso, cut just below the waist. `headPx` is the height
+// of the head (hair/ear top to chin) in the SOURCE image, measured by hand;
+// `CAST_FRAME.headPx` then scales the crop so the head is exactly 300 px tall
+// in every output, which keeps the five portraits at the same visual weight
+// when the gallery renders them at a fixed height.
+//
+// Two sources are transparent (the HoYoverse character renders). The two
+// Delta Force operators have no published transparent render, so their
+// official key art is used with a feathered alpha edge plus a dark vignette
+// (`mask: true`): the figure is not keyed (the backgrounds are photographic,
+// not flat) and the character is not redrawn.
 const CAST = [
-  { id: 'wriothesley', src: 'cast/wriothesley-raw.png', out: 'cast/wriothesley.webp' },
-  { id: 'varka', src: 'cast/varka-raw.png', out: 'cast/varka.webp' },
-  { id: 'lycaon', src: 'cast/lycaon-raw.png', out: 'cast/lycaon.webp' },
-  { id: 'vyron', src: 'cast/vyron-raw.png', out: 'cast/vyron.webp' },
-  { id: 'gizmo', src: 'cast/gizmo-raw.png', out: 'cast/gizmo.webp' },
+  {
+    id: 'wriothesley',
+    out: 'cast/wriothesley.webp',
+    url: 'https://static.wikia.nocookie.net/gensin-impact/images/8/85/Wriothesley_Portrait.png/revision/latest?cb=20260721170933',
+    page: 'https://genshin-impact.fandom.com/wiki/File:Wriothesley_Portrait.png',
+    cache: 'cast/wriothesley-portrait.webp',
+    owner: 'HoYoverse / COGNOSPHERE (Genshin Impact)',
+    license:
+      'Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery, which hosts the official game render. Used nominatively on a personal, non-commercial site; not relicensed under MIT.',
+    sourceSize: '1009x1534',
+    crop: { left: 395, top: 0, width: 614, height: 686 },
+    headPx: 206,
+    face: { left: 603, top: 28, width: 280, height: 280 },
+    transparentSource: true,
+    mask: false,
+    cut: 'head + torso to the belt/upper thigh; the raised left fist and coat are cropped, the hair top is intact',
+  },
+  {
+    id: 'varka',
+    out: 'cast/varka.webp',
+    url: 'https://static.wikia.nocookie.net/gensin-impact/images/3/32/Varka_Portrait.png/revision/latest?cb=20260301093455',
+    page: 'https://genshin-impact.fandom.com/wiki/File:Varka_Portrait.png',
+    cache: 'cast/varka-portrait.webp',
+    owner: 'HoYoverse / COGNOSPHERE (Genshin Impact)',
+    license:
+      'Official Genshin Impact character render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom character gallery. Varka is playable (Knights of Favonius Grand Master), so no manga/group-art compromise was needed. Used nominatively; not relicensed under MIT.',
+    sourceSize: '1376x1776',
+    crop: { left: 496, top: 0, width: 528, height: 673 },
+    headPx: 202,
+    face: { left: 620, top: 10, width: 280, height: 280 },
+    transparentSource: true,
+    mask: false,
+    cut: 'head + torso to the waist; the greatsword leaves the frame on both sides, the hair top is intact',
+  },
+  {
+    id: 'lycaon',
+    out: 'cast/lycaon.webp',
+    url: 'https://static.wikia.nocookie.net/zenless-zone-zero/images/5/5f/Agent_Von_Lycaon_Portrait.png/revision/latest?cb=20240707002420',
+    page: 'https://zenless-zone-zero.fandom.com/wiki/File:Agent_Von_Lycaon_Portrait.png',
+    cache: 'cast/lycaon-portrait.webp',
+    owner: 'HoYoverse / COGNOSPHERE (Zenless Zone Zero)',
+    license:
+      'Official Zenless Zone Zero agent render, (c) HoYoverse / COGNOSPHERE. Mirrored from the Fandom agent gallery. Used nominatively; not relicensed under MIT.',
+    sourceSize: '1836x2480',
+    crop: { left: 530, top: 14, width: 996, height: 1170 },
+    headPx: 351,
+    face: { left: 790, top: 110, width: 390, height: 390 },
+    transparentSource: true,
+    mask: false,
+    cut: 'head + shoulders/chest of the official crouched render; the tail sweeps out of the left edge, the ears are intact',
+  },
+  {
+    id: 'vyron',
+    out: 'cast/vyron.webp',
+    url: 'https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img2.jpg',
+    page: 'https://df.qq.com/cp/a20240906main/index.html',
+    cache: 'cast/vyron-key-art.jpg',
+    owner: 'Tencent / Team Jade (Delta Force, 三角洲行动)',
+    license:
+      'Official Delta Force operator key art from the official Chinese operator page, (c) Tencent / Team Jade. No standalone transparent render is published for Vyron, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.',
+    sourceSize: '4096x2160',
+    crop: { left: 2104, top: 150, width: 1300, height: 2000 },
+    headPx: 600,
+    face: { left: 2448, top: 290, width: 600, height: 600 },
+    transparentSource: false,
+    mask: true,
+    cut: 'half-body crop of the official key art; the battlefield background stays (it cannot be keyed cleanly), feathered to alpha at the edges and darkened into the site background',
+  },
+  {
+    id: 'gizmo',
+    out: 'cast/gizmo.webp',
+    url: 'https://game.gtimg.cn/images/dfm/cp/a20240906main/p4_img13.jpg',
+    page: 'https://df.qq.com/cp/a20240906main/index.html',
+    cache: 'cast/gizmo-key-art.jpg',
+    owner: 'Tencent / Team Jade (Delta Force, 三角洲行动)',
+    license:
+      'Official Delta Force operator key art from the official Chinese operator page (Engineer operator 比特 / Gizmo, Season of Ahsarah), (c) Tencent / Team Jade. No transparent render is published, so the key art is used as a documented compromise. Used nominatively; not relicensed under MIT.',
+    sourceSize: '3840x2212',
+    crop: { left: 1439, top: 140, width: 1672, height: 2072 },
+    headPx: 627,
+    face: { left: 1965, top: 330, width: 620, height: 620 },
+    transparentSource: false,
+    mask: true,
+    cut: 'head + torso of the official key art (glasses, raised hand, shoulder spider intact); backdrop feathered and darkened like Vyron',
+  },
 ];
 
-const CAST_PROMPTS = {
-  wriothesley:
-    'Full-body Genshin Impact fan art of Wriothesley: tall adult man, athletic build, short black hair with silver-grey streaks, pale ice-grey eyes, scar on one cheek, black high-collar coat with charcoal fur collar, crimson lining and red accents, dark gloves and gauntlets, chains, heavy boots; confident half-smile, frost-crackling fist; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.',
-  varka:
-    'Full-body Genshin Impact fan art of Varka, Grand Master of the Knights of Favonius: huge older knight in his late fifties, long silver-blond hair and beard, weathered scarred face, white and gold heavy plate armor, deep blue cape with a lion crest, massive greatsword held point-down with both hands; cel-shaded key art, amber rim light right / cool fill left; flat #00FF00 background, no text.',
-  lycaon:
-    'Full-body Zenless Zone Zero fan art of Von Lycaon: anthropomorphic white-furred wolf butler, lean elegant build, sharp ice-blue eye with a cybernetic monocle eyepiece, black tailcoat with ice-blue trim, white dress shirt, bow tie, white gloves, silver-blue prosthetic legs, tail; refined butler pose holding a silver tray; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.',
-  vyron:
-    'Full-body Delta Force fan art key art of Vyron, a Chinese tactical operator: athletic adult man, short black hair, light stubble, dark plate carrier over a grey combat uniform, fast helmet with raised visor and headset, amber signal lights, tactical gloves, knee pads, boots, modern assault rifle in a low-ready grip; semi-realistic military key art, cool teal fill / amber rim light right; flat #00FF00 background, no text or insignia lettering.',
-  gizmo:
-    'Full-body Zenless Zone Zero fan art of Gizmo, a small round hovering engineer robot: spherical scuffed industrial plating in off-white, gunmetal and safety yellow, orange hazard stripes, one large amber lens eye, antenna with an amber bulb, articulated mechanical arms with three-finger grippers holding a wrench, blue-glowing thrusters, folded treads; cheerful hovering pose; cel-shaded ZZZ key art, blue rim light left / amber accent right; flat #00FF00 background, no text.',
-};
-
-// Chroma key tuning (green dominance = G - max(R,B)).
-const KEY = {
-  solid: 26, // <= solid: fully opaque
-  clear: 96, // >= clear: fully transparent
-  despill: 14, // cap green at max(R,B) + 14 on surviving edge pixels
-  trimAlpha: 24, // alpha above which a pixel counts for the bounding box
-  pad: 6, // transparent margin around the trimmed figure, px
-  height: 1000, // target height
+const CAST_FRAME = {
+  headPx: 300, // head height in every output, keeps visual weight consistent
   quality: 88,
   alphaQuality: 92,
-  maxBytes: 450 * KB,
+  maxBytes: 350 * KB,
+  faceSize: 160,
+  faceQuality: 88,
+  faceMaxBytes: 40 * KB,
+};
+
+// Fandom serves its images through Cloudflare, which rejects the pipeline's
+// plain user agent; a browser UA plus an image Accept/Referer pair is accepted.
+const CAST_HEADERS = {
+  'user-agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+  accept: 'image/webp,image/png,image/*;q=0.8,*/*;q=0.5',
+  referer: 'https://genshin-impact.fandom.com/',
 };
 
 /* ------------------------------------------------------------------ *
  * v2.1: avatar-derived icon marks
  * ------------------------------------------------------------------ */
 
-// Derived from public/assets/logo.png (the Lead's 256 px face crop of the
-// GitHub avatar). logo.png is an input here and is never written.
+// Derived from public/assets/avatar.png (the Lead's 256 px face crop of the
+// GitHub avatar). avatar.png is an input here and is never written.
 // index.html points its apple-touch-icon at /assets/icons/apple-touch-icon.png,
 // while the v2.1 asset list names /assets/apple-touch-icon.png; both paths are
 // emitted from the same 180 px render so either reference resolves.
@@ -258,7 +341,7 @@ const ICONS = [
 
 const ICON_ALIAS_OF = { 'apple-touch-icon.png': 'icons/apple-touch-icon.png' };
 
-const ICON_SOURCE = 'logo.png';
+const ICON_SOURCE = 'avatar.png';
 
 /* ------------------------------------------------------------------ *
  * External assets
@@ -295,13 +378,12 @@ const EXTERNAL = [
   },
 ];
 
-// Brand inputs owned outside this pipeline. The Lead derives both from
+// Brand input owned outside this pipeline. The Lead derives it from
 // C:\Users\STMfan\Pictures\GithubAvatar.png (1080x1080): avatar.png is the full
-// illustration at 640 px, logo.png a 256 px face crop that the v2.1 icons and
-// the OG avatar circle are built from. The pipeline only READS them and
-// verifies their dimensions; it never writes either file (an earlier v2 step
-// regenerated avatar.png from the GitHub profile URL, which would throw away
-// the Lead's crop).
+// illustration at 640 px, and the icon marks plus the OG avatar circle are built
+// from it. The pipeline only READS it and verifies its dimensions; it never
+// writes the file (an earlier v2 step regenerated avatar.png from the GitHub
+// profile URL, which would throw away the Lead's downscale).
 const PROVIDED = [
   {
     id: 'avatar',
@@ -312,16 +394,6 @@ const PROVIDED = [
     owner: 'STMfan',
     license: 'Personal artwork, © STMfan. Not relicensed under MIT.',
     transform: 'Full illustration downscaled to 640x640',
-  },
-  {
-    id: 'logo',
-    out: 'logo.png',
-    width: 256,
-    height: 256,
-    source: 'C:/Users/STMfan/Pictures/GithubAvatar.png (1080x1080)',
-    owner: 'STMfan',
-    license: 'Personal artwork, © STMfan. Not relicensed under MIT.',
-    transform: '256x256 face crop',
   },
 ];
 
@@ -808,7 +880,9 @@ async function ensureFonts() {
  * ------------------------------------------------------------------ */
 
 async function fetchAsset(spec) {
-  const cachePath = path.join(CACHE, spec.cache);
+  // Cast sources live in their own cache directory; everything else in CACHE.
+  const cachePath = path.join(spec.cacheDir ?? CACHE, spec.cache);
+  await fs.mkdir(path.dirname(cachePath), { recursive: true });
   // Large sources (the 15 MB lunar texture) are pinned to the cache: they do
   // not change upstream, and re-downloading them on every build is wasteful.
   if (spec.preferCache && (await exists(cachePath))) {
@@ -818,7 +892,7 @@ async function fetchAsset(spec) {
   }
   try {
     const response = await fetch(spec.url, {
-      headers: { 'user-agent': UA },
+      headers: { 'user-agent': UA, ...(spec.headers ?? {}) },
       redirect: 'follow',
       signal: AbortSignal.timeout(45000),
     });
@@ -1241,120 +1315,155 @@ async function buildGames() {
 }
 
 /* ------------------------------------------------------------------ *
- * Build: v2.1 character cutouts (chroma key)
+ * Build: v2.2 official character portraits (half-body)
  * ------------------------------------------------------------------ */
 
-/** Replace the flat green background with alpha and despill the edges. */
-function chromaKey(rgb, width, height) {
-  const pixels = width * height;
-  const out = Buffer.alloc(pixels * 4);
-  let kept = 0;
-  for (let i = 0, j = 0; i < pixels; i += 1, j += 3) {
-    const r = rgb[j];
-    const g = rgb[j + 1];
-    const b = rgb[j + 2];
-    const green = g - Math.max(r, b);
-    let alpha;
-    if (green <= KEY.solid) alpha = 255;
-    else if (green >= KEY.clear) alpha = 0;
-    else {
-      const t = (green - KEY.solid) / (KEY.clear - KEY.solid);
-      alpha = Math.round(255 * (1 - t * t * (3 - 2 * t)));
-    }
-    const capped = green > 0 ? Math.min(g, Math.max(r, b) + KEY.despill) : g;
-    out[i * 4] = r;
-    out[i * 4 + 1] = capped;
-    out[i * 4 + 2] = b;
-    out[i * 4 + 3] = alpha;
-    if (alpha > KEY.trimAlpha) kept += 1;
-  }
-  return { rgba: out, kept };
-}
-
-/** Alpha bounding box, so every character is trimmed to the figure. */
-function alphaBounds(rgba, width, height) {
-  let left = width;
-  let top = height;
-  let right = -1;
-  let bottom = -1;
-  for (let y = 0; y < height; y += 1) {
-    for (let x = 0; x < width; x += 1) {
-      if (rgba[(y * width + x) * 4 + 3] > KEY.trimAlpha) {
-        if (x < left) left = x;
-        if (x > right) right = x;
-        if (y < top) top = y;
-        if (y > bottom) bottom = y;
-      }
-    }
-  }
-  if (right < 0) throw new Error('chroma key removed the whole frame');
-  return { left, top, width: right - left + 1, height: bottom - top + 1 };
+/**
+ * Give a key-art plate a feathered alpha edge. The two Delta Force operators
+ * have no published transparent render, so their official key art keeps its
+ * photographic background: a radial alpha ramp dissolves the rectangle into
+ * the page (head and shoulders stay fully opaque) and a matching dark vignette
+ * pulls the leftover backdrop towards the site's near-black. Nothing is keyed:
+ * a photographic background cannot be keyed cleanly without eating the figure.
+ */
+async function featherKeyArt(png, width, height) {
+  const mask = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <defs><radialGradient id="m" cx="50%" cy="38%" r="64%">
+    <stop offset="0.52" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="0.78" stop-color="#fff" stop-opacity="0.85"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </radialGradient></defs>
+  <rect width="${width}" height="${height}" fill="url(#m)"/>
+</svg>`;
+  const vignette = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">
+  <defs><radialGradient id="v" cx="50%" cy="38%" r="66%">
+    <stop offset="0.45" stop-color="#04060b" stop-opacity="0"/>
+    <stop offset="0.8" stop-color="#04060b" stop-opacity="0.42"/>
+    <stop offset="1" stop-color="#04060b" stop-opacity="0.8"/>
+  </radialGradient></defs>
+  <rect width="${width}" height="${height}" fill="url(#v)"/>
+</svg>`;
+  return sharp(png)
+    .ensureAlpha()
+    .composite([
+      { input: Buffer.from(vignette) },
+      // dest-in last: alpha = vignette alpha x mask alpha, so the corners
+      // really do reach 0 instead of inheriting the vignette's own opacity.
+      { input: Buffer.from(mask), blend: 'dest-in' },
+    ])
+    .png()
+    .toBuffer();
 }
 
 async function buildCast() {
   for (const spec of CAST) {
-    const sourceAbs = path.join(SRC, spec.src);
-    if (!(await exists(sourceAbs))) {
+    const { buf, fetchedAt } = await fetchAsset({
+      ...spec,
+      headers: CAST_HEADERS,
+    });
+    const meta = await sharp(buf).metadata();
+    if (!meta.width || !meta.height) throw new Error(`${spec.id}: unreadable source`);
+    for (const [label, box] of [
+      ['crop', spec.crop],
+      ['face', spec.face],
+    ]) {
+      if (
+        box.left < 0 ||
+        box.top < 0 ||
+        box.left + box.width > meta.width ||
+        box.top + box.height > meta.height
+      ) {
+        throw new Error(
+          `${spec.id}: ${label} ${box.width}x${box.height} at ${box.left},${box.top} ` +
+            `falls outside the ${meta.width}x${meta.height} source — the upstream render changed`,
+        );
+      }
+    }
+    if (spec.transparentSource && !meta.hasAlpha) {
       throw new Error(
-        `missing character source ${rel(sourceAbs)} — restore assets-src/cast/ (the gpt-image originals are not committed)`,
+        `${spec.id}: expected an official transparent render, but ${spec.url} has no alpha channel`,
       );
     }
-    const { data, info } = await sharp(sourceAbs)
-      .removeAlpha()
-      .raw()
-      .toBuffer({ resolveWithObject: true });
-    const { rgba, kept } = chromaKey(data, info.width, info.height);
-    const bounds = alphaBounds(rgba, info.width, info.height);
-    const keyed = await sharp(rgba, {
-      raw: { width: info.width, height: info.height, channels: 4 },
-    })
-      .extract(bounds)
+
+    // One scale for every character: the head is 300 px tall in the output, so
+    // the five portraits carry the same visual weight at a fixed gallery height.
+    const scale = CAST_FRAME.headPx / spec.headPx;
+    const width = Math.round(spec.crop.width * scale);
+    const height = Math.round(spec.crop.height * scale);
+    if (Math.max(width, height) > 1100) {
+      throw new Error(`${spec.id}: ${width}x${height} exceeds the 1100 px long edge`);
+    }
+    let art = await sharp(buf)
+      .extract(spec.crop)
+      .resize(width, height, { fit: 'fill', kernel: 'lanczos3' })
       .png()
       .toBuffer();
-    const padded = await sharp(keyed)
-      .extend({
-        top: KEY.pad,
-        bottom: KEY.pad,
-        left: KEY.pad,
-        right: KEY.pad,
-        background: { r: 0, g: 0, b: 0, alpha: 0 },
-      })
-      .png()
-      .toBuffer({ resolveWithObject: true });
-    const width = Math.round((padded.info.width * KEY.height) / padded.info.height);
-    const webp = await sharp(padded.data)
-      .resize({ width, height: KEY.height, fit: 'fill', kernel: 'lanczos3' })
+    if (spec.mask) art = await featherKeyArt(art, width, height);
+    const webp = await sharp(art)
       .webp({
-        quality: KEY.quality,
-        alphaQuality: KEY.alphaQuality,
+        quality: CAST_FRAME.quality,
+        alphaQuality: CAST_FRAME.alphaQuality,
         effort: 6,
         smartSubsample: true,
       })
       .toBuffer();
     await fs.writeFile(path.join(OUT, spec.out), webp);
+
+    const face = await sharp(buf)
+      .extract(spec.face)
+      .resize(CAST_FRAME.faceSize, CAST_FRAME.faceSize, {
+        fit: 'cover',
+        position: 'centre',
+        kernel: 'lanczos3',
+      })
+      .webp({
+        quality: CAST_FRAME.faceQuality,
+        alphaQuality: CAST_FRAME.alphaQuality,
+        effort: 6,
+      })
+      .toBuffer();
+    const faceOut = `cast/${spec.id}-face.webp`;
+    await fs.writeFile(path.join(OUT, faceOut), face);
+
     const entry = await record(
       spec.out,
       width,
-      KEY.height,
-      `assets-src/${spec.src}`,
-      { width, height: KEY.height, maxBytes: KEY.maxBytes },
+      height,
+      `${spec.url} (${spec.transparentSource ? 'official transparent render' : 'official key art, feathered'})`,
+      { width, height, maxBytes: CAST_FRAME.maxBytes },
+    );
+    const faceEntry = await record(
+      faceOut,
+      CAST_FRAME.faceSize,
+      CAST_FRAME.faceSize,
+      `${spec.url} (face crop ${spec.face.width}x${spec.face.height} at ${spec.face.left},${spec.face.top})`,
+      {
+        width: CAST_FRAME.faceSize,
+        height: CAST_FRAME.faceSize,
+        maxBytes: CAST_FRAME.faceMaxBytes,
+      },
     );
     Object.assign(spec, {
       width,
-      height: KEY.height,
+      height,
       bytes: webp.length,
-      coverage: Number(((kept / (info.width * info.height)) * 100).toFixed(1)),
-      sourceSize: `${info.width}x${info.height}`,
+      faceBytes: face.length,
+      fetchedAt,
+      sourceFormat: meta.format,
+      headPxOut: Math.round(spec.headPx * scale),
     });
     process.stdout.write(
-      `cast   ${entry.path} ${width}x${KEY.height} ${kb(entry.bytes)} ` +
-        `(figure ${bounds.width}x${bounds.height}, coverage ${spec.coverage}%)\n`,
+      `cast   ${entry.path} ${width}x${height} ${kb(entry.bytes)} ` +
+        `(${spec.transparentSource ? 'transparent' : 'feathered key art'}, head ${spec.headPxOut}px)\n`,
+    );
+    process.stdout.write(
+      `face   ${faceEntry.path} ${CAST_FRAME.faceSize}x${CAST_FRAME.faceSize} ${kb(faceEntry.bytes)}\n`,
     );
   }
 }
 
 /* ------------------------------------------------------------------ *
- * Build: v2.1 icon marks (from logo.png)
+ * Build: v2.1 icon marks (from avatar.png)
  * ------------------------------------------------------------------ */
 
 function vignetteSvg(size) {
@@ -1573,7 +1682,7 @@ async function buildOg(fonts) {
   }
   await fs.writeFile(outAbs, png);
 
-  const entry = await record('share/og.png', OG_WIDTH, OG_HEIGHT, 'assets-src/horizon.png + logo.png + fonts', {
+  const entry = await record('share/og.png', OG_WIDTH, OG_HEIGHT, 'assets-src/horizon.png + avatar.png + fonts', {
     width: OG_WIDTH,
     height: OG_HEIGHT,
     maxBytes: 700 * KB,
@@ -1588,29 +1697,47 @@ async function buildOg(fonts) {
  * ------------------------------------------------------------------ */
 
 async function writeSources() {
-  const generated = [
-    ...ART.map((art) => ({
-      id: art.id,
-      output: `public/assets/${art.out}`,
-      source: `assets-src/${art.src}`,
-      model: GENERATED_BY,
-      date: GENERATED_ON,
-      promptSummary: PROMPTS[art.id],
-      transform: art.crop
-        ? `extract ${art.crop.width}x${art.crop.height} at ${art.crop.left},${art.crop.top}; resize ${art.width}x${art.height}; webp q${art.quality}`
-        : `resize ${art.width}x${art.height}; webp q${art.quality}`,
-    })),
-    ...CAST.map((cast) => ({
-      id: cast.id,
-      output: `public/assets/${cast.out}`,
-      source: `assets-src/${cast.src}`,
-      model: GENERATED_BY,
-      date: GENERATED_ON,
-      promptSummary: CAST_PROMPTS[cast.id],
-      transform: `chroma key ${cast.sourceSize} on #00FF00 (despill), trim alpha, ${cast.width}x${cast.height}, webp q${KEY.quality} with alpha`,
-      alpha: true,
-    })),
-  ];
+  const generated = ART.map((art) => ({
+    id: art.id,
+    output: `public/assets/${art.out}`,
+    source: `assets-src/${art.src}`,
+    model: GENERATED_BY,
+    date: GENERATED_ON,
+    promptSummary: PROMPTS[art.id],
+    transform: art.crop
+      ? `extract ${art.crop.width}x${art.crop.height} at ${art.crop.left},${art.crop.top}; resize ${art.width}x${art.height}; webp q${art.quality}`
+      : `resize ${art.width}x${art.height}; webp q${art.quality}`,
+  }));
+
+  const cast = CAST.map((spec) => ({
+    id: `cast-${spec.id}`,
+    output: [`public/assets/${spec.out}`, `public/assets/cast/${spec.id}-face.webp`],
+    url: spec.url,
+    page: spec.page,
+    owner: spec.owner,
+    license: spec.license,
+    fetchedAt: spec.fetchedAt,
+    official: true,
+    sourceSize: spec.sourceSize,
+    sourceTransparent: spec.transparentSource,
+    alpha: true,
+    mask:
+      spec.mask === true
+        ? 'official key art; feathered radial alpha + dark vignette (background retained, not keyed)'
+        : 'none (source is already transparent)',
+    headPx: spec.headPx,
+    headPxOut: spec.headPxOut,
+    crop: `${spec.crop.width}x${spec.crop.height} at ${spec.crop.left},${spec.crop.top}`,
+    faceCrop: `${spec.face.width}x${spec.face.height} at ${spec.face.left},${spec.face.top}`,
+    cut: spec.cut,
+    transform:
+      `crop ${spec.crop.width}x${spec.crop.height} at ${spec.crop.left},${spec.crop.top}, ` +
+      `scale ${(CAST_FRAME.headPx / spec.headPx).toFixed(3)}x to ${spec.width}x${spec.height} ` +
+      `(head ${spec.headPxOut}px), webp q${CAST_FRAME.quality} with alpha; ` +
+      `face crop ${spec.face.width}x${spec.face.height} to ${CAST_FRAME.faceSize}x${CAST_FRAME.faceSize} webp q${CAST_FRAME.faceQuality}`,
+    note:
+      'Official artwork, not generated; not relicensed under MIT. Do not replace with fan art or AI art.',
+  }));
 
   const external = [
     ...EXTERNAL.map((spec) => ({
@@ -1660,11 +1787,12 @@ async function writeSources() {
 
   const sources = {
     $comment:
-      'Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored). avatar.png and logo.png are supplied by the Lead and are never written by this pipeline.',
-    site: 'STMfan · Sublunary (v2.1)',
+      'Provenance for every raster asset served from public/assets. Generated art was produced with GPT-Image via Codex on 2026-10-17; the local originals live in assets-src/ (gitignored). The five cast portraits are OFFICIAL game artwork (see the cast array), not generated. avatar.png and avatar.png are supplied by the Lead and are never written by this pipeline.',
+    site: 'STMfan · Sublunary (v2.2)',
     generatedOn: GENERATED_ON,
     model: GENERATED_BY,
     generated,
+    cast,
     external,
     provided: PROVIDED.map((spec) => ({
       id: spec.id,
@@ -1740,17 +1868,32 @@ async function verify() {
     );
   }
 
-  // Character cutouts must ship a real alpha channel, and the icon marks must
-  // not (opaque tiles, so a circular OS mask never reveals transparency).
+  // Character portraits must ship a real alpha channel: three official
+  // transparent renders plus two feathered key-art plates. The head is a fixed
+  // 300 px in every output, so the heights differ slightly; check that the
+  // frame is ~1000 px tall and that the head-height scale really was applied.
+  // Face crops must be square, 160 px, and readable in a 40-56 px circle.
   for (const cast of CAST) {
     const meta = await sharp(path.join(OUT, cast.out)).metadata();
     assert(meta.hasAlpha, `${cast.out}: expected an alpha channel`);
-    assert(meta.height === KEY.height, `${cast.out}: height ${meta.height} != ${KEY.height}`);
+    assert(
+      meta.height >= 950 && meta.height <= 1050,
+      `${cast.out}: height ${meta.height} is outside the 950..1050 frame`,
+    );
+    assert(
+      Math.abs(cast.headPxOut - CAST_FRAME.headPx) <= 3,
+      `${cast.out}: head is ${cast.headPxOut}px, expected ${CAST_FRAME.headPx}px`,
+    );
     const stats = await sharp(path.join(OUT, cast.out)).stats();
     const alpha = stats.channels[stats.channels.length - 1];
     assert(
       alpha.min === 0 && alpha.max === 255,
       `${cast.out}: alpha range ${alpha.min}..${alpha.max} is not a real cutout`,
+    );
+    const faceMeta = await sharp(path.join(OUT, `cast/${cast.id}-face.webp`)).metadata();
+    assert(
+      faceMeta.width === CAST_FRAME.faceSize && faceMeta.height === CAST_FRAME.faceSize,
+      `cast/${cast.id}-face.webp: ${faceMeta.width}x${faceMeta.height}, expected 160x160`,
     );
   }
   for (const icon of ICONS) {
@@ -1833,7 +1976,14 @@ async function writeDocs() {
 
   const castList = CAST.map(
     (cast) =>
-      `- **${cast.id}** — \`public/assets/${cast.out}\` (${cast.width}x${cast.height}, alpha)\n  - Prompt: ${CAST_PROMPTS[cast.id]}\n  - Model \`${GENERATED_BY}\`, date ${GENERATED_ON}. Source \`assets-src/${cast.src}\` (${cast.sourceSize}, flat #00FF00); keyed, despilled and trimmed at build time.`,
+      `- **${cast.id}** — \`public/assets/${cast.out}\` (${cast.width}x${cast.height}, alpha) + \`public/assets/cast/${cast.id}-face.webp\` (160x160)\n` +
+      `  - Source: ${cast.url}\n` +
+      `  - Page: ${cast.page}\n` +
+      `  - Owner: ${cast.owner}\n` +
+      `  - Scope: ${cast.license}\n` +
+      `  - Fetched at: ${cast.fetchedAt ?? 'n/a'} (${cast.sourceSize} source, ${cast.transparentSource ? 'already transparent' : 'key art, background retained and feathered'})\n` +
+      `  - Cut: ${cast.cut}\n` +
+      `  - Transform: crop ${cast.crop.width}x${cast.crop.height} at (${cast.crop.left},${cast.crop.top}), scale ${(CAST_FRAME.headPx / cast.headPx).toFixed(3)}x to ${cast.width}x${cast.height}, head ${cast.headPxOut}px; webp q${CAST_FRAME.quality} with alpha; face crop ${cast.face.width}x${cast.face.height} to ${CAST_FRAME.faceSize}x${CAST_FRAME.faceSize}, webp q${CAST_FRAME.faceQuality}.`,
   ).join('\n');
 
   const externalList = EXTERNAL.map(
@@ -1895,35 +2045,52 @@ produces it is \`scripts/build-assets.mjs\`, run with:
     bun run assets
 
 It reads the original art from \`assets-src/\` (never writes there), downloads the
-remote sources into \`assets-src/external/\`, keying the character plates from
-\`assets-src/cast/\`, encodes every derivative with sharp, composes the social
-card and the icon marks, writes \`public/assets/sources.json\`, verifies each
-output's dimensions and byte budget, and rewrites this document's size table. It
-is idempotent; it re-downloads the external images on every run and falls back
-to the cache in \`assets-src/external/\` when offline. The 15 MB lunar texture is
-pinned to its cache entry (\`preferCache\`) because it never changes upstream.
+remote sources into \`assets-src/external/\`, downloads the official character art
+into \`assets-src/external/cast/\`, encodes every derivative with sharp, composes
+the social card and the icon marks, writes \`public/assets/sources.json\`, verifies
+each output's dimensions and byte budget, and rewrites this document's size
+table. It is idempotent; it re-downloads the external images on every run and
+falls back to the cache in \`assets-src/external/\` when offline. The 15 MB lunar
+texture is pinned to its cache entry (\`preferCache\`) because it never changes
+upstream.
 
 ## Generated art
 
-Ten plates were generated with **gpt-image** (via Codex) on **2026-10-17**.
+Four plates were generated with **gpt-image** (via Codex) on **2026-10-17**.
 High resolution originals sit in \`assets-src/\`; the site only receives the
 derivatives below. The moon plate is cropped to a 1000x1000 square at (127,127)
 before the 720x720 resize so that the circular hero mask sees lunar surface and
-limb light instead of empty space.
+limb light instead of empty space. The character portraits are **not** in this
+list: they are official artwork now (see below).
 
 ${generatedList}
 
-## Character cutouts (v2.1)
+## Character portraits (official, v2.2)
 
-Five full-body fan-art cutouts, one gpt-image generation each, on **2026-10-17**.
-They were requested on a flat \`#00FF00\` chroma background and keyed at build
-time: green dominance \`G - max(R,B)\` maps to alpha through a smoothstep ramp
-(26 -> 96), surviving edge pixels are despilled to \`max(R,B) + 14\`, the alpha
-bounding box is trimmed, a 6 px transparent margin is added and the figure is
-normalised to ${KEY.height} px tall. Every output keeps a real alpha channel:
-\`verify()\` in \`scripts/build-assets.mjs\` asserts \`hasAlpha\`, a 0..255 alpha
-range and the exact output height before the pipeline exits, and every cutout
-was inspected on a dark ground while this document was written.
+The gallery shows **official character artwork**, not generated fan art. Every
+plate is cut to a half-body portrait (head plus torso, cut around the waist), and
+the crop is scaled so the head measures exactly ${CAST_FRAME.headPx} px in the
+output, which gives all five the same visual weight at the gallery's fixed
+display height. The face crops are square ${CAST_FRAME.faceSize} px frames of
+the same source, sized to stay readable in the 40-56 px circle of the thumbnail
+strip.
+
+Three sources are official **transparent character renders** (Wriothesley,
+Varka, Von Lycaon), so no keying was needed. Varka is playable and has an
+official render of his own, so the manga/group-art fallback was not required.
+
+The two Delta Force operators (Vyron, Gizmo) have **no published transparent
+render**. They use the official operator key art from the official Chinese
+operator page instead, cropped to a half-body portrait. Those backgrounds are
+photographic, so they are not keyed: the plate keeps its backdrop, a radial
+alpha ramp feathers the rectangle into the page, and a dark vignette blends it
+towards the site's near-black. That is a documented compromise, not a redraw;
+the characters are untouched.
+
+Every output keeps a real alpha channel with a 0..255 range; \`verify()\` asserts
+\`hasAlpha\`, the frame height, the 300 px head scale and the 160x160 face crop
+before the pipeline exits. All ten files were inspected on a dark ground while
+this document was written.
 
 ${castList}
 
@@ -1946,7 +2113,7 @@ ${iconList}
 
 ## Provided brand inputs
 
-\`public/assets/avatar.png\` (640x640) and \`public/assets/logo.png\` (256x256 face
+\`public/assets/avatar.png\` (640x640) and \`public/assets/avatar.png\` (256x256 face
 crop) are **not** produced by this pipeline. The Lead derives both by hand from
 \`C:/Users/STMfan/Pictures/GithubAvatar.png\` (1080x1080); the pipeline only reads
 them, records them in \`sources.json\` and fails loudly if either is missing or
@@ -1978,11 +2145,11 @@ from \`@fontsource-variable\` packages in \`src/\`.
 ## Licence scope
 
 - The project source is MIT licensed (see \`LICENSE\`).
-- The ten generated plates, the five character cutouts, the composed OG card and
-  the avatar-derived icon marks are project assets, © STMfan, distributed under
-  the same terms as the site. The cutouts remain fan art of characters owned by
-  their publishers (see below) and are **not** relicensed as original works.
-- \`avatar.png\` and \`logo.png\` are STMfan's own artwork (downscaled full
+- The four generated art plates, the composed OG card and the avatar-derived
+  icon marks are project assets, © STMfan, distributed under the same terms as
+  the site. The five character portraits are official third-party artwork (see
+  below) and are **not** relicensed as original works.
+- \`avatar.png\` and \`avatar.png\` are STMfan's own artwork (downscaled full
   illustration and a face crop of the local picture); the pipeline treats them as
   read-only inputs.
 - \`maibot.webp\` is MaiBot mascot artwork © Mai-with-u and the original artist,
@@ -1999,11 +2166,15 @@ from \`@fontsource-variable\` packages in \`src/\`.
   TiMi Studio Group. All five are used nominatively to say which games the author
   plays. They are **not** relicensed under MIT; remove or replace any of them if
   the rights holder objects.
-- **Character cutouts** — Wriothesley and Varka are fan art of Genshin Impact
-  characters (© HoYoverse); Lycaon and Gizmo are fan art of Zenless Zone Zero
-  characters (© HoYoverse); Vyron is fan art of a Delta Force character
-  (© Team Jade / TiMi Studio Group). They are non-commercial portfolio fan art,
-  generated with gpt-image, and are **not** relicensed under MIT.
+- **Character portraits** — official artwork, not fan art. Wriothesley and Varka
+  are Genshin Impact characters (© HoYoverse / COGNOSPHERE); Von Lycaon is a
+  Zenless Zone Zero character (© HoYoverse / COGNOSPHERE); Vyron and Gizmo are
+  Delta Force operators (© Tencent / Team Jade). The HoYoverse plates are the
+  official transparent renders as mirrored by the Fandom character galleries; the
+  two Delta Force plates are official operator key art from the official Chinese
+  operator page. All are used nominatively on a personal, non-commercial site and
+  are **not** relicensed under MIT; remove or replace any of them if the rights
+  holder objects.
 - The vendored fonts are SIL Open Font License 1.1 and remain under that licence.
 
 ## Outputs
@@ -2037,23 +2208,28 @@ ${iconRows}
 | File | Dimensions | Size | Source |
 | --- | --- | --- | --- |
 ${miscRows}
-| \`public/assets/share/og.png\` | 1200x630 | ${rows.find((entry) => entry.path.endsWith('og.png'))?.size ?? 'n/a'} | \`assets-src/horizon.png\` + circular \`logo.png\` + font outlines |
+| \`public/assets/share/og.png\` | 1200x630 | ${rows.find((entry) => entry.path.endsWith('og.png'))?.size ?? 'n/a'} | \`assets-src/horizon.png\` + circular \`avatar.png\` + font outlines |
 
 ## How to regenerate
 
 1. \`bun install\` (sharp is the only tool the pipeline needs beyond Node).
-2. Make sure \`assets-src/\` still holds the ten generated plates and the five
-   \`cast/*-raw.png\` originals. It is gitignored, so a fresh clone must restore it
-   from the asset archive. \`public/assets/logo.png\` must also exist: the icon
-   marks and the OG avatar are derived from it.
+2. Make sure \`assets-src/\` still holds the ten generated plates. It is
+   gitignored, so a fresh clone must restore it from the asset archive.
+   \`public/assets/avatar.png\` must also exist: the icon marks and the OG avatar
+   are derived from it. The character art does not live in \`assets-src/\`: the
+   five official sources are downloaded into \`assets-src/external/cast/\` and the
+   old generated \`cast/*-raw.png\` plates are gone.
 3. Run \`bun run assets\`. The script re-downloads the remote sources when the
    network is available, otherwise it falls back to \`assets-src/external/\`.
+   The Fandom images need browser-like request headers (Cloudflare sits in front
+   of static.wikia.nocookie.net); the pipeline sends them for the cast step.
 4. The script fails loudly if an output exceeds its byte budget, a dimension is
-   wrong, a glyph is missing from the subset font, or the lunar map shows a
-   visible seam. It does not silently upscale: the only enlargement is the
+   wrong, a glyph is missing from the subset font, the lunar map shows a
+   visible seam, a cast crop falls outside its source, or a transparent source
+   comes back opaque. It does not silently upscale: the only enlargement is the
    horizon plate (1916x821 to 1920x823, +0.2%) and it is imperceptible. The
-   character figures are normalised to ${KEY.height} px tall; the smallest source
-   figure (Gizmo) is lifted by about 9%, measured on the alpha bounding box.
+   character plates are normalised so the head is ${CAST_FRAME.headPx} px tall;
+   the output frame height follows from the crop (${CAST.map((c) => `${c.id} ${c.height}`).join(', ')}).
 
 ## Caveats
 
@@ -2062,6 +2238,15 @@ ${miscRows}
 - \`public/assets/sigil.svg\` and the \`art/sigil-*.webp\` plates are v2 leftovers.
   They are still produced so the v2 build stays reproducible; the Lead removes
   them once \`src/\` stops referencing them.
+- The two Delta Force portraits (Vyron, Gizmo) are **official key art**, not
+  transparent renders: Delta Force publishes no standalone transparent operator
+  art. Their backgrounds are photographic, so they are kept (feathered + dark
+  vignette) rather than keyed. If the publisher ever ships transparent renders,
+  swap the URL/crop in \`CAST\` and set \`transparentSource: true, mask: false\`.
+- The cast sources are re-downloaded on every build. Fandom serves them through
+  Cloudflare, so \`CAST_HEADERS\` sends a browser user agent plus an image
+  \`Accept\`/\`Referer\`; if Fandom starts refusing the pipeline, the cached copies
+  in \`assets-src/external/cast/\` keep the build green.
 - \`sources.json\` records the real \`fetchedAt\` for external assets, so it changes
   when those files are re-downloaded; the image bytes themselves are stable for
   a given source revision.

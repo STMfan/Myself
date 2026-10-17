@@ -107,7 +107,7 @@ export function Extras() {
             <div
               className="album__tabs"
               role="tablist"
-              aria-label={copy.extras.label}
+              aria-label={copy.extras.title}
               onKeyDown={onTabKey}
             >
               {TABS.map((entry) => (
@@ -124,13 +124,6 @@ export function Extras() {
                   data-cursor="link"
                 >
                   <span>{tabLabel[entry]}</span>
-                  <span className="album__tab-count mono">
-                    {entry === 'games'
-                      ? String(games.length).padStart(2, '0')
-                      : entry === 'characters'
-                        ? String(characters.length).padStart(2, '0')
-                        : '01'}
-                  </span>
                 </button>
               ))}
             </div>
@@ -217,16 +210,12 @@ export function Extras() {
                     <ArrowUpRight weight="light" size={15} />
                   </a>
                 </div>
-                <span className="album__index mono" aria-hidden="true">
-                  {String(gameIndex + 1).padStart(2, '0')} /{' '}
-                  {String(games.length).padStart(2, '0')}
-                </span>
               </article>
             )}
 
             {tab === 'characters' && (
               <article className="album__panel cast-card" key={`cast-${activeCast.id}`}>
-                <div className="cast-card__art">
+                <div className={`cast-card__art ${activeCast.framed ? 'is-framed' : ''}`}>
                   <img
                     src={activeCast.art}
                     alt={locale === 'zh' ? activeCast.zh : activeCast.en}
@@ -238,7 +227,7 @@ export function Extras() {
                   <span className="cast-card__floor" aria-hidden="true" />
                 </div>
                 <div className="cast-card__body">
-                  <span className="mono cast-card__origin">{activeCast.origin[locale]}</span>
+                  <span className="cast-card__origin">{activeCast.origin[locale]}</span>
                   <h3 className="cast-card__title display">
                     {locale === 'zh' ? activeCast.zh : activeCast.en}
                   </h3>
@@ -246,10 +235,6 @@ export function Extras() {
                     {locale === 'zh' ? activeCast.en : activeCast.zh}
                   </p>
                 </div>
-                <span className="album__index mono" aria-hidden="true">
-                  {String(castIndex + 1).padStart(2, '0')} /{' '}
-                  {String(characters.length).padStart(2, '0')}
-                </span>
               </article>
             )}
 
@@ -328,7 +313,7 @@ export function Extras() {
                   data-cursor="link"
                 >
                   <span className="thumb__img thumb__img--cast">
-                    <img src={character.art} alt="" width={64} height={80} loading="lazy" />
+                    <img src={character.face} alt="" width={64} height={64} loading="lazy" />
                   </span>
                   <span className="thumb__label mono">
                     {locale === 'zh' ? character.zh : character.en}

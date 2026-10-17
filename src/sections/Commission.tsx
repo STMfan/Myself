@@ -13,16 +13,16 @@ export function Commission() {
     if (!scope || isCalm()) return;
     const context = gsap.context(() => {
       gsap.from(scope.querySelector('.paid'), {
-        y: 44,
+        y: 34,
         opacity: 0,
-        duration: 1.15,
+        duration: 1.05,
         ease: 'expo.out',
         scrollTrigger: { trigger: scope, start: 'top 66%' },
       });
       gsap.from(scope.querySelector('.free'), {
-        y: 44,
+        y: 34,
         opacity: 0,
-        duration: 1.15,
+        duration: 1.05,
         delay: 0.08,
         ease: 'expo.out',
         scrollTrigger: { trigger: scope, start: 'top 66%' },
@@ -50,16 +50,14 @@ export function Commission() {
 
         <div className="commission__grid">
           <article className="paid">
-            <span className="paid__sweep" aria-hidden="true" />
+            <span className="paid__line" aria-hidden="true" />
             <div className="paid__head">
-              <span className="pill pill--accent mono">{copy.commission.paidLabel}</span>
-              <span className="paid__status mono">
+              <h3 className="paid__title display">{copy.commission.paidTitle}</h3>
+              <span className="paid__status">
                 <span className="paid__status-dot" aria-hidden="true" />
                 {copy.commission.availability}
               </span>
             </div>
-
-            <h3 className="paid__title display">{copy.commission.paidTitle}</h3>
 
             <ol className="paid__list">
               {copy.commission.items.map((item, index) => (
@@ -77,7 +75,7 @@ export function Commission() {
             </ol>
 
             <div className="paid__foot">
-              <p className="mono paid__note">{copy.commission.paidNote}</p>
+              <p className="paid__note">{copy.commission.paidNote}</p>
               <a className="btn btn--solid btn--big" href={`mailto:${CONTACT.email}`} data-cursor="link">
                 {copy.commission.cta}
                 <ArrowUpRight className="btn__arrow" weight="light" size={17} />
@@ -86,15 +84,11 @@ export function Commission() {
           </article>
 
           <aside className="free">
-            <span className="pill mono">{copy.commission.freeLabel}</span>
             <h3 className="free__title display">{copy.commission.freeTitle}</h3>
             <p className="free__body">{copy.commission.freeBody}</p>
             <ul className="free__list">
               {copy.commission.freeItems.map((item) => (
-                <li key={item}>
-                  <span className="free__bullet" aria-hidden="true" />
-                  {item}
-                </li>
+                <li key={item}>{item}</li>
               ))}
             </ul>
             <a
@@ -107,9 +101,6 @@ export function Commission() {
               {copy.commission.freeLink}
               <ArrowUpRight weight="light" size={15} />
             </a>
-            <span className="free__mark display" aria-hidden="true">
-              0
-            </span>
           </aside>
         </div>
       </div>

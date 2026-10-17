@@ -1,19 +1,60 @@
-import type { CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
+import { GITHUB_AVATAR_FALLBACK, getGithubAvatar } from '../lib/github';
+
+export function Avatar({
+  className,
+  size = 240,
+  alt = 'STMfan',
+}: {
+  className?: string;
+  size?: number;
+  alt?: string;
+}) {
+  const [src, setSrc] = useState(GITHUB_AVATAR_FALLBACK);
+
+  useEffect(() => {
+    let active = true;
+    getGithubAvatar().then((url) => {
+      if (!active || url === GITHUB_AVATAR_FALLBACK) return;
+      const preload = new Image();
+      preload.onload = () => {
+        if (active) setSrc(url);
+      };
+      preload.onerror = () => {};
+      preload.src = url;
+    });
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  return (
+    <img
+      className={className}
+      src={src}
+      alt={alt}
+      width={size}
+      height={size}
+      decoding="async"
+      loading="eager"
+      referrerPolicy="no-referrer"
+      onError={() => setSrc(GITHUB_AVATAR_FALLBACK)}
+    />
+  );
+}
 
 export function Logo({
   className,
-  src = '/assets/logo.png',
-  alt = 'STMfan',
+  size = 240,
   style,
 }: {
   className?: string;
-  src?: string;
-  alt?: string;
+  size?: number;
   style?: CSSProperties;
 }) {
   return (
     <span className={`logo ${className ?? ''}`} style={style}>
-      <img src={src} alt={alt} width={64} height={64} decoding="async" />
+      <Avatar className="logo__img" size={size} />
       <span className="logo__ring" aria-hidden="true" />
       <span className="logo__orbit" aria-hidden="true">
         <span className="logo__satellite" />

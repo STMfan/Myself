@@ -35,20 +35,22 @@ export function MoonCanvas({
     const calm =
       document.documentElement.dataset.motion === 'calm' ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const compact =
+      window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
 
     let renderer: WebGLRenderer;
     try {
       renderer = new WebGLRenderer({
         antialias: true,
         alpha: true,
-        powerPreference: 'high-performance',
+        powerPreference: compact ? 'default' : 'high-performance',
       });
     } catch {
       onReady(false);
       return;
     }
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.4 : 2));
     renderer.outputColorSpace = SRGBColorSpace;
     renderer.setClearColor(0x000000, 0);
     host.appendChild(renderer.domElement);
@@ -61,7 +63,7 @@ export function MoonCanvas({
     group.rotation.z = 0.12;
     scene.add(group);
 
-    const geometry = new SphereGeometry(1, 144, 108);
+    const geometry = new SphereGeometry(1, compact ? 96 : 144, compact ? 72 : 108);
     const loader = new TextureLoader();
     const mapUrl = window.innerWidth < 820 ? MAP_SMALL : MAP_WIDE;
     const map = loader.load(
@@ -75,7 +77,7 @@ export function MoonCanvas({
 
     const material = new MeshStandardMaterial({
       map,
-      bumpMap: map,
+      bumpMap: compact ? null : map,
       bumpScale: 0.12,
       roughness: 0.98,
       metalness: 0,
@@ -162,6 +164,8 @@ export function MoonCanvas({
     let lastY = 0;
     let raf = 0;
     let previous = performance.now();
+    let lastRender = 0;
+    const minFrame = compact ? 1000 / 30 : 1000 / 60;
 
     const clamp = (value: number, min: number, max: number) =>
       Math.min(max, Math.max(min, value));
@@ -209,23 +213,25 @@ export function MoonCanvas({
     host.addEventListener('keydown', onKeyDown);
 
     const frame = (time: number) => {
-      const delta = Math.min(0.05, (time - previous) / 1000);
-      previous = time;
-      if (visible && !document.hidden) {
-        if (!calm) autoY += delta * 0.055;
-        if (!dragging) {
-          dragY += velocityY;
-          dragX = clamp(dragX + velocityX, -0.7, 0.7);
-          velocityY *= 0.94;
-          velocityX *= 0.9;
-        }
-        targetY += (dragY - targetY) * 0.12;
-        targetX += (dragX - targetX) * 0.12;
-        group.rotation.y = targetY + autoY;
-        group.rotation.x = targetX * 0.6;
-        renderer.render(scene, camera);
-      }
       raf = requestAnimationFrame(frame);
+      if (!visible || document.hidden) return;
+      if (time - lastRender < minFrame) return;
+      const delta = Math.min(0.1, (time - lastRender) / 1000 || 0.016);
+      lastRender = time;
+      previous = time;
+
+      if (!calm) autoY += delta * (compact ? 0.04 : 0.055);
+      if (!dragging) {
+        dragY += velocityY;
+        dragX = clamp(dragX + velocityX, -0.7, 0.7);
+        velocityY *= 0.94;
+        velocityX *= 0.9;
+      }
+      targetY += (dragY - targetY) * 0.12;
+      targetX += (dragX - targetX) * 0.12;
+      group.rotation.y = targetY + autoY;
+      group.rotation.x = targetX * 0.6;
+      renderer.render(scene, camera);
     };
     raf = requestAnimationFrame(frame);
 

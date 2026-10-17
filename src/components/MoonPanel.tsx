@@ -7,16 +7,40 @@ type CanvasProps = {
   onReady: (ready: boolean) => void;
 };
 
-export function MoonPanel() {
-  const { locale } = usePreferences();
-  const [ready, setReady] = useState(false);
-  const [Canvas, setCanvas] = useState<ComponentType<CanvasProps> | null>(null);
+function MoonReadout({ locale }: { locale: 'zh' | 'en' }) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  const { illumination, name } = moonPhase(now, locale);
+
+  return (
+    <dl className="moon__readout">
+      <div>
+        <dt className="mono">{locale === 'zh' ? '月相' : 'PHASE'}</dt>
+        <dd>{name}</dd>
+      </div>
+      <div>
+        <dt className="mono">{locale === 'zh' ? '照明' : 'LIT'}</dt>
+        <dd>{Math.round(illumination * 100)}%</dd>
+      </div>
+      <div>
+        <dt className="mono">{locale === 'zh' ? '此刻' : 'NOW'}</dt>
+        <dd className="mono">
+          {formatClock(now, locale)} <span>{utcOffset(now)}</span>
+        </dd>
+      </div>
+    </dl>
+  );
+}
+
+export function MoonPanel() {
+  const { locale } = usePreferences();
+  const [ready, setReady] = useState(false);
+  const [Canvas, setCanvas] = useState<ComponentType<CanvasProps> | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -33,7 +57,6 @@ export function MoonPanel() {
   }, []);
 
   const onReady = useCallback((value: boolean) => setReady(value), []);
-  const { illumination, name } = moonPhase(now, locale);
 
   return (
     <div className="moon">
@@ -54,22 +77,7 @@ export function MoonPanel() {
         </span>
       </div>
 
-      <dl className="moon__readout">
-        <div>
-          <dt className="mono">{locale === 'zh' ? '月相' : 'PHASE'}</dt>
-          <dd>{name}</dd>
-        </div>
-        <div>
-          <dt className="mono">{locale === 'zh' ? '照明' : 'LIT'}</dt>
-          <dd>{Math.round(illumination * 100)}%</dd>
-        </div>
-        <div>
-          <dt className="mono">{locale === 'zh' ? '此刻' : 'NOW'}</dt>
-          <dd className="mono">
-            {formatClock(now, locale)} <span>{utcOffset(now)}</span>
-          </dd>
-        </div>
-      </dl>
+      <MoonReadout locale={locale} />
     </div>
   );
 }
