@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react';
 import { ArrowUpRight } from '@phosphor-icons/react';
-import { OPEN_SOURCE_PROJECTS } from '../content/site';
+import { CONTACT } from '../content/site';
 import { useCopy } from '../lib/preferences';
 import { gsap, isCalm } from '../lib/scroll';
 
@@ -12,19 +12,12 @@ export function OpenSource() {
     const scope = root.current;
     if (!scope || isCalm()) return;
     const context = gsap.context(() => {
-      scope.querySelectorAll<HTMLElement>('.case').forEach((card) => {
-        gsap.from(card, {
-          y: 36,
-          opacity: 0,
-          duration: 1.1,
-          ease: 'expo.out',
-          scrollTrigger: { trigger: card, start: 'top 68%' },
-        });
-        gsap.to(card.querySelector('.case__art'), {
-          yPercent: -6,
-          ease: 'none',
-          scrollTrigger: { trigger: card, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-        });
+      gsap.from(scope.querySelector('.case'), {
+        y: 36,
+        opacity: 0,
+        duration: 1.1,
+        ease: 'expo.out',
+        scrollTrigger: { trigger: scope, start: 'top 68%' },
       });
       gsap.from(scope.querySelectorAll('.slot'), {
         y: 22,
@@ -32,7 +25,12 @@ export function OpenSource() {
         duration: 0.85,
         stagger: 0.09,
         ease: 'expo.out',
-        scrollTrigger: { trigger: scope.querySelector('.slots'), start: 'top 58%' },
+        scrollTrigger: { trigger: scope, start: 'top 58%' },
+      });
+      gsap.to(scope.querySelector('.case__media img'), {
+        yPercent: -6,
+        ease: 'none',
+        scrollTrigger: { trigger: scope, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
       });
     }, scope);
     return () => context.revert();
@@ -55,48 +53,41 @@ export function OpenSource() {
           </p>
         </header>
 
-        {copy.opensource.cases.map((item) => {
-          const project = OPEN_SOURCE_PROJECTS[item.id];
-          return (
-            <article className="case" key={item.id}>
-              <a
-                className="case__media"
-                href={project.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={item.link}
-                data-cursor="link"
-              >
-                <span className="case__art">
-                  <img
-                    src={project.image}
-                    alt={project.imageAlt}
-                    width={project.imageSize}
-                    height={project.imageSize}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-              </a>
+        <article className="case">
+          <a
+            className="case__media"
+            href={CONTACT.maibotDocs}
+            target="_blank"
+            rel="noreferrer noopener"
+            aria-label={copy.opensource.caseLink}
+            data-cursor="link"
+          >
+            <img
+              src="/assets/maibot.webp"
+              alt="MaiBot"
+              width={800}
+              height={800}
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
 
-              <div className="case__body">
-                <span className="case__label">{copy.opensource.caseLabel}</span>
-                <h3 className="case__title display">{item.title}</h3>
-                <p className="case__text">{item.body}</p>
-                <a
-                  className="link case__link"
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  data-cursor="link"
-                >
-                  {item.link}
-                  <ArrowUpRight weight="light" size={15} />
-                </a>
-              </div>
-            </article>
-          );
-        })}
+          <div className="case__body">
+            <span className="case__label">{copy.opensource.caseLabel}</span>
+            <h3 className="case__title display">{copy.opensource.caseTitle}</h3>
+            <p className="case__text">{copy.opensource.caseBody}</p>
+            <a
+              className="link case__link"
+              href={CONTACT.maibotDocs}
+              target="_blank"
+              rel="noreferrer noopener"
+              data-cursor="link"
+            >
+              {copy.opensource.caseLink}
+              <ArrowUpRight weight="light" size={15} />
+            </a>
+          </div>
+        </article>
 
         <div className="slots">
           <h3 className="slots__title">{copy.opensource.slotsTitle}</h3>

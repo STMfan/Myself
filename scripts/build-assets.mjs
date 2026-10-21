@@ -320,18 +320,6 @@ const UA_TTF =
 
 const EXTERNAL = [
   {
-    id: 'synaxis',
-    out: 'synaxis.webp',
-    url: 'https://raw.githubusercontent.com/STMfan/Synaxis-frontend/main/src-tauri/icons/icon.png',
-    cache: 'synaxis-icon.png',
-    preferCache: true,
-    owner: 'STMfan (Synaxis project)',
-    license: 'Synaxis brand artwork, copyright STMfan. Used to identify the linked project; not relicensed under the website MIT license.',
-    transform: 'original 512x512 app icon, lossless WebP; alpha and colours preserved',
-    width: 512,
-    height: 512,
-  },
-  {
     id: 'maibot',
     out: 'maibot.webp',
     url: 'https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png',
@@ -981,17 +969,6 @@ async function buildArt() {
 
 async function buildExternal() {
   for (const spec of EXTERNAL) {
-    if (spec.id === 'synaxis') {
-      const { buf, fetchedAt } = await fetchAsset(spec);
-      await sharp(buf).webp({ lossless: true, effort: 6 }).toFile(path.join(OUT, spec.out));
-      const entry = await record(
-        spec.out, spec.width, spec.height, spec.url,
-        { width: spec.width, height: spec.height, maxBytes: 400 * KB },
-      );
-      spec.fetchedAt = fetchedAt;
-      process.stdout.write(`ext    ${entry.path} ${entry.width}x${entry.height} ${kb(entry.bytes)}\n`);
-      continue;
-    }
     if (spec.id === 'maibot') {
       const { buf, fetchedAt } = await fetchAsset(spec);
       const art = await sharp(buf)

@@ -1,16 +1,5 @@
 # Validation · STMfan / Sublunary (v2.4)
 
-## Synaxis card update (2026-10-21)
-
-- Added the Synaxis repository and its original 512x512 app logo, encoded as lossless WebP. Decoded pixels match the source exactly.
-- MaiBot and Synaxis share the same card markup, typography, responsive rules, links, reveal timing and parallax. Separate image layers let hover scaling and parallax run together; 7% overscan prevents exposed edges.
-- `bun run build` passed, including TypeScript and prerendering. `bun run check:site` passed all 291 checks; output size is 14.34 MB. The existing lazy moon chunk size warning remains.
-- Verified the production preview in the browser: desktop and 390x844 layout, both themes, Chinese/English switching, the GitHub link opening a new tab, hover scaling alongside parallax, and reduced-motion cards staying fully visible without transforms. No console warnings or errors were observed.
-- Local screenshots: `output/synaxis-preview/desktop-dark.jpg`, `desktop-light.jpg`, `mobile-dark.jpg`, `mobile-light.jpg`, and `mobile-reduced-motion.jpg` (ignored preview artifacts).
-- These checks cover the local production build; deployment is not verified by this record.
-
-## Earlier v2.4 validation
-
 Recorded on Windows 11 (`10.0.26200`), PowerShell 7.6.7, from the repository root
 on branch `v2`, after the v2.4 hero decoration, full-bleed character card, light
 theme, preloader and background pass.

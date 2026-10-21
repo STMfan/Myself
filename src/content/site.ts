@@ -13,21 +13,6 @@ export const CONTACT = {
   playlistCover: '/assets/playlist-cover.webp',
 } as const;
 
-export const OPEN_SOURCE_PROJECTS = {
-  maibot: {
-    href: CONTACT.maibotDocs,
-    image: CONTACT.maibotImage,
-    imageAlt: 'MaiBot',
-    imageSize: 800,
-  },
-  synaxis: {
-    href: 'https://github.com/STMfan/Synaxis-frontend',
-    image: '/assets/synaxis.webp',
-    imageAlt: 'Synaxis',
-    imageSize: 512,
-  },
-} as const;
-
 export const NAV_ITEMS: { id: string; label: Text }[] = [
   { id: 'workshop', label: { zh: '技术能力', en: 'Skills' } },
   { id: 'opensource', label: { zh: '开源', en: 'Open source' } },
@@ -84,12 +69,9 @@ export interface Copy {
     title: string;
     lede: string;
     caseLabel: string;
-    cases: {
-      id: keyof typeof OPEN_SOURCE_PROJECTS;
-      title: string;
-      body: string;
-      link: string;
-    }[];
+    caseTitle: string;
+    caseBody: string;
+    caseLink: string;
     slotsTitle: string;
     slots: { title: string; body: string }[];
   };
@@ -212,22 +194,11 @@ export const site: Record<Locale, Copy> = {
     },
     opensource: {
       title: '做过的事',
-      lede: '独立开发 Synaxis，也在 MaiBot 的文档和社区里帮过忙。',
+      lede: '在 MaiBot 的文档和社区里帮过忙。也在这里留了位置，给接下来的项目。',
       caseLabel: '开源贡献',
-      cases: [
-        {
-          id: 'maibot',
-          title: 'MaiBot 文档与社区',
-          body: '补过文档，也回答过社区里的问题。',
-          link: '打开 MaiBot 文档',
-        },
-        {
-          id: 'synaxis',
-          title: 'Synaxis',
-          body: '独立开发的面向高中学习的多学科 AI 教学客户端。',
-          link: '在 GitHub 查看 Synaxis',
-        },
-      ],
+      caseTitle: 'MaiBot 文档与社区',
+      caseBody: '补过文档，也回答过社区里的问题。',
+      caseLink: '打开 MaiBot 文档',
       slotsTitle: '更多项目，正在整理',
       slots: [
         { title: '项目一', body: '整理中' },
@@ -375,22 +346,11 @@ export const site: Record<Locale, Copy> = {
     },
     opensource: {
       title: 'Things I have shipped',
-      lede: 'I built Synaxis independently and helped with MaiBot docs and community.',
+      lede: 'I helped with MaiBot docs and community. Here is room for what comes next.',
       caseLabel: 'Open source',
-      cases: [
-        {
-          id: 'maibot',
-          title: 'MaiBot docs and community',
-          body: 'I filled in guides and answered questions in the community.',
-          link: 'Open the MaiBot docs',
-        },
-        {
-          id: 'synaxis',
-          title: 'Synaxis',
-          body: 'An independently developed, multi-subject AI tutoring client for high school learning.',
-          link: 'View Synaxis on GitHub',
-        },
-      ],
+      caseTitle: 'MaiBot docs and community',
+      caseBody: 'I filled in guides and answered questions in the community.',
+      caseLink: 'Open the MaiBot docs',
       slotsTitle: 'More projects, in progress',
       slots: [
         { title: 'Project one', body: 'In progress' },
