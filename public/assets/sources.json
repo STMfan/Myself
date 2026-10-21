@@ -159,6 +159,15 @@
   ],
   "external": [
     {
+      "id": "synaxis",
+      "output": "public/assets/synaxis.webp",
+      "url": "https://raw.githubusercontent.com/STMfan/Synaxis-frontend/main/src-tauri/icons/icon.png",
+      "owner": "STMfan (Synaxis project)",
+      "license": "Synaxis brand artwork, copyright STMfan. Used to identify the linked project; not relicensed under the website MIT license.",
+      "fetchedAt": "2026-10-21T14:54:20.529Z",
+      "transform": "original 512x512 app icon, lossless WebP; alpha and colours preserved"
+    },
+    {
       "id": "maibot",
       "output": "public/assets/maibot.webp",
       "url": "https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png",

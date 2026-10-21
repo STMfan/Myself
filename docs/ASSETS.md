@@ -170,6 +170,13 @@ would silently throw away the Lead's crop. Do not add them back to `EXTERNAL`.
 
 ## External assets
 
+- **synaxis**: `synaxis.webp` (512x512)
+  - Source: https://github.com/STMfan/Synaxis-frontend/blob/main/src-tauri/icons/icon.png
+  - Owner: STMfan (Synaxis project).
+  - Scope: Synaxis brand artwork, used to identify the linked project; not relicensed under the website MIT license.
+  - Transform: original app icon encoded as lossless WebP, with alpha and colours preserved.
+  - Rebuild: the `synaxis` entry in `scripts/build-assets.mjs`; cache `assets-src/external/synaxis-icon.png`.
+
 - **maibot** — `maibot.webp`
   - URL: https://raw.githubusercontent.com/Mai-with-u/.github/main/profile/assets/maimai2.png
   - Owner: Mai-with-u (MaiBot project) — mascot artwork
