@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "typecheck": "tsc --noEmit",
+    "test:rendering": "bun scripts/check-rendering.mjs",
     "build": "bun run typecheck && vite build && node scripts/prerender.mjs",
     "build:pages": "bun run build",
     "preview": "vite preview --host 127.0.0.1",

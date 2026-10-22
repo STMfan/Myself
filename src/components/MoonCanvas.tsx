@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { canvasScale, RenderBudget } from '../lib/renderQuality';
+import { canvasScale, motionRetention, RenderBudget, RenderClock } from '../lib/renderQuality';
 import {
   AdditiveBlending,
   AmbientLight,
@@ -42,6 +42,14 @@ export function MoonCanvas({
 
     let dirty = true;
     const budget = new RenderBudget();
+    const clock = new RenderClock();
+    let paused = false;
+    const resetTiming = () => {
+      budget.reset();
+      clock.reset();
+      paused = false;
+      if (host.dataset.renderFps !== 'native') host.dataset.renderFps = 'native';
+    };
     let renderer: WebGLRenderer;
     try {
       renderer = new WebGLRenderer({
@@ -127,6 +135,7 @@ export function MoonCanvas({
 
     const applyTheme = () => {
       dirty = true;
+      resetTiming();
       const light = document.documentElement.dataset.theme === 'light';
       ambient.intensity = light ? 0.5 : 0.16;
       key.intensity = light ? 1.95 : 2.9;
@@ -145,12 +154,13 @@ export function MoonCanvas({
     const resize = () => {
       // Measure the untransformed layout, not the animated hero bounding box.
       const size = Math.max(1, Math.min(host.clientWidth, host.clientHeight || host.clientWidth));
-      const scale = canvasScale(size, size, budget.limited ? 589_824 : 1_048_576);
+      const scale = canvasScale(size, size, 1_048_576);
       const pixels = Math.max(1, Math.floor(size * scale));
       if (pixels === renderSize) return;
       renderSize = pixels;
       renderer.setSize(pixels, pixels, false);
       dirty = true;
+      resetTiming();
     };
     resize();
     const resizeObserver = new ResizeObserver(resize);
@@ -159,7 +169,12 @@ export function MoonCanvas({
     let visible = true;
     const intersection = new IntersectionObserver(
       (entries) => {
-        visible = entries.some((entry) => entry.isIntersecting);
+        const nextVisible = entries.some((entry) => entry.isIntersecting);
+        if (nextVisible !== visible) {
+          visible = nextVisible;
+          resetTiming();
+          dirty = true;
+        }
       },
       { threshold: 0.05 },
     );
@@ -176,8 +191,6 @@ export function MoonCanvas({
     let lastX = 0;
     let lastY = 0;
     let raf = 0;
-    let lastRender = 0;
-    let renderCost = 0;
 
     const clamp = (value: number, min: number, max: number) =>
       Math.min(max, Math.max(min, value));
@@ -226,38 +239,52 @@ export function MoonCanvas({
     host.addEventListener('pointerup', onPointerUp);
     host.addEventListener('pointercancel', onPointerUp);
     host.addEventListener('keydown', onKeyDown);
+    const onVisibility = () => {
+      resetTiming();
+      dirty = true;
+    };
+    document.addEventListener('visibilitychange', onVisibility);
 
     const frame = (time: number) => {
       raf = requestAnimationFrame(frame);
       if (!visible || document.hidden) return;
-      if (budget.sample(time, renderCost)) resize();
-      renderCost = 0;
       const calm = isCalm();
       const unsettled =
         Math.abs(dragY - targetY) + Math.abs(dragX - targetX) +
         Math.abs(velocityX) + Math.abs(velocityY) > 0.0001;
-      if (calm && !dirty && !unsettled) return;
-      const minFrame = 1000 / (budget.limited && !dragging ? 20 : 30);
-      if (!dirty && time - lastRender < minFrame - 0.5) return;
+      if (calm && !dirty && !unsettled) {
+        if (!paused) {
+          resetTiming();
+          paused = true;
+        }
+        return;
+      }
+      paused = false;
+      budget.frame(time);
+      const fps = budget.fps ? String(budget.fps) : 'native';
+      if (host.dataset.renderFps !== fps) host.dataset.renderFps = fps;
+      const delta = clock.tick(time, budget.fps);
+      if (delta === null) return;
       const started = performance.now();
-      const delta = Math.min(0.1, (time - lastRender) / 1000 || 0.016);
-      lastRender = time;
       dirty = false;
 
       if (!calm) autoY += delta * (compact ? 0.04 : 0.055);
       else velocityX = velocityY = 0;
       if (!dragging) {
-        dragY += velocityY;
-        dragX = clamp(dragX + velocityX, -0.7, 0.7);
-        velocityY *= 0.94;
-        velocityX *= 0.9;
+        const retainY = motionRetention(0.94, delta);
+        const retainX = motionRetention(0.9, delta);
+        dragY += velocityY * (1 - retainY) / (1 - 0.94);
+        dragX = clamp(dragX + velocityX * (1 - retainX) / (1 - 0.9), -0.7, 0.7);
+        velocityY *= retainY;
+        velocityX *= retainX;
       }
-      targetY += (dragY - targetY) * (calm ? 1 : 0.12);
-      targetX += (dragX - targetX) * (calm ? 1 : 0.12);
+      const blend = calm ? 1 : 1 - motionRetention(1 - 0.12, delta);
+      targetY += (dragY - targetY) * blend;
+      targetX += (dragX - targetX) * blend;
       group.rotation.y = targetY + autoY;
       group.rotation.x = targetX * 0.6;
       renderer.render(scene, camera);
-      renderCost = performance.now() - started;
+      budget.recordRender(performance.now() - started);
     };
     raf = requestAnimationFrame(frame);
 
@@ -271,6 +298,7 @@ export function MoonCanvas({
       host.removeEventListener('pointerup', onPointerUp);
       host.removeEventListener('pointercancel', onPointerUp);
       host.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('visibilitychange', onVisibility);
       if (renderer.domElement.parentElement === host) host.removeChild(renderer.domElement);
       geometry.dispose();
       material.dispose();

@@ -94,8 +94,10 @@ are 440px tall; the grid uses `align-items: stretch`.
 
 ## 7. Background
 
-The fixed stage combines a 30fps starfield, twinkling stars, drifting warm and cool
+The fixed stage combines a starfield, twinkling stars, drifting warm and cool
 atmosphere plates, a slow aurora, three huge orbital rings and occasional meteors.
+Both canvases follow rAF by default. Sustained own CPU draw pressure can apply a
+reversible 60/45fps cap, independently of their normal pixel allocation ceilings.
 On desktop a soft cursor aura follows the pointer behind the content; in light mode
 it is hidden. All of it sits behind the page and behind card surfaces. Touch,
 reduced motion and calm mode remove the expensive layers.

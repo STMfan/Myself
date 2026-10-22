@@ -16,7 +16,7 @@ Personal homepage, one continuous take. A giant draggable moon behind the title,
 - Vite 8 + React 19 + TypeScript
 - three.js for the real, draggable 3D moon (lazy loaded as its own chunk)
 - GSAP ScrollTrigger for reveal and parallax, with **native scrolling**: no Lenis, no wheel hijack, no pinned scroll traps
-- A hand written canvas starfield behind the whole page, with a lighter 30fps mobile profile
+- A hand written canvas starfield behind the whole page; both canvases follow rAF by default, with reversible 60/45fps CPU backpressure
 - No CSS framework. A token layer plus six scoped stylesheets
 - Self hosted variable fonts via `@fontsource-variable`
 - SSR prerender for crawlers, static output for Cloudflare Pages
@@ -27,6 +27,7 @@ Personal homepage, one continuous take. A giant draggable moon behind the title,
 bun install
 bun run dev         # local dev server on 127.0.0.1
 bun run typecheck   # tsc --noEmit
+bun run test:rendering # deterministic cadence, recovery, motion and allocation tests
 bun run build       # typecheck, client build, prerender
 bun run preview     # preview the production build
 bun run check:site  # validate the built dist (292 checks)

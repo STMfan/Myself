@@ -94,6 +94,11 @@ advances every 2.5s and pauses on hover, focus or manual selection.
 
 ## 7. Performance
 
+The results below are historical v2.7-and-earlier evidence, not validation of the
+current scheduling patch. The old 30/20fps and reduced-resolution adaptation has
+been replaced by native-rAF rendering with reversible 60/45fps CPU backpressure,
+keeping the normal pixel ceilings. See [the investigation and follow-up](PERFORMANCE-20261023.md#7-调度修复跟进) for source-test results and the still-blocked real-GPU checks.
+
 Mobile-emulated Chromium, 390×844, DPR 2, touch, scrolling the full page in 75%
 viewport steps:
 

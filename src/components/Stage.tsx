@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { getScrollReading } from '../lib/scroll';
 import { pointer } from '../lib/pointer';
-import { canvasScale, RenderBudget } from '../lib/renderQuality';
+import { canvasScale, motionRetention, RenderBudget, RenderClock } from '../lib/renderQuality';
 
 interface Star {
   x: number;
@@ -76,8 +76,16 @@ export function Stage() {
     let calm = document.documentElement.dataset.motion === 'calm' || reducedMotion.matches;
     let compact = touch.matches || window.innerWidth < 768;
     const budget = new RenderBudget();
+    const clock = new RenderClock();
+    let paused = false;
+    const resetTiming = () => {
+      budget.reset();
+      clock.reset();
+      paused = false;
+      if (canvas.dataset.renderFps !== 'native') canvas.dataset.renderFps = 'native';
+    };
     const random = mulberry32(2718);
-    const stars: Star[] = Array.from({ length: compact ? 120 : calm ? 160 : 260 }, () => ({
+    const stars: Star[] = Array.from({ length: compact ? 80 : calm ? 100 : 140 }, () => ({
       x: random(),
       y: random(),
       depth: 0.18 + random() * 0.92,
@@ -85,7 +93,7 @@ export function Stage() {
       phase: random() * Math.PI * 2,
       speed: 0.4 + random() * 1.5,
     }));
-    const motes: Mote[] = Array.from({ length: compact ? 18 : calm ? 24 : 46 }, () => ({
+    const motes: Mote[] = Array.from({ length: compact ? 8 : calm ? 12 : 18 }, () => ({
       x: random(),
       y: random(),
       depth: 0.35 + random() * 0.85,
@@ -95,7 +103,7 @@ export function Stage() {
 
     type Meteor = { x: number; y: number; vx: number; vy: number; life: number; max: number };
     const meteors: Meteor[] = [];
-    let nextMeteor = 2400;
+    let nextMeteor = 6000;
 
     let width = 0;
     let height = 0;
@@ -103,18 +111,17 @@ export function Stage() {
     let palette = PALETTES.dark;
     let frame = 0;
     let raf = 0;
-    let lastPaint = 0;
     let dirty = true;
     let broad = false;
     let lastY = window.scrollY;
     let lastScroll = -Infinity;
     let lastProgress = -1;
-    let renderCost = 0;
 
     const readPalette = () => {
       const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
       palette = PALETTES[theme];
       dirty = true;
+      resetTiming();
     };
 
     const resize = () => {
@@ -122,7 +129,7 @@ export function Stage() {
       height = window.innerHeight;
       compact = touch.matches || width < 768;
       broad = width / height > 1.35 || width * height > 700_000;
-      dpr = canvasScale(width, height, budget.limited ? 450_000 : 800_000);
+      dpr = canvasScale(width, height, 800_000);
       const pixelWidth = Math.max(1, Math.floor(width * dpr));
       const pixelHeight = Math.max(1, Math.floor(height * dpr));
       if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
@@ -133,6 +140,7 @@ export function Stage() {
       canvas.style.height = `${height}px`;
       context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
       dirty = true;
+      resetTiming();
     };
 
     readPalette();
@@ -145,13 +153,16 @@ export function Stage() {
     });
 
     const onResize = () => resize();
+    const onVisibility = () => {
+      resetTiming();
+      dirty = true;
+    };
     window.addEventListener('resize', onResize);
+    document.addEventListener('visibilitychange', onVisibility);
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
       if (document.hidden) return;
-      if (budget.sample(now, renderCost)) resize();
-      renderCost = 0;
       calm = document.documentElement.dataset.motion === 'calm' || reducedMotion.matches;
       const { progress, velocity } = getScrollReading();
       if (window.scrollY !== lastY) {
@@ -159,17 +170,28 @@ export function Stage() {
         lastScroll = now;
       }
       // Give scrolling priority over the large ambient surface. Portrait stays live.
-      if (broad && !dirty && now - lastScroll < 120) return;
-      if (calm && !dirty && progress === lastProgress) return;
-      const interval = 1000 / (budget.limited ? 20 : 30);
-      if (!dirty && now - lastPaint < interval - 0.5) return;
+      if ((broad && !dirty && now - lastScroll < 120) ||
+          (calm && !dirty && progress === lastProgress)) {
+        if (!paused) {
+          resetTiming();
+          paused = true;
+        }
+        return;
+      }
+      paused = false;
+      budget.frame(now);
+      const fps = budget.fps ? String(budget.fps) : 'native';
+      if (canvas.dataset.renderFps !== fps) canvas.dataset.renderFps = fps;
+      const delta = clock.tick(now, budget.fps);
+      if (delta === null) return;
       const started = performance.now();
-      lastPaint = now;
+      const step = delta * 30;
       lastProgress = progress;
       dirty = false;
       const depthShift = Math.min(1, Math.abs(velocity) / 180);
-      pointer.x += (pointer.targetX - pointer.x) * 0.045;
-      pointer.y += (pointer.targetY - pointer.y) * 0.045;
+      const pointerBlend = 1 - motionRetention(1 - 0.045, delta);
+      pointer.x += (pointer.targetX - pointer.x) * pointerBlend;
+      pointer.y += (pointer.targetY - pointer.y) * pointerBlend;
 
       const sky = context.createLinearGradient(0, 0, width * 0.2, height);
       sky.addColorStop(0, palette.skyTop);
@@ -214,7 +236,7 @@ export function Stage() {
       context.globalAlpha = 1;
 
       if (!compact && !calm) {
-        if (now > nextMeteor) {
+        if (meteors.length === 0 && now > nextMeteor) {
           meteors.push({
             x: width * (0.32 + random() * 0.62),
             y: height * (0.04 + random() * 0.3),
@@ -223,13 +245,13 @@ export function Stage() {
             life: 34 + random() * 26,
             max: 34 + random() * 26,
           });
-          nextMeteor = now + 3000 + random() * 4200;
+          nextMeteor = now + 8000 + random() * 6000;
         }
         for (let i = meteors.length - 1; i >= 0; i -= 1) {
           const meteor = meteors[i];
-          meteor.x += meteor.vx;
-          meteor.y += meteor.vy;
-          meteor.life -= 1;
+          meteor.x += meteor.vx * step;
+          meteor.y += meteor.vy * step;
+          meteor.life -= step;
           if (meteor.life <= 0) {
             meteors.splice(i, 1);
             continue;
@@ -310,8 +332,8 @@ export function Stage() {
       }
       context.globalAlpha = 1;
 
-      if (!calm) frame += 1;
-      renderCost = performance.now() - started;
+      if (!calm) frame += step;
+      budget.recordRender(performance.now() - started);
     };
 
     raf = requestAnimationFrame(draw);
@@ -320,6 +342,7 @@ export function Stage() {
       cancelAnimationFrame(raf);
       observer.disconnect();
       window.removeEventListener('resize', onResize);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, []);
 
