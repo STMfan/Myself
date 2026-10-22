@@ -10,6 +10,8 @@ export const CONTACT = {
   playlist: 'https://space.bilibili.com/625979245/favlist?fid=4151524245',
   maibotDocs: 'https://docs.mai-mai.org/',
   maibotImage: '/assets/maibot.webp',
+  synaxis: 'https://github.com/STMfan/Synaxis-frontend',
+  synaxisImage: '/assets/synaxis.webp',
   playlistCover: '/assets/playlist-cover.webp',
 } as const;
 
@@ -68,12 +70,8 @@ export interface Copy {
   opensource: {
     title: string;
     lede: string;
-    caseLabel: string;
-    caseTitle: string;
-    caseBody: string;
-    caseLink: string;
-    slotsTitle: string;
-    slots: { title: string; body: string }[];
+    cases: { label: string; title: string; body: string; link: string }[];
+    more: string;
   };
   commission: {
     title: string;
@@ -194,17 +192,22 @@ export const site: Record<Locale, Copy> = {
     },
     opensource: {
       title: '做过的事',
-      lede: '在 MaiBot 的文档和社区里帮过忙。也在这里留了位置，给接下来的项目。',
-      caseLabel: '开源贡献',
-      caseTitle: 'MaiBot 文档与社区',
-      caseBody: '补过文档，也回答过社区里的问题。',
-      caseLink: '打开 MaiBot 文档',
-      slotsTitle: '更多项目，正在整理',
-      slots: [
-        { title: '项目一', body: '整理中' },
-        { title: '项目二', body: '整理中' },
-        { title: '项目三', body: '整理中' },
+      lede: '两个我参与的开源项目：一个在做 AI 教学客户端，一个在补文档和社区。',
+      cases: [
+        {
+          label: '开源项目',
+          title: 'Synaxis 客户端',
+          body: '面向高中学习的多学科 AI 教学客户端，Preact + Tauri，覆盖 Web 与桌面端。',
+          link: '在 GitHub 打开',
+        },
+        {
+          label: '开源贡献',
+          title: 'MaiBot 文档与社区',
+          body: '补过文档，也回答过社区里的问题。',
+          link: '打开 MaiBot 文档',
+        },
       ],
+      more: '更多项目在 GitHub',
     },
     commission: {
       title: '可以这样合作',
@@ -346,17 +349,22 @@ export const site: Record<Locale, Copy> = {
     },
     opensource: {
       title: 'Things I have shipped',
-      lede: 'I helped with MaiBot docs and community. Here is room for what comes next.',
-      caseLabel: 'Open source',
-      caseTitle: 'MaiBot docs and community',
-      caseBody: 'I filled in guides and answered questions in the community.',
-      caseLink: 'Open the MaiBot docs',
-      slotsTitle: 'More projects, in progress',
-      slots: [
-        { title: 'Project one', body: 'In progress' },
-        { title: 'Project two', body: 'In progress' },
-        { title: 'Project three', body: 'In progress' },
+      lede: 'Two open source projects I work on: an AI tutoring client, and docs and community for MaiBot.',
+      cases: [
+        {
+          label: 'Open source',
+          title: 'Synaxis client',
+          body: 'A multi-subject AI tutor for high-school study, built with Preact and Tauri for web and desktop.',
+          link: 'Open on GitHub',
+        },
+        {
+          label: 'Contribution',
+          title: 'MaiBot docs and community',
+          body: 'I filled in guides and answered questions in the community.',
+          link: 'Open the MaiBot docs',
+        },
       ],
+      more: 'More on GitHub',
     },
     commission: {
       title: 'Ways to work together',

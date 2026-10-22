@@ -1975,3 +1975,132 @@ html[data-theme='light'] .game-row__logo {
 html[data-theme='light'] .hero__moon {
   filter: brightness(0.94) contrast(1.04) saturate(0.9);
 }
+
+/* ------------------------------------------------------------
+   Open source: two compact cases side by side
+   ------------------------------------------------------------ */
+
+.oss {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.2rem, 3vw, 2.6rem);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.oss__card {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: clamp(0.85rem, 1.8vw, 1.2rem);
+  align-items: start;
+  min-width: 0;
+  padding-block: 1.15rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.oss__card + .oss__card {
+  border-left: 1px solid var(--rule);
+  padding-left: clamp(1.2rem, 3vw, 2.6rem);
+}
+
+.oss__media {
+  display: block;
+  width: 132px;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--bg-3);
+}
+
+.oss__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 700ms var(--ease-out);
+}
+
+.oss__media:hover img {
+  transform: scale(1.035);
+}
+
+.oss__body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.oss__label {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.04em;
+  color: var(--text-3);
+}
+
+.oss__title {
+  font-size: var(--fs-xl);
+  line-height: 1.12;
+}
+
+.oss__text {
+  max-width: 30ch;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--text-2);
+}
+
+.oss__link {
+  margin-top: 0.25rem;
+}
+
+.oss__more {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.9rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-2xs);
+  color: var(--text-3);
+}
+
+.oss__more a {
+  color: var(--text-2);
+}
+
+@media (max-width: 720px) {
+  .oss {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .oss__card {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 0.8rem;
+    padding-block: 0.9rem;
+  }
+
+  .oss__card + .oss__card {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .oss__media {
+    width: 92px;
+  }
+
+  .oss__title {
+    font-size: 1.16rem;
+  }
+
+  .oss__text {
+    font-size: 0.82rem;
+  }
+
+  .oss__more {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+}

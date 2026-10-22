@@ -239,6 +239,7 @@ async function main() {
     'assets/icons/icon-192.png',
     'assets/icons/apple-touch-icon.png',
     'assets/maibot.webp',
+    'assets/synaxis.webp',
     'assets/playlist-cover.webp',
     'assets/share/og.png',
   ];

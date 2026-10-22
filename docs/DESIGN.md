@@ -49,7 +49,7 @@ card is full-bleed.
 | --- | --- | --- |
 | Hero | identity, value sentence, availability, CTA, moon | 68vw 3D moon behind the copy; solid first line, amber second line, amber rule, ghost word, meteors, magnetic CTA |
 | Skills | four attributes with one outcome line each | sticky glyph dial, active-line reveal, travelling accent rule |
-| Open source | MaiBot proof plus three quiet future slots | case media parallax, timeline reveal |
+| Open source | Synaxis client and MaiBot docs/community, two compact cases | paired reveal |
 | Commissions | paid services, then "free when it interests me" | accent sweep, CTA in the paid column |
 | Gallery | games, five characters and the playlist as three cards | 2.5s character rotation, face rail, pointer tilt and spotlight |
 | Notes | the lunar/ground manifesto | horizon parallax, lines illuminate |

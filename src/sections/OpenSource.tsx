@@ -4,6 +4,21 @@ import { CONTACT } from '../content/site';
 import { useCopy } from '../lib/preferences';
 import { gsap, isCalm } from '../lib/scroll';
 
+const PROJECTS = [
+  {
+    id: 'synaxis',
+    href: CONTACT.synaxis,
+    image: CONTACT.synaxisImage,
+    alt: 'Synaxis',
+  },
+  {
+    id: 'maibot',
+    href: CONTACT.maibotDocs,
+    image: CONTACT.maibotImage,
+    alt: 'MaiBot',
+  },
+];
+
 export function OpenSource() {
   const copy = useCopy();
   const root = useRef<HTMLElement>(null);
@@ -12,25 +27,13 @@ export function OpenSource() {
     const scope = root.current;
     if (!scope || isCalm()) return;
     const context = gsap.context(() => {
-      gsap.from(scope.querySelector('.case'), {
-        y: 36,
+      gsap.from(scope.querySelectorAll('.oss__card'), {
+        y: 26,
         opacity: 0,
-        duration: 1.1,
+        duration: 0.9,
+        stagger: 0.1,
         ease: 'expo.out',
         scrollTrigger: { trigger: scope, start: 'top 68%' },
-      });
-      gsap.from(scope.querySelectorAll('.slot'), {
-        y: 22,
-        opacity: 0,
-        duration: 0.85,
-        stagger: 0.09,
-        ease: 'expo.out',
-        scrollTrigger: { trigger: scope, start: 'top 58%' },
-      });
-      gsap.to(scope.querySelector('.case__media img'), {
-        yPercent: -6,
-        ease: 'none',
-        scrollTrigger: { trigger: scope, start: 'top bottom', end: 'bottom top', scrub: 0.8 },
       });
     }, scope);
     return () => context.revert();
@@ -53,53 +56,60 @@ export function OpenSource() {
           </p>
         </header>
 
-        <article className="case">
+        <div className="oss">
+          {copy.opensource.cases.map((item, index) => {
+            const project = PROJECTS[index];
+            return (
+              <article className="oss__card" key={project.id}>
+                <a
+                  className="oss__media"
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  aria-label={item.link}
+                  data-cursor="link"
+                >
+                  <img
+                    src={project.image}
+                    alt={project.alt}
+                    width={600}
+                    height={750}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </a>
+                <div className="oss__body">
+                  <span className="oss__label">{item.label}</span>
+                  <h3 className="oss__title display">{item.title}</h3>
+                  <p className="oss__text">{item.body}</p>
+                  <a
+                    className="link oss__link"
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    data-cursor="link"
+                  >
+                    {item.link}
+                    <ArrowUpRight weight="light" size={15} />
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <div className="oss__more">
+          <span>{copy.opensource.more}</span>
           <a
-            className="case__media"
-            href={CONTACT.maibotDocs}
+            className="link"
+            href={CONTACT.github}
             target="_blank"
             rel="noreferrer noopener"
-            aria-label={copy.opensource.caseLink}
             data-cursor="link"
           >
-            <img
-              src="/assets/maibot.webp"
-              alt="MaiBot"
-              width={800}
-              height={800}
-              loading="lazy"
-              decoding="async"
-            />
+            github.com/STMfan
+            <ArrowUpRight weight="light" size={14} />
           </a>
-
-          <div className="case__body">
-            <span className="case__label">{copy.opensource.caseLabel}</span>
-            <h3 className="case__title display">{copy.opensource.caseTitle}</h3>
-            <p className="case__text">{copy.opensource.caseBody}</p>
-            <a
-              className="link case__link"
-              href={CONTACT.maibotDocs}
-              target="_blank"
-              rel="noreferrer noopener"
-              data-cursor="link"
-            >
-              {copy.opensource.caseLink}
-              <ArrowUpRight weight="light" size={15} />
-            </a>
-          </div>
-        </article>
-
-        <div className="slots">
-          <h3 className="slots__title">{copy.opensource.slotsTitle}</h3>
-          <div className="slots__grid">
-            {copy.opensource.slots.map((slot, index) => (
-              <article className="slot" key={index}>
-                <span className="slot__rule" aria-hidden="true" />
-                <strong className="slot__title display">{slot.title}</strong>
-                <span className="slot__body">{slot.body}</span>
-              </article>
-            ))}
-          </div>
         </div>
       </div>
     </section>

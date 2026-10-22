@@ -12,14 +12,14 @@ theme, preloader and background pass.
 | React / React DOM | `19.3.0` |
 | TypeScript | `7.0.2` |
 | three.js | `0.186.1` |
-| `dist` | 250 files, 14.21 MB (ceiling 24.00 MB) |
-| Client bundle | `index-*.js` 434,898 B |
+| `dist` | 251 files, 14.24 MB (ceiling 24.00 MB) |
+| Client bundle | `index-*.js` 434,767 B |
 | Moon chunk | `MoonCanvas-*.js` 535,644 B (lazy) |
-| CSS | `style-*.css` 254,222 B (font faces dominate) |
-| Prerendered markup | 36,978 characters injected into `#root` |
+| CSS | `style-*.css` 255,876 B (font faces dominate) |
+| Prerendered markup | 37,717 characters injected into `#root` |
 | Dependency audit | 45 packages (11 production, 34 build) |
-| Site checks | 290 passed |
-| Page height | 5,228 px desktop, 5,791 px mobile |
+| Site checks | 292 passed |
+| Page height | 5,056 px desktop, 5,596 px mobile |
 
 ## 1. Commands, CI order
 
@@ -27,10 +27,10 @@ theme, preloader and background pass.
 $ bun run typecheck          # tsc --noEmit, exit 0
 $ bun run licenses           # 45 packages, exit 0
 $ bun run build              # typecheck + vite build + prerender, exit 0
-$ bun run check:site         # 290 checks, exit 0
+$ bun run check:site         # 292 checks, exit 0
 ```
 
-Last build: `injected 36,978 bytes of markup (41,431 bytes total)`. The moon chunk
+Last build: `injected 37,717 bytes of markup (42,170 bytes total)`. The moon chunk
 is still deferred 350ms, so WebGL never blocks first paint.
 
 ## 2. Preloader
@@ -50,10 +50,13 @@ The preloader is back, but it is a short reveal, not a boot gate:
 ## 3. Layout
 
 - Hero is exactly `100svh` at 1440×900, 1366×768, 1280×720 and 390×844.
-- Desktop acts: hero 900, skills 715, open source 668, commissions 677, gallery 850,
+- Desktop acts: hero 900, skills 715, open source 495, commissions 677, gallery 850,
   notes 594, contact 589, footer 236.
-- Mobile acts: hero 844, skills 616, open source 759, commissions 998, gallery 1,064,
+- Mobile acts: hero 844, skills 616, open source 564, commissions 998, gallery 1,064,
   notes 523, contact 680, footer 306.
+- Open source: two compact cases side by side, Synaxis first and MaiBot second. The
+  three placeholder slots are gone; each case has a 4:5 thumbnail, label, one-line
+  body and link. Section height dropped from 668 to 495 desktop, 759 to 564 mobile.
 - Gallery: three cards, exactly. Games spans 6 columns and lists all five games;
   characters spans 6 columns and is 440px tall; playlist spans 12. Both top cards use
   the same height and header rhythm. Mobile stacks them, with the cast card 380px.
