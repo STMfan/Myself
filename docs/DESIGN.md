@@ -119,11 +119,11 @@ reduced motion and calm mode remove the expensive layers.
 
 ## 10. Performance
 
-- Starfield and moon at 30fps, DPR ≤1.5; no bump map; moon import deferred 350ms.
+- Adaptive render allocation: background 800k px, moon 1.05M px, with a sustained-cost downgrade to 450k/590k. No bump map; moon import deferred 350ms.
 - No backdrop-filter on touch; grain, atmosphere, aurora, orbits and flow hidden.
 - The preloader has no per-frame React state; the clock readout is not mounted in
   the hero.
-- Measured: zero long tasks during a full stepped scroll, 60fps rAF sample.
+- On wide viewports the background pauses while scrolling; portrait keeps its resolution. Headless before/after improved from 16.6 to 24.1 fps desktop and 34.5 to 39.9 fps phone landscape under software rendering.
 
 ## 11. Copy
 
@@ -147,4 +147,4 @@ touch icon point at the GitHub avatar endpoint.
   ready; the 3D moon has a CSS fallback disc.
 - The full-bleed character art intentionally crops at the card edges; the masks
   make that read as a composition rather than a mistake.
-- Page height is about 5,230px desktop and 5,790px mobile.
+- Page height is about 5,050px desktop and 5,600px mobile.

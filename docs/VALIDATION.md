@@ -100,13 +100,35 @@ viewport steps:
 | Metric | Result |
 | --- | --- |
 | Long tasks during the full scroll | 0 |
-| rAF sample | 60 fps |
+| rAF sample, portrait idle | 54-60 fps |
 | Canvas elements | 2 (starfield + one moon) |
 | Horizontal overflow | none |
 | Preloader nodes after boot | 0 |
 
-Starfield and moon run at 30fps with DPR ≤1.5; no bump map; no backdrop-filter on
-touch; grain, atmosphere, aurora, orbits and flow lines hidden on touch.
+The wide/landscape fix caps **render allocation by pixel area**, not by window
+width alone. \src/lib/renderQuality.ts\ provides \canvasScale\ and a sustained
+\RenderBudget\; each canvas has a pixel ceiling and drops to 20fps if the budget
+is exceeded.
+
+- Background: 800k px normally, 450k when limited. Portrait 390×844 keeps
+  585×1266 backing pixels; desktop 1440×900 drops from 1440×900 to 1131×707.
+- Moon: 1.05M px normally, 590k when limited. Phone landscape drops from
+  1285×1285 to 1024×1024 at DPR 2; portrait stays near its previous size.
+- On broad/landscape viewports the background pauses while the page is actively
+  scrolling, so scrolling gets priority over the ambient surface.
+
+Headless software-rendered comparison (\--disable-gpu\, so relative, not absolute):
+
+| View | Before avg / p95 frame | After avg / p95 frame |
+| --- | --- | --- |
+| 1440×900 desktop | 16.6 fps / 66.8 ms | 24.1 fps / 50.1 ms |
+| 844×390 phone landscape | 34.5 fps / 33.4 ms | 39.9 fps / 33.4 ms |
+| 390×844 phone portrait | 47.6 fps / 33.4 ms | 54.0 fps / 33.4 ms |
+
+This is allocation and cadence evidence; a real-device GPU timing pass is still
+recommended because the sandbox Chrome CDP profiling prompt was blocked. No
+backdrop-filter on touch; grain, atmosphere, aurora, orbits and flow lines are
+hidden on touch.
 
 ## 8. Avatar
 

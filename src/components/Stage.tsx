@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { getScrollReading } from '../lib/scroll';
 import { pointer } from '../lib/pointer';
+import { canvasScale, RenderBudget } from '../lib/renderQuality';
 
 interface Star {
   x: number;
@@ -70,9 +71,11 @@ export function Stage() {
     const context = canvas.getContext('2d');
     if (!context) return;
 
-    const calm = document.documentElement.dataset.motion === 'calm';
-    const compact =
-      window.matchMedia('(hover: none)').matches || window.innerWidth < 768;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const touch = window.matchMedia('(hover: none), (pointer: coarse)');
+    let calm = document.documentElement.dataset.motion === 'calm' || reducedMotion.matches;
+    let compact = touch.matches || window.innerWidth < 768;
+    const budget = new RenderBudget();
     const random = mulberry32(2718);
     const stars: Star[] = Array.from({ length: compact ? 120 : calm ? 160 : 260 }, () => ({
       x: random(),
@@ -101,22 +104,35 @@ export function Stage() {
     let frame = 0;
     let raf = 0;
     let lastPaint = 0;
-    const minFrame = 1000 / 30;
+    let dirty = true;
+    let broad = false;
+    let lastY = window.scrollY;
+    let lastScroll = -Infinity;
+    let lastProgress = -1;
+    let renderCost = 0;
 
     const readPalette = () => {
       const theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
       palette = PALETTES[theme];
+      dirty = true;
     };
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = Math.round(width * dpr);
-      canvas.height = Math.round(height * dpr);
+      compact = touch.matches || width < 768;
+      broad = width / height > 1.35 || width * height > 700_000;
+      dpr = canvasScale(width, height, budget.limited ? 450_000 : 800_000);
+      const pixelWidth = Math.max(1, Math.floor(width * dpr));
+      const pixelHeight = Math.max(1, Math.floor(height * dpr));
+      if (canvas.width !== pixelWidth || canvas.height !== pixelHeight) {
+        canvas.width = pixelWidth;
+        canvas.height = pixelHeight;
+      }
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      context.setTransform(canvas.width / width, 0, 0, canvas.height / height, 0, 0);
+      dirty = true;
     };
 
     readPalette();
@@ -125,7 +141,7 @@ export function Stage() {
     const observer = new MutationObserver(readPalette);
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ['data-theme'],
+      attributeFilter: ['data-theme', 'data-motion'],
     });
 
     const onResize = () => resize();
@@ -133,10 +149,24 @@ export function Stage() {
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (compact && now - lastPaint < minFrame) return;
-      lastPaint = now;
-
+      if (document.hidden) return;
+      if (budget.sample(now, renderCost)) resize();
+      renderCost = 0;
+      calm = document.documentElement.dataset.motion === 'calm' || reducedMotion.matches;
       const { progress, velocity } = getScrollReading();
+      if (window.scrollY !== lastY) {
+        lastY = window.scrollY;
+        lastScroll = now;
+      }
+      // Give scrolling priority over the large ambient surface. Portrait stays live.
+      if (broad && !dirty && now - lastScroll < 120) return;
+      if (calm && !dirty && progress === lastProgress) return;
+      const interval = 1000 / (budget.limited ? 20 : 30);
+      if (!dirty && now - lastPaint < interval - 0.5) return;
+      const started = performance.now();
+      lastPaint = now;
+      lastProgress = progress;
+      dirty = false;
       const depthShift = Math.min(1, Math.abs(velocity) / 180);
       pointer.x += (pointer.targetX - pointer.x) * 0.045;
       pointer.y += (pointer.targetY - pointer.y) * 0.045;
@@ -278,9 +308,10 @@ export function Stage() {
         context.arc(px, py, mote.size * (0.5 + mote.depth), 0, Math.PI * 2);
         context.fill();
       }
-    context.globalAlpha = 1;
+      context.globalAlpha = 1;
 
-      frame += 1;
+      if (!calm) frame += 1;
+      renderCost = performance.now() - started;
     };
 
     raf = requestAnimationFrame(draw);
