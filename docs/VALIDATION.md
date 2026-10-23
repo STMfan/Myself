@@ -102,8 +102,8 @@ Current v2.8 rendering split:
   The canvas only clears and draws twinkling stars, motes and meteors.
 - Ambient canvas is fixed at **30fps**; a 3-second idle sample recorded exactly
   90 pixel clears, i.e. 30 draws/s. The previous loop ran at native rAF.
-- The moon renders at **30fps** while idle and **60fps** while dragging; it pauses
-  during active scrolling and keeps the 1.05M px allocation ceiling.
+- The moon renders at **30fps** while idle and **60fps** while dragging, and keeps
+  updating during scrolling with the 1.05M px allocation ceiling.
 - Removed: two full-screen atmosphere plates with blend/transform, one of three
   orbit rings, the animated full-viewport SVG flow (now static), the animated
   grain, and the always-running cursor rAF (now event-driven and stops when
