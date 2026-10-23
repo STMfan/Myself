@@ -123,7 +123,7 @@ reduced motion stop the remaining drifts.
 ## 10. Performance
 
 - Adaptive render allocation: background 800k px, moon 1.05M px, with a sustained-cost downgrade to 450k/590k. No bump map; moon import deferred 350ms.
-- Ambient canvas is capped at 30fps; moon is 30fps idle / 60fps dragging and pauses while scrolling. The sky, starfield and floor are static CSS/SVG; atmosphere plates, the animated flow and animated grain are gone.
+- Ambient canvas is capped at 30fps; moon is 30fps idle / 60fps dragging. Both keep updating through scrolling. The sky, starfield and floor are static CSS/SVG; atmosphere plates, the animated flow and animated grain are gone.
 - No backdrop-filter on touch; aurora, orbits and flow hidden on touch. The static sky, stars and floor remain.
 - The preloader has no per-frame React state; the clock readout is not mounted in
   the hero.

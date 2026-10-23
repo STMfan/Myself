@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import { canvasScale, motionRetention, RenderBudget, RenderClock } from '../lib/renderQuality';
-import { getScrollReading } from '../lib/scroll';
 import {
   AdditiveBlending,
   AmbientLight,
@@ -262,9 +261,6 @@ export function MoonCanvas({
       }
       paused = false;
       budget.frame(time);
-      // Give active scrolling priority over the WebGL moon. It resumes as soon
-      // as the page settles; idle auto-rotation runs at 30fps, drag at 60.
-      if (!dragging && Math.abs(getScrollReading().velocity) > 24) return;
       const targetFps = dragging ? 60 : 30;
       if (host.dataset.renderFps !== String(targetFps)) {
         host.dataset.renderFps = String(targetFps);

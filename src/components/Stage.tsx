@@ -112,9 +112,6 @@ export function Stage() {
     let frame = 0;
     let raf = 0;
     let dirty = true;
-    let broad = false;
-    let lastY = window.scrollY;
-    let lastScroll = -Infinity;
     let lastProgress = -1;
 
     const readPalette = () => {
@@ -128,7 +125,6 @@ export function Stage() {
       width = window.innerWidth;
       height = window.innerHeight;
       compact = touch.matches || width < 768;
-      broad = width / height > 1.35 || width * height > 700_000;
       dpr = canvasScale(width, height, 800_000);
       const pixelWidth = Math.max(1, Math.floor(width * dpr));
       const pixelHeight = Math.max(1, Math.floor(height * dpr));
@@ -165,13 +161,9 @@ export function Stage() {
       if (document.hidden) return;
       calm = document.documentElement.dataset.motion === 'calm' || reducedMotion.matches;
       const { progress, velocity } = getScrollReading();
-      if (window.scrollY !== lastY) {
-        lastY = window.scrollY;
-        lastScroll = now;
-      }
-      // Give scrolling priority over the large ambient surface. Portrait stays live.
-      if ((broad && !dirty && now - lastScroll < 120) ||
-          (calm && !dirty && progress === lastProgress)) {
+      // Keep the ambient field live while scrolling. It is already capped at
+      // 30fps and the large sky/floor surfaces are static CSS.
+      if (calm && !dirty && progress === lastProgress) {
         if (!paused) {
           resetTiming();
           paused = true;
