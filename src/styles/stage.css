@@ -1,5 +1,5 @@
 /* ============================================================
-   Stage: the fixed sky behind the whole continuous shot
+   Stage: static painted sky, live particles only
    ============================================================ */
 
 .stage {
@@ -11,146 +11,145 @@
   background: var(--bg);
 }
 
+/* The large gradients are painted once instead of rebuilt in canvas. */
+
+.stage__sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(52% 44% at 20% 34%, rgba(242, 162, 75, 0.13), transparent 70%),
+    radial-gradient(46% 38% at 78% 18%, rgba(183, 198, 232, 0.14), transparent 72%),
+    linear-gradient(90deg, transparent 40%, rgba(183, 198, 232, 0.035) 76%, transparent 100%),
+    linear-gradient(180deg, #020308 0%, #070c17 56%, #0b1120 100%);
+}
+
+.stage__starfield {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.78;
+  background-image:
+    radial-gradient(1px 1px at 22% 24%, rgba(232, 238, 255, 0.6), transparent 60%),
+    radial-gradient(1.3px 1.3px at 71% 63%, rgba(232, 238, 255, 0.45), transparent 60%),
+    radial-gradient(1px 1px at 41% 82%, rgba(232, 238, 255, 0.5), transparent 60%),
+    radial-gradient(1.6px 1.6px at 88% 31%, rgba(232, 238, 255, 0.35), transparent 60%);
+  background-size:
+    240px 210px,
+    360px 320px,
+    480px 420px,
+    620px 540px;
+  animation:
+    starfield-drift 90s ease-in-out infinite alternate,
+    starfield-twinkle 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes starfield-drift {
+  from {
+    transform: translate3d(-0.6%, 0.4%, 0);
+  }
+  to {
+    transform: translate3d(0.8%, -0.7%, 0);
+  }
+}
+
+/* Ground plane: pure CSS; no per-frame path or line drawing. */
+
+.stage__horizon {
+  position: absolute;
+  left: -12%;
+  right: -12%;
+  bottom: -20%;
+  z-index: 2;
+  height: 64%;
+  opacity: 0.55;
+  background:
+    radial-gradient(62% 54% at 50% 100%, rgba(242, 162, 75, 0.14), transparent 70%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 59px,
+      rgba(183, 198, 232, 0.09) 60px,
+      transparent 61px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 89px,
+      rgba(183, 198, 232, 0.07) 90px,
+      transparent 91px
+    );
+  transform: perspective(520px) rotateX(58deg);
+  transform-origin: 50% 100%;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0%,
+    #000 22%,
+    #000 70%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 70%, transparent 100%);
+}
+
+.stage__horizon::after {
+  content: '';
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  top: 22%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(242, 162, 75, 0.32), transparent);
+}
+
 .stage__canvas {
   position: absolute;
   inset: 0;
+  z-index: 3;
   width: 100%;
   height: 100%;
 }
 
-.stage__atmosphere {
-  position: absolute;
-  inset: -25%;
-  background-image: url('/assets/art/atmosphere-haze.webp');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.55;
-  mix-blend-mode: screen;
-  transform: rotate(-8deg) scale(1.1);
-  animation: atmosphere-drift 46s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-.stage__atmosphere--warm {
-  opacity: 0.14;
-  transform: rotate(162deg) scale(1.35);
-  animation-duration: 68s;
-  animation-direction: alternate-reverse;
-  filter: saturate(1.2) brightness(0.9);
-}
-
-html[data-theme='light'] .stage__atmosphere {
-  opacity: 0.03;
-  mix-blend-mode: soft-light;
-  filter: saturate(0.4) brightness(1.16) contrast(0.7);
-}
-
-html[data-theme='light'] .stage__atmosphere--warm {
-  opacity: 0.04;
-  filter: saturate(0.35) brightness(1.2) contrast(0.6);
-}
-
-@keyframes atmosphere-drift {
-  from {
-    transform: rotate(-8deg) scale(1.1) translate3d(-1.5%, 1%, 0);
-  }
-  to {
-    transform: rotate(-4deg) scale(1.2) translate3d(2%, -2%, 0);
-  }
-}
-
-/* guided motion lines that drift behind the whole page */
-
-.stage__flow {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.stage__flow-path {
-  fill: none;
-  stroke: var(--accent);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-dasharray: 200 1700;
-  animation: flow-drift 26s linear infinite;
-  opacity: 0.45;
-  vector-effect: non-scaling-stroke;
-}
-
-.stage__flow-path--b {
-  stroke: var(--lunar);
-  animation-duration: 34s;
-  animation-delay: -8s;
-  opacity: 0.28;
-}
-
-.stage__flow-path--c {
-  animation-duration: 42s;
-  animation-delay: -17s;
-  opacity: 0.22;
-}
-
-@keyframes flow-drift {
-  to {
-    stroke-dashoffset: -1900;
-  }
-}
-
-html[data-theme='light'] .stage__flow {
-  opacity: 0.38;
-}
-
-html[data-motion='calm'] .stage__flow-path {
-  animation: none;
-  opacity: 0.16;
-}
-
-main {
-  position: relative;
-  z-index: 2;
-}
-
-.footer {
-  position: relative;
-  z-index: 2;
-}
-
-/* bold background: aurora ribbons and slow orbits */
+/* One soft aurora instead of two full-screen haze images. */
 
 .stage__aurora {
   position: absolute;
-  inset: -18%;
+  inset: -16%;
+  z-index: 4;
   background:
     radial-gradient(
       42% 46% at 70% 20%,
-      color-mix(in srgb, var(--lunar) 26%, transparent),
+      color-mix(in srgb, var(--lunar) 24%, transparent),
       transparent 68%
     ),
     radial-gradient(
       36% 38% at 24% 66%,
-      color-mix(in srgb, var(--lunar) 24%, transparent),
+      color-mix(in srgb, var(--lunar) 18%, transparent),
       transparent 70%
     ),
     radial-gradient(
       28% 30% at 82% 74%,
-      color-mix(in srgb, var(--lunar) 12%, transparent),
+      color-mix(in srgb, var(--accent) 10%, transparent),
       transparent 72%
     );
-  opacity: 0.68;
-  mix-blend-mode: screen;
+  opacity: 0.62;
   transform: rotate(-8deg) scale(1.05);
   animation: aurora-drift 44s ease-in-out infinite alternate;
   will-change: transform;
   pointer-events: none;
 }
 
+@keyframes aurora-drift {
+  from {
+    transform: rotate(-8deg) scale(1.05) translate3d(-1.2%, 0.8%, 0);
+  }
+  to {
+    transform: rotate(-4deg) scale(1.1) translate3d(1.6%, -1.4%, 0);
+  }
+}
+
 .stage__orbits {
   position: absolute;
   inset: 0;
+  z-index: 4;
   pointer-events: none;
 }
 
@@ -159,7 +158,7 @@ main {
   display: block;
   border: 1px solid var(--rule);
   border-radius: 50%;
-  opacity: 0.4;
+  opacity: 0.32;
   animation: orbit-turn 140s linear infinite;
 }
 
@@ -177,28 +176,9 @@ main {
   width: 48vw;
   aspect-ratio: 1;
   border-style: dashed;
-  opacity: 0.18;
+  opacity: 0.16;
   animation-duration: 190s;
   animation-direction: reverse;
-}
-
-.stage__orbit--c {
-  right: 18%;
-  bottom: -28%;
-  width: 34vw;
-  aspect-ratio: 1;
-  border-color: var(--rule-strong);
-  opacity: 0.24;
-  animation-duration: 110s;
-}
-
-@keyframes aurora-drift {
-  from {
-    transform: rotate(-8deg) scale(1.05) translate3d(-1.5%, 1%, 0);
-  }
-  to {
-    transform: rotate(-3deg) scale(1.12) translate3d(2%, -2%, 0);
-  }
 }
 
 @keyframes orbit-turn {
@@ -207,27 +187,131 @@ main {
   }
 }
 
-html[data-theme='light'] .stage__aurora {
-  opacity: 0.1;
-  mix-blend-mode: soft-light;
+/* The guided lines are static now: no stroke-dash repaint on a full viewport. */
+
+.stage__flow {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  opacity: 0.26;
+  pointer-events: none;
+}
+
+.stage__flow-path {
+  fill: none;
+  stroke: var(--lunar);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.35;
+  vector-effect: non-scaling-stroke;
+}
+
+.stage__flow-path--b {
+  stroke: var(--accent);
+  opacity: 0.2;
+}
+
+/* Light mode keeps the same geometry, with cooler, quieter paint. */
+
+html[data-theme='light'] .stage__sky {
   background:
-    radial-gradient(
-      42% 46% at 70% 20%,
-      color-mix(in srgb, var(--lunar) 18%, transparent),
-      transparent 68%
+    radial-gradient(52% 44% at 20% 34%, rgba(180, 85, 13, 0.04), transparent 70%),
+    radial-gradient(46% 38% at 78% 18%, rgba(77, 93, 125, 0.07), transparent 72%),
+    linear-gradient(180deg, #eef1f5 0%, #f3f5f8 56%, #f7f8fa 100%);
+}
+
+html[data-theme='light'] .stage__starfield {
+  opacity: 0.24;
+  background-image:
+    radial-gradient(1px 1px at 22% 24%, rgba(42, 56, 84, 0.5), transparent 60%),
+    radial-gradient(1.3px 1.3px at 71% 63%, rgba(42, 56, 84, 0.35), transparent 60%),
+    radial-gradient(1px 1px at 41% 82%, rgba(42, 56, 84, 0.4), transparent 60%),
+    radial-gradient(1.6px 1.6px at 88% 31%, rgba(42, 56, 84, 0.3), transparent 60%);
+}
+
+html[data-theme='light'] .stage__horizon {
+  opacity: 0.4;
+  background:
+    radial-gradient(62% 54% at 50% 100%, rgba(180, 85, 13, 0.08), transparent 70%),
+    repeating-linear-gradient(
+      180deg,
+      transparent 0 59px,
+      rgba(56, 72, 100, 0.08) 60px,
+      transparent 61px
     ),
-    radial-gradient(
-      36% 38% at 24% 66%,
-      color-mix(in srgb, var(--lunar) 14%, transparent),
-      transparent 70%
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 89px,
+      rgba(56, 72, 100, 0.06) 90px,
+      transparent 91px
     );
 }
 
-html[data-theme='light'] .stage__orbit {
+html[data-theme='light'] .stage__aurora {
   opacity: 0.16;
+}
+
+html[data-theme='light'] .stage__orbit {
+  opacity: 0.15;
 }
 
 html[data-theme='light'] .stage__orbit--b {
   opacity: 0.1;
 }
 
+html[data-theme='light'] .stage__flow {
+  opacity: 0.2;
+}
+
+main {
+  position: relative;
+  z-index: 2;
+}
+
+.footer {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* Static floor grid: one SVG, painted once, no per-frame line work. */
+
+.stage__floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  height: 40%;
+  opacity: 0.72;
+  background: radial-gradient(62% 62% at 50% 100%, rgba(242, 162, 75, 0.16), transparent 72%);
+  pointer-events: none;
+}
+
+.stage__floor line {
+  stroke: rgba(183, 198, 232, 0.14);
+  stroke-width: 0.8;
+  vector-effect: non-scaling-stroke;
+}
+
+html[data-theme='light'] .stage__floor {
+  opacity: 0.45;
+  background: radial-gradient(62% 62% at 50% 100%, rgba(180, 85, 13, 0.08), transparent 72%);
+}
+
+html[data-theme='light'] .stage__floor line {
+  stroke: rgba(56, 72, 100, 0.08);
+}
+
+@keyframes starfield-twinkle {
+  0%,
+  100% {
+    opacity: 0.68;
+  }
+  50% {
+    opacity: 0.86;
+  }
+}

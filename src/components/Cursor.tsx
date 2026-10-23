@@ -18,7 +18,33 @@ export function Cursor() {
     let tx = x;
     let ty = y;
     let raf = 0;
+    let running = false;
     let visible = false;
+
+    const render = () => {
+      x += (tx - x) * 0.22;
+      y += (ty - y) * 0.22;
+      ax += (tx - ax) * 0.06;
+      ay += (ty - ay) * 0.06;
+      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      aura.style.transform = `translate3d(${ax}px, ${ay}px, 0)`;
+      const settled =
+        Math.abs(tx - x) < 0.15 &&
+        Math.abs(ty - y) < 0.15 &&
+        Math.abs(tx - ax) < 0.15 &&
+        Math.abs(ty - ay) < 0.15;
+      if (settled || !visible) {
+        running = false;
+        return;
+      }
+      raf = requestAnimationFrame(render);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      raf = requestAnimationFrame(render);
+    };
 
     const move = (event: PointerEvent) => {
       tx = event.clientX;
@@ -26,31 +52,26 @@ export function Cursor() {
       if (!visible) {
         visible = true;
         node.dataset.visible = 'true';
+        aura.dataset.visible = 'true';
       }
       const target = event.target as HTMLElement | null;
       const hot = Boolean(
         target?.closest('a, button, [data-cursor="link"], input, [role="button"]'),
       );
       node.dataset.hot = String(hot);
+      start();
     };
+
     const leave = () => {
       visible = false;
       node.dataset.visible = 'false';
-    };
-
-    const render = () => {
-      x += (tx - x) * 0.2;
-      y += (ty - y) * 0.2;
-      ax += (tx - ax) * 0.055;
-      ay += (ty - ay) * 0.055;
-      node.style.transform = `translate3d(${x}px, ${y}px, 0)`;
-      aura.style.transform = `translate3d(${ax}px, ${ay}px, 0)`;
-      raf = requestAnimationFrame(render);
+      aura.dataset.visible = 'false';
+      cancelAnimationFrame(raf);
+      running = false;
     };
 
     window.addEventListener('pointermove', move, { passive: true });
     window.addEventListener('pointerleave', leave);
-    raf = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(raf);
@@ -61,7 +82,7 @@ export function Cursor() {
 
   return (
     <>
-      <div className="cursor-aura" ref={auraRef} aria-hidden="true" />
+      <div className="cursor-aura" ref={auraRef} data-visible="false" aria-hidden="true" />
       <div className="cursor" ref={dotRef} aria-hidden="true" />
     </>
   );

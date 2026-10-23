@@ -94,13 +94,14 @@ are 440px tall; the grid uses `align-items: stretch`.
 
 ## 7. Background
 
-The fixed stage combines a starfield, twinkling stars, drifting warm and cool
-atmosphere plates, a slow aurora, three huge orbital rings and occasional meteors.
-Both canvases follow rAF by default. Sustained own CPU draw pressure can apply a
-reversible 60/45fps cap, independently of their normal pixel allocation ceilings.
-On desktop a soft cursor aura follows the pointer behind the content; in light mode
-it is hidden. All of it sits behind the page and behind card surfaces. Touch,
-reduced motion and calm mode remove the expensive layers.
+The fixed stage is now mostly painted once: a CSS sky, a static starfield and a
+CSS/SVG floor grid, with one slow aurora, two orbital rings and static guided
+lines. Only the twinkling stars, motes and meteors live on the canvas. The moon
+renders at 30fps idle and 60fps while dragging; the ambient canvas is fixed at
+30fps. On desktop a soft cursor aura follows the pointer behind the content and
+stops updating when it settles; in light mode it is hidden. All of it sits behind
+the page and behind card surfaces. Touch removes aurora, orbits and flow; calm and
+reduced motion stop the remaining drifts.
 
 ## 8. Light mode
 
@@ -122,10 +123,11 @@ reduced motion and calm mode remove the expensive layers.
 ## 10. Performance
 
 - Adaptive render allocation: background 800k px, moon 1.05M px, with a sustained-cost downgrade to 450k/590k. No bump map; moon import deferred 350ms.
-- No backdrop-filter on touch; grain, atmosphere, aurora, orbits and flow hidden.
+- Ambient canvas is capped at 30fps; moon is 30fps idle / 60fps dragging and pauses while scrolling. The sky, starfield and floor are static CSS/SVG; atmosphere plates, the animated flow and animated grain are gone.
+- No backdrop-filter on touch; aurora, orbits and flow hidden on touch. The static sky, stars and floor remain.
 - The preloader has no per-frame React state; the clock readout is not mounted in
   the hero.
-- On wide viewports the background pauses while scrolling; portrait keeps its resolution. Headless before/after improved from 16.6 to 24.1 fps desktop and 34.5 to 39.9 fps phone landscape under software rendering.
+- Headless v2.7 before/after improved from 16.6 to 24.1 fps desktop and 34.5 to 39.9 fps phone landscape under software rendering; v2.8 further removes full-screen blend/repaint layers and halves the ambient draw rate.
 
 ## 11. Copy
 

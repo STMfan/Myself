@@ -398,7 +398,7 @@ html[data-lang='zh'] .section-lede {
   mix-blend-mode: overlay;
   background-image: var(--grain-image);
   background-size: 420px 420px;
-  animation: grain-drift 12s steps(5) infinite;
+
 }
 
 html[data-theme='light'] .grain {
@@ -586,10 +586,14 @@ html[data-motion='calm'] .grain {
   border-radius: 50%;
   pointer-events: none;
   background: radial-gradient(circle, var(--accent-soft), transparent 66%);
-  opacity: 0.5;
-  mix-blend-mode: screen;
+  opacity: 0.28;
   will-change: transform;
   contain: strict;
+  transition: opacity 280ms var(--ease-soft);
+}
+
+.cursor-aura[data-visible='false'] {
+  opacity: 0;
 }
 
 html[data-theme='light'] .cursor-aura {

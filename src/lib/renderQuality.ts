@@ -9,7 +9,7 @@ export function canvasScale(width: number, height: number, maxPixels: number): n
 }
 
 /** 0 follows rAF without an application frame-rate cap. */
-export type RenderFrameRate = 0 | 60 | 45;
+export type RenderFrameRate = 0 | 30 | 45 | 60;
 
 /**
  * CPU backpressure for this renderer only. Slow rAF callbacks alone do not prove

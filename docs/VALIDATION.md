@@ -13,12 +13,12 @@ theme, preloader and background pass.
 | TypeScript | `7.0.2` |
 | three.js | `0.186.1` |
 | `dist` | 251 files, 14.24 MB (ceiling 24.00 MB) |
-| Client bundle | `index-*.js` 434,767 B |
-| Moon chunk | `MoonCanvas-*.js` 535,644 B (lazy) |
-| CSS | `style-*.css` 255,876 B (font faces dominate) |
-| Prerendered markup | 37,717 characters injected into `#root` |
+| Client bundle | `index-*.js` 437,121 B |
+| Moon chunk | `MoonCanvas-*.js` 536,370 B (lazy) |
+| CSS | `style-*.css` 257,314 B (font faces dominate) |
+| Prerendered markup | 38,877 characters injected into `#root` |
 | Dependency audit | 45 packages (11 production, 34 build) |
-| Site checks | 292 passed |
+| Site checks | 291 passed |
 | Page height | 5,056 px desktop, 5,596 px mobile |
 
 ## 1. Commands, CI order
@@ -27,10 +27,10 @@ theme, preloader and background pass.
 $ bun run typecheck          # tsc --noEmit, exit 0
 $ bun run licenses           # 45 packages, exit 0
 $ bun run build              # typecheck + vite build + prerender, exit 0
-$ bun run check:site         # 292 checks, exit 0
+$ bun run check:site         # 291 checks, exit 0
 ```
 
-Last build: `injected 37,717 bytes of markup (42,170 bytes total)`. The moon chunk
+Last build: `injected 38,877 bytes of markup (43,330 bytes total)`. The moon chunk
 is still deferred 350ms, so WebGL never blocks first paint.
 
 ## 2. Preloader
@@ -77,12 +77,14 @@ The preloader is back, but it is a short reveal, not a boot gate:
 
 ## 5. Background
 
-- Fixed starfield plus drifting atmosphere plates.
-- Slow aurora, three large orbital rings and occasional meteor streaks.
+- Static CSS sky, starfield and floor grid replace the two full-screen atmosphere
+  plates and the per-frame canvas gradients.
+- One slow aurora, two orbital rings and occasional meteor streaks. The guided
+  flow paths are static, so nothing repaints a full-viewport stroke every frame.
 - Cursor aura behind content on desktop dark mode only.
 - Hero meteors and ghost word parallax.
-- Everything is behind page content; touch, calm and reduced-motion remove the
-  expensive layers.
+- Everything is behind page content; touch removes aurora, orbits and flow; calm
+  and reduced-motion stop the remaining drifts.
 
 ## 6. Character art
 
@@ -94,46 +96,33 @@ advances every 2.5s and pauses on hover, focus or manual selection.
 
 ## 7. Performance
 
-The results below are historical v2.7-and-earlier evidence, not validation of the
-current scheduling patch. The old 30/20fps and reduced-resolution adaptation has
-been replaced by native-rAF rendering with reversible 60/45fps CPU backpressure,
-keeping the normal pixel ceilings. See [the investigation and follow-up](PERFORMANCE-20261023.md#7-调度修复跟进) for source-test results and the still-blocked real-GPU checks.
+Current v2.8 rendering split:
 
-Mobile-emulated Chromium, 390×844, DPR 2, touch, scrolling the full page in 75%
-viewport steps:
+- The sky, starfield dots and floor grid are **static CSS/SVG**, painted once.
+  The canvas only clears and draws twinkling stars, motes and meteors.
+- Ambient canvas is fixed at **30fps**; a 3-second idle sample recorded exactly
+  90 pixel clears, i.e. 30 draws/s. The previous loop ran at native rAF.
+- The moon renders at **30fps** while idle and **60fps** while dragging; it pauses
+  during active scrolling and keeps the 1.05M px allocation ceiling.
+- Removed: two full-screen atmosphere plates with blend/transform, one of three
+  orbit rings, the animated full-viewport SVG flow (now static), the animated
+  grain, and the always-running cursor rAF (now event-driven and stops when
+  settled).
+- Kept: one aurora, two orbit rings, the moon, hero meteors, card motion and the
+  preloader. Pixel ceilings remain background 800k px and moon 1.05M px.
 
-| Metric | Result |
-| --- | --- |
-| Long tasks during the full scroll | 0 |
-| rAF sample, portrait idle | 54-60 fps |
-| Canvas elements | 2 (starfield + one moon) |
-| Horizontal overflow | none |
-| Preloader nodes after boot | 0 |
-
-The wide/landscape fix caps **render allocation by pixel area**, not by window
-width alone. \src/lib/renderQuality.ts\ provides \canvasScale\ and a sustained
-\RenderBudget\; each canvas has a pixel ceiling and drops to 20fps if the budget
-is exceeded.
-
-- Background: 800k px normally, 450k when limited. Portrait 390×844 keeps
-  585×1266 backing pixels; desktop 1440×900 drops from 1440×900 to 1131×707.
-- Moon: 1.05M px normally, 590k when limited. Phone landscape drops from
-  1285×1285 to 1024×1024 at DPR 2; portrait stays near its previous size.
-- On broad/landscape viewports the background pauses while the page is actively
-  scrolling, so scrolling gets priority over the ambient surface.
-
-Headless software-rendered comparison (\--disable-gpu\, so relative, not absolute):
+The v2.7 headless comparison below is historical and software-rendered; it is
+useful only as direction, not a current FPS claim:
 
 | View | Before avg / p95 frame | After avg / p95 frame |
 | --- | --- | --- |
-| 1440×900 desktop | 16.6 fps / 66.8 ms | 24.1 fps / 50.1 ms |
-| 844×390 phone landscape | 34.5 fps / 33.4 ms | 39.9 fps / 33.4 ms |
-| 390×844 phone portrait | 47.6 fps / 33.4 ms | 54.0 fps / 33.4 ms |
+| 1440x900 desktop | 16.6 fps / 66.8 ms | 24.1 fps / 50.1 ms |
+| 844x390 phone landscape | 34.5 fps / 33.4 ms | 39.9 fps / 33.4 ms |
+| 390x844 phone portrait | 47.6 fps / 33.4 ms | 54.0 fps / 33.4 ms |
 
-This is allocation and cadence evidence; a real-device GPU timing pass is still
-recommended because the sandbox Chrome CDP profiling prompt was blocked. No
-backdrop-filter on touch; grain, atmosphere, aurora, orbits and flow lines are
-hidden on touch.
+A real-device GPU trace is still the right next step if stutter remains; the
+sandbox Chrome CDP prompt is blocked. On touch, aurora, orbits and static flow
+are hidden; the static sky, starfield and floor remain.
 
 ## 8. Avatar
 

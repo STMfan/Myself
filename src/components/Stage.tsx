@@ -85,7 +85,7 @@ export function Stage() {
       if (canvas.dataset.renderFps !== 'native') canvas.dataset.renderFps = 'native';
     };
     const random = mulberry32(2718);
-    const stars: Star[] = Array.from({ length: compact ? 80 : calm ? 100 : 140 }, () => ({
+    const stars: Star[] = Array.from({ length: compact ? 70 : calm ? 80 : 118 }, () => ({
       x: random(),
       y: random(),
       depth: 0.18 + random() * 0.92,
@@ -93,7 +93,7 @@ export function Stage() {
       phase: random() * Math.PI * 2,
       speed: 0.4 + random() * 1.5,
     }));
-    const motes: Mote[] = Array.from({ length: compact ? 8 : calm ? 12 : 18 }, () => ({
+    const motes: Mote[] = Array.from({ length: compact ? 6 : calm ? 8 : 12 }, () => ({
       x: random(),
       y: random(),
       depth: 0.35 + random() * 0.85,
@@ -180,9 +180,7 @@ export function Stage() {
       }
       paused = false;
       budget.frame(now);
-      const fps = budget.fps ? String(budget.fps) : 'native';
-      if (canvas.dataset.renderFps !== fps) canvas.dataset.renderFps = fps;
-      const delta = clock.tick(now, budget.fps);
+      const delta = clock.tick(now, 30);
       if (delta === null) return;
       const started = performance.now();
       const step = delta * 30;
@@ -193,26 +191,10 @@ export function Stage() {
       pointer.x += (pointer.targetX - pointer.x) * pointerBlend;
       pointer.y += (pointer.targetY - pointer.y) * pointerBlend;
 
-      const sky = context.createLinearGradient(0, 0, width * 0.2, height);
-      sky.addColorStop(0, palette.skyTop);
-      sky.addColorStop(0.56, palette.skyMid);
-      sky.addColorStop(1, palette.skyBottom);
-      context.fillStyle = sky;
-      context.fillRect(0, 0, width, height);
-
-      const warm = context.createRadialGradient(
-        width * 0.2,
-        height * 0.34 + height * 0.16 * progress,
-        0,
-        width * 0.2,
-        height * 0.34 + height * 0.16 * progress,
-        Math.max(width, height) * 0.72,
-      );
-      const glowAlpha = document.documentElement.dataset.theme === 'light' ? '06' : '1e';
-      warm.addColorStop(0, `${palette.glow}${glowAlpha}`);
-      warm.addColorStop(0.45, 'transparent');
-      context.fillStyle = warm;
-      context.fillRect(0, 0, width, height);
+      // The sky, horizon and grid are static CSS layers now. The canvas only
+      // clears and paints particles, so wide screens do not rebuild large
+      // gradients every frame.
+      context.clearRect(0, 0, width, height);
 
       const starFade = Math.max(0, 1 - progress * 1.3);
       for (const star of stars) {
@@ -281,39 +263,6 @@ export function Stage() {
         context.globalAlpha = 1;
       }
 
-      const horizon = height * (0.92 - progress * 0.16);
-      const haze = context.createLinearGradient(
-        0,
-        horizon - height * 0.24,
-        0,
-        horizon + height * 0.08,
-      );
-      haze.addColorStop(0, 'transparent');
-      haze.addColorStop(0.72, `${palette.glow}12`);
-      haze.addColorStop(1, `${palette.glow}00`);
-      context.fillStyle = haze;
-      context.fillRect(0, horizon - height * 0.24, width, height * 0.34);
-
-      context.strokeStyle = palette.grid;
-      context.lineWidth = 0.7;
-      context.globalAlpha = 0.35 + progress * 0.5;
-      for (let i = 0; i < 9; i += 1) {
-        const t = i / 8;
-        const y = horizon + Math.pow(t, 1.8) * (height - horizon) * 1.2;
-        context.beginPath();
-        context.moveTo(0, y);
-        context.lineTo(width, y);
-        context.stroke();
-      }
-      const vanish = width * (0.5 + (pointer.x - 0.5) * 0.1);
-      for (let i = -7; i <= 7; i += 1) {
-        context.beginPath();
-        context.moveTo(vanish + i * width * 0.02, horizon);
-        context.lineTo(vanish + i * width * 0.16, height);
-        context.stroke();
-      }
-      context.globalAlpha = 1;
-
       const moteAlpha = 0.13 + progress * 0.46;
       for (const mote of motes) {
         const px = mote.x * width + Math.sin(frame * 0.0004 + mote.phase) * 26;
@@ -348,14 +297,35 @@ export function Stage() {
 
   return (
     <div className="stage" aria-hidden="true">
+      <div className="stage__sky" />
+      <div className="stage__starfield" />
+      <svg
+        className="stage__floor"
+        viewBox="0 0 1440 360"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {[0, 16, 38, 68, 108, 158, 218, 288, 356].map((y) => (
+          <line key={`h-${y}`} x1="0" y1={y} x2="1440" y2={y} />
+        ))}
+        {Array.from({ length: 17 }, (_, index) => {
+          const i = index - 8;
+          return (
+            <line
+              key={`v-${i}`}
+              x1={720 + i * 38}
+              y1="0"
+              x2={720 + i * 190}
+              y2="360"
+            />
+          );
+        })}
+      </svg>
       <canvas ref={canvasRef} className="stage__canvas" />
-      <div className="stage__atmosphere" />
-      <div className="stage__atmosphere stage__atmosphere--warm" />
       <div className="stage__aurora" aria-hidden="true" />
       <div className="stage__orbits" aria-hidden="true">
         <span className="stage__orbit stage__orbit--a" />
         <span className="stage__orbit stage__orbit--b" />
-        <span className="stage__orbit stage__orbit--c" />
       </div>
       <svg
         className="stage__flow"
@@ -370,10 +340,6 @@ export function Stage() {
         <path
           className="stage__flow-path stage__flow-path--b"
           d="M-60 210C260 420 540 60 860 280S1300 520 1520 300"
-        />
-        <path
-          className="stage__flow-path stage__flow-path--c"
-          d="M120 960C320 640 700 760 900 470S1240 180 1480 120"
         />
       </svg>
     </div>
